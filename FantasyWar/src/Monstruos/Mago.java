@@ -1,0 +1,141 @@
+package Monstruos;
+
+import enumeraciones.Clase;
+import enumeraciones.Razas;
+import enumeraciones.TipoDeDanno;
+import excepciones.ManaInsuficienteException;
+import excepciones.NombreInvalidoException;
+import interfaces.Hechizable;
+
+/**
+ * Por ser clase mago cambia treinta puntos de ataque basico por otros treinta de poder de habilidad.
+ * 
+ * @author Emanuel Galván FOntalba
+ *
+ */
+public class Mago extends Monstruo implements Hechizable{
+
+	private int mana;
+	private static final int MANA_MAX = 200;
+	 
+
+	public Mago(String nombre,Razas razas) throws NombreInvalidoException {
+		super(nombre, razas);
+		setMana(getManamax());
+		incrementaPoderHabilidad();
+		decrementaAtaqueBasico();
+		setTipo(TipoDeDanno.MAGICO);
+		CLASE = Clase.MAGO;
+	}
+	
+	/**
+	 * Constructor para buscar MOSTRUOS por nombre, ya que la clase Monstruo es abstracta
+	 * y no podemos usar los constructores fuera de sus hijos.
+	 * 
+	 * @param nombre
+	 * 			Nombre a buscar.
+	 * @throws NombreInvalidoException
+	 * 			El nombre no empieza por mayuscula.
+	 */
+	public Mago(String nombre) throws NombreInvalidoException{
+		super(nombre);
+	}
+	
+	/**
+	 * Si el maná no llega a el maná máximo lo incrementa en 10 puntos.
+	 */
+	@Override
+	public void regeneracionMana() {
+		if (getMana()+10>=getManamax())
+			setMana(getManamax());
+		else
+			setMana(getMana()+10);
+	}
+	
+	/**
+	 * Hace daño mágico igual a su poder de habilidad mas un 80% de este mismo.
+	 * Tiene un coste de 20 de maná
+	 * @return Daño verdadero.
+	 * @throws ManaInsuficienteException 
+	 * 				No hay maná suficiente para lanzar el hechizo.
+	 */
+	@Override
+	public int bolaDeFuego() throws ManaInsuficienteException {
+		if(getMana()<40)
+			throw new ManaInsuficienteException("Tienes el maná agotado");
+		setMana(getMana()-20);
+		return (int) Math.round(getPoderHabilidad()*1.8);
+	}
+	
+	/**
+	 * Incrementa su armadura y su resistencia mágica en 5 puntos.
+	 * Tiene un coste de 40 de maná
+	 * @throws ManaInsuficienteException 
+	 * 				No hay maná suficiente para lanzar el hechizo.
+	 */
+	@Override
+	public void escudoDeEscarcha() throws ManaInsuficienteException {
+		if(getMana()<40)
+			throw new ManaInsuficienteException("Tienes el maná agotado");
+		setArmadura(getArmadura()+5);
+		setResistenciaMagica(getResistenciaMagica()+5);
+		setMana(getMana()-40);
+	}
+	
+	/**
+	 * Se cura a el mismo un 12% de su vida máxima.
+	 * Tiene un coste de 20 de maná.
+	 * @throws ManaInsuficienteException 
+	 * 				No hay maná suficiente para lanzar el hechizo.
+	 */
+	@Override
+	public void meditacion() throws ManaInsuficienteException {
+		if(getMana()<20)
+			throw new ManaInsuficienteException("Tienes el maná agotado");
+		aumentarSaludActual((int) Math.round(getSaludMaxima()*0.12));
+		setMana(getMana()-20);
+	}
+	
+	/**
+	 * Hace daño mágico igual al doble de su poder de habilidad.
+	 * Tiene un coste de 40 de maná.
+	 * @return Daño verdadero
+	 * @throws ManaInsuficienteException 
+	 * 				No hay suficiente maná para lanzar el hechizo.
+	 */
+	@Override
+	public int lluviaDeMeteoros() throws ManaInsuficienteException {
+		if(getMana()<40)
+			throw new ManaInsuficienteException("Tienes el maná agotado");
+		setMana(getMana()-40);
+		return getPoderHabilidad()*2;
+	}
+	
+	/**
+	 * Incrementa el poder de habilidad en 30 puntos
+	 */
+	private void incrementaPoderHabilidad() {
+		setPoderHabilidad(getPoderHabilidad()+30);
+	}
+
+	/**
+	 * Decrementa el ataque básico en 30 puntos.
+	 */
+	private void decrementaAtaqueBasico() {
+		setAtaqueBasico(getAtaqueBasico()-30);
+	}
+	
+	//-------------------------------GETTERS & SETTERS---------------------
+	public int getMana() {
+		return mana;
+	}
+
+	private void setMana(int mana) {
+		this.mana = mana;
+	}
+
+	private static int getManamax() {
+		return MANA_MAX;
+	}
+
+}
