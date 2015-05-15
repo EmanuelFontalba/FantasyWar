@@ -18,7 +18,6 @@ public class Guerrero extends Monstruo implements Luchable {
 		incrementaAtaqueBasico();
 		decrementaPoderHabilidad();
 		setTipo(TipoDeDanno.FISICO);
-		energia= getIra();
 	}
 
 	/**
@@ -31,7 +30,6 @@ public class Guerrero extends Monstruo implements Luchable {
 			setIra(getIramax());
 		else
 			setIra(getIra() + aumentoIra);
-		energia= getIra();
 	}
 
 	/**
@@ -48,7 +46,6 @@ public class Guerrero extends Monstruo implements Luchable {
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
 		int danno = getAtaqueBasico() + getIra();
 		setIra(getIra() - 10);
-		energia= getIra();
 		return danno;
 	}
 
@@ -66,7 +63,6 @@ public class Guerrero extends Monstruo implements Luchable {
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
 		int danno = getAtaqueBasico() + (getIra() * 4);
 		setIra(getIra() - getIra());
-		energia= getIra();
 		return danno;
 	}
 
@@ -81,10 +77,9 @@ public class Guerrero extends Monstruo implements Luchable {
 	public void proteccion() throws IraInsuficienteException {
 		if (getIra() < 10)
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
-		setArmadura(getArmadura() + 30);
-		setResistenciaMagica(getResistenciaMagica() + 20);
+		setArmaduraProvisional(getArmadura() + 30);
+		setResistenciaMagicaProvisional(getResistenciaMagica() + 20);
 		setIra(getIra() - 30);
-		energia= getIra();
 	}
 
 	/**
@@ -100,7 +95,6 @@ public class Guerrero extends Monstruo implements Luchable {
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
 		int danno = (getAtaqueBasico() * 2) + getPoderHabilidad() + getIra();
 		setIra(getIra() - 30);
-		energia= getIra();
 		return danno;
 	}
 
@@ -168,6 +162,20 @@ public class Guerrero extends Monstruo implements Luchable {
 		}
 		
 		regeneracionDeIra();
+	}
+
+	@Override
+	public void reestablecerse() {
+		setSaludActual(getSaludMaxima());
+		setIra(getIramax());
+		setArmaduraProvisional(0);
+		setResistenciaMagicaProvisional(0);
+		
+	}
+
+	@Override
+	public int getPotenciador() {
+		return getIra();
 	}
 
 

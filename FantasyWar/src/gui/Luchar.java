@@ -42,7 +42,6 @@ public class Luchar extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldSeparator;
 	private JTextField textFieldSeparator2;
-	private JTextField txtEstadisticas;
 	private JTextField textFieldEnergia;
 
 
@@ -56,6 +55,7 @@ public class Luchar extends JDialog {
 	private Monstruo monstruoCPU;
 	private JTextField textFieldSalud;
 	private JTextField textFieldSaludCPU;
+	private JTextPane textPaneEstadisticas;
 
 
 	/**
@@ -117,14 +117,6 @@ public class Luchar extends JDialog {
 			contentPanel.add(textFieldSeparator2);
 			textFieldSeparator2.setColumns(10);
 		}
-		{
-			txtEstadisticas = new JTextField();
-			txtEstadisticas.setEditable(false);
-			txtEstadisticas.setText("estadisticas");
-			txtEstadisticas.setBounds(10, 132, 191, 178);
-			contentPanel.add(txtEstadisticas);
-			txtEstadisticas.setColumns(10);
-		}
 
 
 		final JComboBox comboBoxHabilidad = new JComboBox();
@@ -183,6 +175,12 @@ public class Luchar extends JDialog {
 		JLabel lblNewLabelClaseCPU = new JLabel("New label");
 		lblNewLabelClaseCPU.setBounds(350, 27, 46, 14);
 		contentPanel.add(lblNewLabelClaseCPU);
+		{
+			textPaneEstadisticas = new JTextPane();
+			textPaneEstadisticas.setEditable(false);
+			textPaneEstadisticas.setBounds(10, 134, 215, 176);
+			contentPanel.add(textPaneEstadisticas);
+		}
 		actualizarVista();
 		btnNewButton.addActionListener(new ActionListener() {
 			private Component parentComponent;
@@ -207,6 +205,7 @@ public class Luchar extends JDialog {
 							// capturar
 						}
 						Comunicacion.jugador.aumentarExp(1000);
+						Comunicacion.monstruoSeleccionado.reestablecerse();
 						JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
 					}
 
@@ -225,7 +224,7 @@ public class Luchar extends JDialog {
 							// capturar
 						}
 						Comunicacion.jugador.aumentarExp(50);
-						Comunicacion.monstruoSeleccionado = Comunicacion.jugador.getColeccionMonstruos().get(0);
+						Comunicacion.monstruoSeleccionado.reestablecerse();
 						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Hs perdido.");
 					}
 				
@@ -289,14 +288,14 @@ public class Luchar extends JDialog {
 	private void actualizarVista() {
 		textFieldSaludCPU.setText((new Integer(monstruoCPU.getSaludActual())).toString());
 		textFieldSalud.setText((new Integer(Comunicacion.monstruoSeleccionado.getSaludActual())).toString());
-		textFieldEnergia.setText((new Integer(Comunicacion.monstruoSeleccionado.getEnergia())).toString());
-		txtEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoSeleccionado.getSaludMaxima()+
-				"\nAtaque básico: "+Comunicacion.monstruoSeleccionado.getAtaqueBasico()+
-				"\nPoder de habilidad: "+Comunicacion.monstruoSeleccionado.getPoderHabilidad()+
-				"\nArmadura: "+Comunicacion.monstruoSeleccionado.getArmadura()+
-				"\nResistencia mágica: "+Comunicacion.monstruoSeleccionado.getResistenciaMagica()+
-				"\nProbabilidad de impacto crítico: "+Comunicacion.monstruoSeleccionado.getProbabilidadCritico()+
-				"\nProbabilidad de esquivar: "+Comunicacion.monstruoSeleccionado.getProbabilidadEsquivar());
+		textFieldEnergia.setText((new Integer(Comunicacion.monstruoSeleccionado.getPotenciador())).toString());
+		textPaneEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoSeleccionado.getSaludMaxima()+
+				"\rAtaque básico: "+Comunicacion.monstruoSeleccionado.getAtaqueBasico()+
+				"\rPoder de habilidad: "+Comunicacion.monstruoSeleccionado.getPoderHabilidad()+
+				"\rArmadura: "+(Comunicacion.monstruoSeleccionado.getArmadura()+Comunicacion.monstruoSeleccionado.getArmaduraProvisional())+
+				"\rResistencia mágica: "+(Comunicacion.monstruoSeleccionado.getResistenciaMagica()+Comunicacion.monstruoSeleccionado.getResistenciaMagicaProvisional())+
+				"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoSeleccionado.getProbabilidadCritico()+
+				"\rProbabilidad de esquivar: "+Comunicacion.monstruoSeleccionado.getProbabilidadEsquivar());
 	}
 
 

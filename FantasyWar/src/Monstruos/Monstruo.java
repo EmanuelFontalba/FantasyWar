@@ -31,14 +31,18 @@ public abstract class Monstruo extends Leveable implements Razable{
 	private int probabilidadEsquivar;
 	private boolean muerto;
 	private TipoDeDanno tipo;
+	
+	private int armaduraProvisional=0;
+	private int resistenciaMagicaProvisional=0;
 
 
+
+	
 
 	/**
 	 * Patrón para nombres correctos. Deben de empezar por una mayúscula.
 	 */
 	private static final Pattern PATRON_NOMBRE = Pattern.compile("^[A-Z][a-z]*[a-z]$");
-	protected int energia;
 
 	/**
 	 * Constructor completo.
@@ -63,6 +67,8 @@ public abstract class Monstruo extends Leveable implements Razable{
 	Monstruo(String nombre) throws NombreInvalidoException{
 		setNombre(nombre);
 	}
+	
+	abstract public void reestablecerse();
 	
 	/**
 	 * Aumenta en nivel en 1.
@@ -339,7 +345,24 @@ public abstract class Monstruo extends Leveable implements Razable{
 	protected void setTipo(TipoDeDanno tipo) {
 		this.tipo = tipo;
 	}
+	
+	public int getArmaduraProvisional() {
+		return armaduraProvisional;
+	}
 
+	public void setArmaduraProvisional(int armaduraProvisional) {
+		this.armaduraProvisional = armaduraProvisional;
+	}
+
+	public int getResistenciaMagicaProvisional() {
+		return resistenciaMagicaProvisional;
+	}
+
+	public void setResistenciaMagicaProvisional(int resistenciaMagicaProvisional) {
+		this.resistenciaMagicaProvisional = resistenciaMagicaProvisional;
+	}
+
+	public abstract int getPotenciador();
 	
 	public abstract void luchar(Ataques ataque, Monstruo defensor) throws Exception ;
 
@@ -351,7 +374,7 @@ public abstract class Monstruo extends Leveable implements Razable{
 			return;
 		if(dadosDefensor<=getProbabilidadEsquivar())
 			return;
-		danno=dannoVerdadero - getArmadura();
+		danno=dannoVerdadero - (getArmadura()+getArmaduraProvisional());
 		if(danno<=0)
 			return;
 		if(getSaludActual()<=0)
@@ -367,16 +390,12 @@ public abstract class Monstruo extends Leveable implements Razable{
 			return;
 		if(dadosDefensor<=getProbabilidadEsquivar())
 			return;
-		danno=dannoVerdadero - getResistenciaMagica();
+		danno=dannoVerdadero - (getResistenciaMagica()+getResistenciaMagicaProvisional());
 		if(getSaludActual()<=0)
 			setMuerto(true);
 		if(danno<=0)
 			return;
 		disminuirSaludActual(danno) ;
-	}
-
-	public int getEnergia() {
-		return energia;
 	}
 		
 }

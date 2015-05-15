@@ -41,7 +41,7 @@ public abstract class Leveable {
 			setExp(getExp()+exp);
 			if (getExp()>getExpMaxima()){
 				aumentarNivel();
-				setExp(getExpMaxima()-getExp());
+				setExp(-(getExpMaxima()-getExp()));
 				return true;
 			}
 		}

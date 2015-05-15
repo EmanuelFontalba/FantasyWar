@@ -20,7 +20,6 @@ public class Sacerdote extends Monstruo implements Saneable {
 		incrementaPoderHabilidad();
 		decrementaAtaqueBasico();
 		setTipo(TipoDeDanno.MAGICO);
-		energia = getFe();
 	}
 	
 	/**
@@ -32,7 +31,6 @@ public class Sacerdote extends Monstruo implements Saneable {
 			setFe(getFemax());
 		else
 			setFe(getFe()+15);
-		energia = getFe();
 	}
 	/**
 	 * Hace daño magico igual a su poder de habilidad mas su fé duplicada.
@@ -47,7 +45,6 @@ public class Sacerdote extends Monstruo implements Saneable {
 			throw new FeInsuficienteException("No tienes suficiente fé");	
 		int danno = getPoderHabilidad() + getFe()*2;
 		setFe(getFe()-20);
-		energia = getFe();
 		return danno;
 	}
 	
@@ -62,8 +59,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 			throw new FeInsuficienteException("No tienes suficiente fé");
 		aumentarSaludActual(getFe());
 		incrementaPoderHabilidad();
-		setFe(getFe()-40);	
-		energia = getFe();
+		setFe(getFe()-40);
 	}
 	/**
 	 * Aumenta su armadura y resistencia mágica en 5 puntos.
@@ -75,10 +71,9 @@ public class Sacerdote extends Monstruo implements Saneable {
 	public void escudoDivino() throws FeInsuficienteException {
 		if(getFe()<10)
 			throw new FeInsuficienteException("No tienes suficiente fé");
-		setArmadura(getArmadura()+5);
-		setResistenciaMagica(getResistenciaMagica()+5);
+		setArmaduraProvisional(getArmadura()+5);
+		setResistenciaMagicaProvisional(getResistenciaMagica()+5);
 		setFe(getFe()-10);
-		energia = getFe();
 	}
 	
 	/**
@@ -93,7 +88,6 @@ public class Sacerdote extends Monstruo implements Saneable {
 			throw new FeInsuficienteException("No tienes suficiente fé");
 		aumentarSaludActual((int) Math.round(getSaludMaxima()*0.5)+getFe());
 		setFe(getFe()-60);
-		energia = getFe();
 	}
 	
 	/**
@@ -163,6 +157,19 @@ public class Sacerdote extends Monstruo implements Saneable {
 		}
 		
 		regeneracionFe();
+	}
+
+	@Override
+	public void reestablecerse() {
+		setSaludActual(getSaludMaxima());
+		setFe(getFemax());
+		setArmaduraProvisional(0);
+		setResistenciaMagicaProvisional(0);
+	}
+
+	@Override
+	public int getPotenciador() {
+		return getFe();
 	}
 
 }

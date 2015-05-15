@@ -27,7 +27,6 @@ public class Mago extends Monstruo implements Hechizable{
 		incrementaPoderHabilidad();
 		decrementaAtaqueBasico();
 		setTipo(TipoDeDanno.MAGICO);
-		energia = getMana();
 	}
 	
 	/**
@@ -52,7 +51,6 @@ public class Mago extends Monstruo implements Hechizable{
 			setMana(getManamax());
 		else
 			setMana(getMana()+10);
-		energia = getMana();
 	}
 	
 	/**
@@ -67,7 +65,6 @@ public class Mago extends Monstruo implements Hechizable{
 		if(getMana()<40)
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		setMana(getMana()-20);
-		energia = getMana();
 		return (int) Math.round(getPoderHabilidad()*1.8);
 	}
 	
@@ -82,9 +79,8 @@ public class Mago extends Monstruo implements Hechizable{
 		if(getMana()<40)
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		setArmadura(getArmadura()+5);
-		setResistenciaMagica(getResistenciaMagica()+5);
+		setResistenciaMagicaProvisional(getResistenciaMagicaProvisional()+5);
 		setMana(getMana()-40);
-		energia = getMana();
 	}
 	
 	/**
@@ -99,7 +95,6 @@ public class Mago extends Monstruo implements Hechizable{
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		aumentarSaludActual((int) Math.round(getSaludMaxima()*0.12));
 		setMana(getMana()-20);
-		energia = getMana();
 	}
 	
 	/**
@@ -114,7 +109,6 @@ public class Mago extends Monstruo implements Hechizable{
 		if(getMana()<40)
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		setMana(getMana()-40);
-		energia = getMana();
 		return getPoderHabilidad()*2;
 	}
 	
@@ -176,14 +170,21 @@ public class Mago extends Monstruo implements Hechizable{
 			
 		defensor.recibirDannoMagico(danno);
 		
-		
-		if(defensor.isMuerto()){
-			setSaludActual(getSaludMaxima());
-			setMana(getManamax());
-			return;
-		}
-		
 		regeneracionMana();
+	}
+
+	@Override
+	public void reestablecerse() {
+		setSaludActual(getSaludMaxima());
+		setMana(getManamax());
+		setArmaduraProvisional(0);
+		setResistenciaMagicaProvisional(0);
+		
+	}
+
+	@Override
+	public int getPotenciador() {
+		return getMana();
 	}
 
 }
