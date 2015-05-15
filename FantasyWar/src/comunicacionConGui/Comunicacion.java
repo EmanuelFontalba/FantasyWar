@@ -14,7 +14,4 @@ public class Comunicacion {
 	public static boolean guardado=false;
 	public static boolean modificado = false;
 	public static Monstruo monstruoSeleccionado;
-	public static Mago mago;
-	public static Guerrero guerrero;
-	public static Sacerdote sacerdote;
 }

@@ -1,8 +1,10 @@
 package Monstruos;
 
+import enumeraciones.Ataques;
 import enumeraciones.Clase;
 import enumeraciones.Razas;
 import enumeraciones.TipoDeDanno;
+import excepciones.IraInsuficienteException;
 import excepciones.ManaInsuficienteException;
 import excepciones.NombreInvalidoException;
 import interfaces.Hechizable;
@@ -25,7 +27,7 @@ public class Mago extends Monstruo implements Hechizable{
 		incrementaPoderHabilidad();
 		decrementaAtaqueBasico();
 		setTipo(TipoDeDanno.MAGICO);
-		CLASE = Clase.MAGO;
+		energia = getMana();
 	}
 	
 	/**
@@ -50,6 +52,7 @@ public class Mago extends Monstruo implements Hechizable{
 			setMana(getManamax());
 		else
 			setMana(getMana()+10);
+		energia = getMana();
 	}
 	
 	/**
@@ -64,6 +67,7 @@ public class Mago extends Monstruo implements Hechizable{
 		if(getMana()<40)
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		setMana(getMana()-20);
+		energia = getMana();
 		return (int) Math.round(getPoderHabilidad()*1.8);
 	}
 	
@@ -80,6 +84,7 @@ public class Mago extends Monstruo implements Hechizable{
 		setArmadura(getArmadura()+5);
 		setResistenciaMagica(getResistenciaMagica()+5);
 		setMana(getMana()-40);
+		energia = getMana();
 	}
 	
 	/**
@@ -94,6 +99,7 @@ public class Mago extends Monstruo implements Hechizable{
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		aumentarSaludActual((int) Math.round(getSaludMaxima()*0.12));
 		setMana(getMana()-20);
+		energia = getMana();
 	}
 	
 	/**
@@ -108,6 +114,7 @@ public class Mago extends Monstruo implements Hechizable{
 		if(getMana()<40)
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		setMana(getMana()-40);
+		energia = getMana();
 		return getPoderHabilidad()*2;
 	}
 	
@@ -136,6 +143,47 @@ public class Mago extends Monstruo implements Hechizable{
 
 	private static int getManamax() {
 		return MANA_MAX;
+	}
+
+	@Override
+	public
+	void luchar(Ataques ataque, Monstruo defensor)
+			throws ManaInsuficienteException {
+		int dadosAtacante = (int) ((Math.random()*(0-100)+100));
+		int danno=0;
+	
+		switch (ataque) {
+		case BOLA_DE_FUEGO:
+			danno = bolaDeFuego();
+			break;
+		case ESCUDO_DE_ESCARCHA:
+			danno = 0;
+			escudoDeEscarcha();
+			break;
+		case LLUVIA_DE_METEOROS:
+			danno = lluviaDeMeteoros();
+			break;
+		case MEDITACION:
+			danno=0;
+			meditacion();
+			break;
+		default:
+			break;
+		}
+		
+		if(dadosAtacante<=getProbabilidadCritico())
+			danno=danno*2;
+			
+		defensor.recibirDannoMagico(danno);
+		
+		
+		if(defensor.isMuerto()){
+			setSaludActual(getSaludMaxima());
+			setMana(getManamax());
+			return;
+		}
+		
+		regeneracionMana();
 	}
 
 }

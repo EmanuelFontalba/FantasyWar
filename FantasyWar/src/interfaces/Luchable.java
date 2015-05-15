@@ -12,5 +12,5 @@ public interface Luchable {
 	int ejecutar() throws IraInsuficienteException;
 	void proteccion() throws IraInsuficienteException; 
 	int filoTormenta() throws IraInsuficienteException;
-	void regeneracionDeIra(int dañoRecibido);
+	void regeneracionDeIra();
 }

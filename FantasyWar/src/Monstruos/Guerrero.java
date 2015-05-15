@@ -1,5 +1,6 @@
 package Monstruos;
 
+import enumeraciones.Ataques;
 import enumeraciones.Clase;
 import enumeraciones.Razas;
 import enumeraciones.TipoDeDanno;
@@ -10,7 +11,6 @@ import interfaces.Luchable;
 public class Guerrero extends Monstruo implements Luchable {
 	private int ira;
 	private static final int IRA_MAX = 100;
-	
 
 	public Guerrero(String nombre, Razas raza) throws NombreInvalidoException {
 		super(nombre, raza);
@@ -18,97 +18,107 @@ public class Guerrero extends Monstruo implements Luchable {
 		incrementaAtaqueBasico();
 		decrementaPoderHabilidad();
 		setTipo(TipoDeDanno.FISICO);
-		CLASE = Clase.GUERRERO;
+		energia= getIra();
 	}
-	
+
 	/**
 	 * Regenera ira en función del daño recibido.
 	 */
 	@Override
-	public void regeneracionDeIra(int dañoRecibido){
-		int aumentoIra = (int) Math.round(dañoRecibido * 0.1);
-		if(getIra()+aumentoIra>=getIramax())
+	public void regeneracionDeIra() {
+		int aumentoIra = 10;
+		if (getIra() + aumentoIra >= getIramax())
 			setIra(getIramax());
 		else
-			setIra(getIra()+aumentoIra);
+			setIra(getIra() + aumentoIra);
+		energia= getIra();
 	}
+
 	/**
-	 * Inflije daño fisico igual a su ataque básico más su ira actual.
-	 * Tiene un coste de 10 de ira.
+	 * Inflije daño fisico igual a su ataque básico más su ira actual. Tiene un
+	 * coste de 10 de ira.
+	 * 
 	 * @return Daño verdadero.
 	 * @throws IraInsuficienteException
-	 * 				No hay ira suficiente para hacer el ataque 
+	 *             No hay ira suficiente para hacer el ataque
 	 */
 	@Override
 	public int rajar() throws IraInsuficienteException {
-		if(getIra()<10)
+		if (getIra() < 10)
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
-		int danno =getAtaqueBasico()+getIra();
-		setIra(getIra()-10);
+		int danno = getAtaqueBasico() + getIra();
+		setIra(getIra() - 10);
+		energia= getIra();
 		return danno;
 	}
-	
+
 	/**
-	 * Inflige un daño fisico igual a su ataque básico más cuatro veces su ira actual.
-	 * Agota toda tu ira.
+	 * Inflige un daño fisico igual a su ataque básico más cuatro veces su ira
+	 * actual. Agota toda tu ira.
+	 * 
 	 * @return Daño verdadero.
-	 * @throws IraInsuficienteException 
-	 * 				No hay ira suficiente para hacer el ataque
+	 * @throws IraInsuficienteException
+	 *             No hay ira suficiente para hacer el ataque
 	 */
 	@Override
 	public int ejecutar() throws IraInsuficienteException {
-		if(getIra()<10)
+		if (getIra() < 10)
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
-		int danno = getAtaqueBasico()+(getIra()*4);
-		setIra(getIra()-getIra());
+		int danno = getAtaqueBasico() + (getIra() * 4);
+		setIra(getIra() - getIra());
+		energia= getIra();
 		return danno;
 	}
-	
+
 	/**
-	 * Incrementa su armadura en 30 y la resistencia mágica en 20.
-	 * Tiene un coste de 30 puntos de ira.
-	 * @throws IraInsuficienteException 
-	 * 				No hay ira suficiente para hacer el ataque
+	 * Incrementa su armadura en 30 y la resistencia mágica en 20. Tiene un
+	 * coste de 30 puntos de ira.
+	 * 
+	 * @throws IraInsuficienteException
+	 *             No hay ira suficiente para hacer el ataque
 	 */
 	@Override
 	public void proteccion() throws IraInsuficienteException {
-		if(getIra()<10)
+		if (getIra() < 10)
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
-		setArmadura(getArmadura()+30);
-		setResistenciaMagica(getResistenciaMagica()+20);
-		setIra(getIra()-30);
+		setArmadura(getArmadura() + 30);
+		setResistenciaMagica(getResistenciaMagica() + 20);
+		setIra(getIra() - 30);
+		energia= getIra();
 	}
-	
+
 	/**
 	 * Causa un gran daño por un coste de 30 puntos de ira.
+	 * 
 	 * @return Daño verdadero.
-	 * @throws IraInsuficienteException 
-	 * 				No hay ira suficiente para hacer el ataque
+	 * @throws IraInsuficienteException
+	 *             No hay ira suficiente para hacer el ataque
 	 */
 	@Override
 	public int filoTormenta() throws IraInsuficienteException {
-		if(getIra()<10)
+		if (getIra() < 30)
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
-		int danno = (getAtaqueBasico()*2)+getPoderHabilidad()+getIra();
-		setIra(getIra()-30);
+		int danno = (getAtaqueBasico() * 2) + getPoderHabilidad() + getIra();
+		setIra(getIra() - 30);
+		energia= getIra();
 		return danno;
 	}
-	
+
 	/**
 	 * Incrementa el ataque básico en 80 puntos
 	 */
 	private void incrementaAtaqueBasico() {
-		setAtaqueBasico(getAtaqueBasico()+80);
+		setAtaqueBasico(getAtaqueBasico() + 80);
 	}
 
 	/**
 	 * Decrementa el poder de habilidad en 80 puntos.
 	 */
 	private void decrementaPoderHabilidad() {
-		setPoderHabilidad(getPoderHabilidad()-80);
+		setPoderHabilidad(getPoderHabilidad() - 80);
 	}
-	
-	//-------------------------GETTERS & SETTERS -----------------------
+
+	// -------------------------GETTERS & SETTERS -----------------------
 	public int getIra() {
 		return ira;
 	}
@@ -121,4 +131,44 @@ public class Guerrero extends Monstruo implements Luchable {
 		return IRA_MAX;
 	}
 	
+	@Override
+	public void luchar(Ataques ataque, Monstruo defensor)
+			throws IraInsuficienteException {
+
+		int dadosAtacante = (int) ((Math.random()*(0-100)+100));
+		int danno=0;
+	
+		switch (ataque) {
+		case RAJAR:
+			danno = rajar();
+			break;
+		case EJECUTAR:
+			danno = ejecutar();
+			break;
+		case PROTECCION:
+			proteccion();
+			break;
+		case FILOTORMENTA:
+			danno = filoTormenta();
+			break;
+		default:
+			break;
+		}
+		
+		if(dadosAtacante<=getProbabilidadCritico())
+			danno=danno*2;
+			
+		defensor.recibirDannoFisico(danno);
+		
+		
+		if(defensor.isMuerto()){
+			setSaludActual(getSaludMaxima());
+			setIra(getIramax());
+			return;
+		}
+		
+		regeneracionDeIra();
+	}
+
+
 }

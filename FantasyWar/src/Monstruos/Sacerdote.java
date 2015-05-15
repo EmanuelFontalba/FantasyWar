@@ -1,9 +1,11 @@
 package Monstruos;
 
+import enumeraciones.Ataques;
 import enumeraciones.Clase;
 import enumeraciones.Razas;
 import enumeraciones.TipoDeDanno;
 import excepciones.FeInsuficienteException;
+import excepciones.IraInsuficienteException;
 import excepciones.NombreInvalidoException;
 import interfaces.Saneable;
 
@@ -18,7 +20,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 		incrementaPoderHabilidad();
 		decrementaAtaqueBasico();
 		setTipo(TipoDeDanno.MAGICO);
-		CLASE = Clase.SACERDOTE;
+		energia = getFe();
 	}
 	
 	/**
@@ -30,6 +32,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 			setFe(getFemax());
 		else
 			setFe(getFe()+15);
+		energia = getFe();
 	}
 	/**
 	 * Hace daño magico igual a su poder de habilidad mas su fé duplicada.
@@ -44,6 +47,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 			throw new FeInsuficienteException("No tienes suficiente fé");	
 		int danno = getPoderHabilidad() + getFe()*2;
 		setFe(getFe()-20);
+		energia = getFe();
 		return danno;
 	}
 	
@@ -58,7 +62,8 @@ public class Sacerdote extends Monstruo implements Saneable {
 			throw new FeInsuficienteException("No tienes suficiente fé");
 		aumentarSaludActual(getFe());
 		incrementaPoderHabilidad();
-		setFe(getFe()-40);		
+		setFe(getFe()-40);	
+		energia = getFe();
 	}
 	/**
 	 * Aumenta su armadura y resistencia mágica en 5 puntos.
@@ -73,6 +78,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 		setArmadura(getArmadura()+5);
 		setResistenciaMagica(getResistenciaMagica()+5);
 		setFe(getFe()-10);
+		energia = getFe();
 	}
 	
 	/**
@@ -87,6 +93,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 			throw new FeInsuficienteException("No tienes suficiente fé");
 		aumentarSaludActual((int) Math.round(getSaludMaxima()*0.5)+getFe());
 		setFe(getFe()-60);
+		energia = getFe();
 	}
 	
 	/**
@@ -114,6 +121,48 @@ public class Sacerdote extends Monstruo implements Saneable {
 
 	private static int getFemax() {
 		return FE_MAX;
+	}
+
+	@Override
+	public
+	void luchar(Ataques ataque, Monstruo defensor)
+			throws Exception {
+		int dadosAtacante = (int) ((Math.random()*(0-100)+100));
+		int danno=0;
+	
+		switch (ataque) {
+		case CURACION_ABSOLUTA :
+			danno = 0;
+			curacionAbsoluta();
+			break;
+		case CURACION_ANCESTRAL:
+			danno = 0;
+			curacionAncestral();
+			break;
+		case ENERGIA_DIVINA:
+			danno = energiaDivina();
+			break;
+		case ESCUDO_DIVINO:
+			danno=0;
+			escudoDivino();
+			break;
+		default:
+			break;
+		}
+		
+		if(dadosAtacante<=getProbabilidadCritico())
+			danno=danno*2;
+			
+		defensor.recibirDannoMagico(danno);
+		
+		
+		if(defensor.isMuerto()){
+			setSaludActual(getSaludMaxima());
+			setFe(getFemax());
+			return;
+		}
+		
+		regeneracionFe();
 	}
 
 }

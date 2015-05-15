@@ -5,9 +5,10 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 import clasesPrincipales.Leveable;
-import enumeraciones.Clase;
+import enumeraciones.Ataques;
 import enumeraciones.Razas;
 import enumeraciones.TipoDeDanno;
+import excepciones.IraInsuficienteException;
 import excepciones.NombreInvalidoException;
 import interfaces.Razable;
 /**
@@ -30,12 +31,14 @@ public abstract class Monstruo extends Leveable implements Razable{
 	private int probabilidadEsquivar;
 	private boolean muerto;
 	private TipoDeDanno tipo;
-	public Clase CLASE;
-	
+
+
+
 	/**
 	 * Patrón para nombres correctos. Deben de empezar por una mayúscula.
 	 */
 	private static final Pattern PATRON_NOMBRE = Pattern.compile("^[A-Z][a-z]*[a-z]$");
+	protected int energia;
 
 	/**
 	 * Constructor completo.
@@ -207,8 +210,6 @@ public abstract class Monstruo extends Leveable implements Razable{
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Monstruo other = (Monstruo) obj;
 		if (nombre == null) {
 			if (other.nombre != null)
@@ -338,5 +339,44 @@ public abstract class Monstruo extends Leveable implements Razable{
 	protected void setTipo(TipoDeDanno tipo) {
 		this.tipo = tipo;
 	}
+
 	
+	public abstract void luchar(Ataques ataque, Monstruo defensor) throws Exception ;
+
+	public void recibirDannoFisico(int dannoVerdadero) {
+		int dadosDefensor = (int) Math.random()*(0-100)+100;
+		int danno;
+
+		if(dannoVerdadero==0)
+			return;
+		if(dadosDefensor<=getProbabilidadEsquivar())
+			return;
+		danno=dannoVerdadero - getArmadura();
+		if(danno<=0)
+			return;
+		if(getSaludActual()<=0)
+			setMuerto(true);
+		disminuirSaludActual(danno) ;
+	}
+
+	public void recibirDannoMagico(int dannoVerdadero) {
+		int dadosDefensor = (int) Math.random()*(0-100)+100;
+		int danno;
+
+		if(dannoVerdadero==0)
+			return;
+		if(dadosDefensor<=getProbabilidadEsquivar())
+			return;
+		danno=dannoVerdadero - getResistenciaMagica();
+		if(getSaludActual()<=0)
+			setMuerto(true);
+		if(danno<=0)
+			return;
+		disminuirSaludActual(danno) ;
+	}
+
+	public int getEnergia() {
+		return energia;
+	}
+		
 }
