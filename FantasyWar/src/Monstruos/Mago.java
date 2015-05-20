@@ -179,6 +179,7 @@ public class Mago extends Monstruo implements Hechizable{
 		setMana(getManamax());
 		setArmaduraProvisional(0);
 		setResistenciaMagicaProvisional(0);
+		setMuerto(false);
 		
 	}
 

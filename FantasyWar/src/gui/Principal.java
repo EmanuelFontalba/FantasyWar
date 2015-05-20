@@ -3,6 +3,7 @@ package gui;
 import java.awt.Component;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -12,11 +13,11 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
+import Monstruos.Guerrero;
+import Monstruos.Mago;
 import clasesPrincipales.GestionFicheros;
 import clasesPrincipales.Jugador;
 import comunicacionConGui.Comunicacion;
-import excepciones.MonstruoNoExisteException;
-import excepciones.NombreInvalidoException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,11 +25,15 @@ import java.io.IOException;
 
 import javax.swing.JTextField;
 
+import enumeraciones.Razas;
+
 public class Principal {
 
 	private static Component parentComponent;
 	private JFrame frmPartidaDe;
 	static JTextField textFieldNombrePJ;
+	static JTextPane txtpnEstadisticas ;
+	static JLabel lblImagenDelMonstruo;
 
 	/**
 	 * Launch the application.
@@ -175,6 +180,11 @@ public class Principal {
 		mnArchivo.add(mntmGuardarComo);
 		
 		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		mnArchivo.add(mntmSalir);
 		
 		JMenu mnJugador = new JMenu("Jugador");
@@ -184,13 +194,27 @@ public class Principal {
 		JMenuItem mntmMostrar = new JMenuItem("Mostrar");
 		mntmMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MostrarJugador mostrar = new MostrarJugador();
-				mostrar.setVisible(true);
+				if(Comunicacion.jugador == null){
+					//PANEL
+				}else{
+					MostrarJugador mostrar = new MostrarJugador();
+					mostrar.setVisible(true);
+				}
 			}
 		});
 		mnJugador.add(mntmMostrar);
 		
 		JMenuItem mntmEditar = new JMenuItem("Editar");
+		mntmEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Comunicacion.jugador == null){
+					//PANEL
+				}else{
+					EditarJugador editar = new EditarJugador();
+					editar.setVisible(true);
+				}
+			}
+		});
 		mnJugador.add(mntmEditar);
 		
 		JMenu mnColeccin = new JMenu("Colecci\u00F3n");
@@ -200,13 +224,27 @@ public class Principal {
 		JMenuItem mntmAadirMonstruo = new JMenuItem("A\u00F1adir monstruo");
 		mntmAadirMonstruo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AnnadirMonstruo annadirMonstruo = new AnnadirMonstruo();
-				annadirMonstruo.setVisible(true);
+				if(Comunicacion.jugador == null){
+					//PANEL
+				}else{
+					AnnadirMonstruo annadirMonstruo = new AnnadirMonstruo();
+					annadirMonstruo.setVisible(true);
+				}
 			}
 		});
 		mnColeccin.add(mntmAadirMonstruo);
 		
 		JMenuItem mntmEliminarMonstruo = new JMenuItem("Eliminar monstruo");
+		mntmEliminarMonstruo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Comunicacion.jugador == null){
+					//PANEL
+				}else{
+					BuscarParaEliminar eliminar = new BuscarParaEliminar();
+					eliminar.setVisible(true);
+				}
+			}
+		});
 		mnColeccin.add(mntmEliminarMonstruo);
 		
 		JMenu mnBuscarMonstruo = new JMenu("Buscar monstruo");
@@ -215,16 +253,46 @@ public class Principal {
 		JMenuItem mntmNombre = new JMenuItem("Nombre");
 		mntmNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MostrarMonstruoPadre buscar = new MostrarMonstruoPadre();
-				buscar.setVisible(true);
+				if(Comunicacion.jugador == null){
+					//PANEL
+				}else{
+					BuscarPorNombre buscar = new BuscarPorNombre();
+					buscar.setVisible(true);
+				}
 			}
 		});
 		mnBuscarMonstruo.add(mntmNombre);
 		
 		JMenuItem mntmRaza = new JMenuItem("Raza");
+		mntmRaza.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Comunicacion.jugador == null){
+					//PANEL
+				}else{
+					BuscarPorRaza buscar = new BuscarPorRaza();
+					buscar.setVisible(true);
+				}
+			}
+		});
 		mnBuscarMonstruo.add(mntmRaza);
 		
 		JMenuItem mntmMostrarTodos = new JMenuItem("Mostrar todos");
+		mntmMostrarTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Comunicacion.jugador == null){
+					//PANEL
+				}else{
+					Comunicacion.monstruosEncontrados = Comunicacion.jugador.getColeccionMonstruos();
+					if(Comunicacion.monstruosEncontrados.size() == 0)
+						System.out.println("Array vacio"); //controlar
+					else{
+						Comunicacion.monstruoEncontrado = Comunicacion.monstruosEncontrados.get(0);
+						MostrarMonstruoPadre mostrar = new MostrarMonstruoPadre();
+						mostrar.setVisible(true);
+					}
+				}
+			}
+		});
 		mnColeccin.add(mntmMostrarTodos);
 		
 		JMenu mnAyuda = new JMenu("Ayuda");
@@ -254,13 +322,7 @@ public class Principal {
 		lblPersonaje.setBounds(10, 11, 89, 14);
 		frmPartidaDe.getContentPane().add(lblPersonaje);
 		
-		JTextPane txtpnImagenDelPj = new JTextPane();
-		txtpnImagenDelPj.setEditable(false);
-		txtpnImagenDelPj.setText("Imagen del pj");
-		txtpnImagenDelPj.setBounds(10, 36, 327, 322);
-		frmPartidaDe.getContentPane().add(txtpnImagenDelPj);
-		
-		JTextPane txtpnEstadisticas = new JTextPane();
+		txtpnEstadisticas = new JTextPane();
 		txtpnEstadisticas.setEditable(false);
 		txtpnEstadisticas.setText("Estadisticas");
 		txtpnEstadisticas.setBounds(347, 36, 399, 196);
@@ -269,8 +331,13 @@ public class Principal {
 		JButton btnLuchar = new JButton("Luchar");
 		btnLuchar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Luchar lucha = new Luchar();
-				lucha.setVisible(true);
+				if(Comunicacion.jugador == null || Comunicacion.monstruoSeleccionado == null){
+					//PANEL
+				}
+				else{
+					Luchar lucha = new Luchar();
+					lucha.setVisible(true);
+				}
 			}
 		});
 		btnLuchar.setBounds(347, 240, 194, 118);
@@ -285,9 +352,39 @@ public class Principal {
 		textFieldNombrePJ.setBounds(88, 8, 86, 20);
 		frmPartidaDe.getContentPane().add(textFieldNombrePJ);
 		textFieldNombrePJ.setColumns(10);
+		
+		lblImagenDelMonstruo = new JLabel("");
+		lblImagenDelMonstruo.setBounds(10, 49, 298, 183);
+		frmPartidaDe.getContentPane().add(lblImagenDelMonstruo);
 	}
 	
 	private static int modificarCambios() {
 		return JOptionPane.showConfirmDialog(parentComponent, "Se va a perder información. ¿Quieres continuar?", "Sobreescritura" , JOptionPane.YES_NO_OPTION);
+	}
+
+	public static void actualizar() {
+//		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Mago.class){
+//			lblImagenDelMonstruo.setText("");
+//			lblImagenDelMonstruo.setIcon(null);
+//			lblImagenDelMonstruo.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\enanoMago.jpg"));
+//		}
+//		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class){
+//			lblImagenDelMonstruo.setText("");
+//			lblImagenDelMonstruo.setIcon(null);
+//			lblImagenDelMonstruo.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\enanoGuerrero.jpg"));
+//		}
+//		else{
+//			lblImagenDelMonstruo.setText("Aún sin imagen");
+//			lblImagenDelMonstruo.setIcon(null);
+//		}
+		textFieldNombrePJ.setText(Comunicacion.monstruoSeleccionado.getNombre());
+		txtpnEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
+				"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
+				"\rPoder de habilidad: "+Comunicacion.monstruoEncontrado.getPoderHabilidad()+
+				"\rArmadura: "+Comunicacion.monstruoEncontrado.getArmadura()+
+				"\rResistencia mágica: "+Comunicacion.monstruoEncontrado.getResistenciaMagica()+
+				"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoEncontrado.getProbabilidadCritico()+
+				"\rProbabilidad de esquivar: "+Comunicacion.monstruoEncontrado.getProbabilidadEsquivar());
+		
 	}
 }

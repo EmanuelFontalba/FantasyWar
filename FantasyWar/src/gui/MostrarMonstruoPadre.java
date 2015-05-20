@@ -10,19 +10,37 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import Monstruos.Guerrero;
+import Monstruos.Mago;
+import Monstruos.Sacerdote;
 import comunicacionConGui.Comunicacion;
+import enumeraciones.Clase;
+import enumeraciones.Razas;
 import excepciones.MonstruoNoExisteException;
 import excepciones.NombreInvalidoException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+
+@SuppressWarnings("serial")
 public class MostrarMonstruoPadre extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldNombre;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldRaza;
+	private JTextField textFieldClase;
+	JButton buttonPrevious ;	
+	JButton buttonNext ;
+	private JTextField textFieldNivel;
+	private JTextField textFieldExp;
+	private JTextPane txtEstadisticas;
+	JButton btnEliminar;
+	JButton btnSeleccionar;
+	JButton okButton;
 
 	/**
 	 * Launch the application.
@@ -41,7 +59,7 @@ public class MostrarMonstruoPadre extends JDialog {
 	 * Create the dialog.
 	 */
 	public MostrarMonstruoPadre() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 389);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -53,9 +71,11 @@ public class MostrarMonstruoPadre extends JDialog {
 		}
 		{
 			textFieldNombre = new JTextField();
+			textFieldNombre.setEditable(false);
 			textFieldNombre.setBounds(104, 8, 86, 20);
 			contentPanel.add(textFieldNombre);
 			textFieldNombre.setColumns(10);
+			textFieldNombre.setText(Comunicacion.monstruoEncontrado.getNombre());
 		}
 		{
 			JLabel lblRaza = new JLabel("Raza:");
@@ -63,11 +83,13 @@ public class MostrarMonstruoPadre extends JDialog {
 			contentPanel.add(lblRaza);
 		}
 		{
-			textField_1 = new JTextField();
-			textField_1.setEditable(false);
-			textField_1.setBounds(104, 58, 86, 20);
-			contentPanel.add(textField_1);
-			textField_1.setColumns(10);
+			textFieldRaza = new JTextField();
+			textFieldRaza.setEditable(false);
+			textFieldRaza.setBounds(104, 58, 86, 20);
+			contentPanel.add(textFieldRaza);
+			textFieldRaza.setColumns(10);
+			if (Comunicacion.monstruoEncontrado != null)
+				textFieldRaza.setText(Comunicacion.monstruoEncontrado.getRaza().toString());
 		}
 		{
 			JLabel lblClase = new JLabel("Clase:");
@@ -75,41 +97,165 @@ public class MostrarMonstruoPadre extends JDialog {
 			contentPanel.add(lblClase);
 		}
 		{
-			textField_2 = new JTextField();
-			textField_2.setEditable(false);
-			textField_2.setBounds(104, 111, 86, 20);
-			contentPanel.add(textField_2);
-			textField_2.setColumns(10);
+			textFieldClase = new JTextField();
+			textFieldClase.setEditable(false);
+			textFieldClase.setBounds(104, 111, 86, 20);
+			contentPanel.add(textFieldClase);
+			textFieldClase.setColumns(10);
+			if (Comunicacion.monstruoEncontrado != null){
+				if(Comunicacion.monstruoEncontrado.getClass()== Guerrero.class)
+					textFieldClase.setText(Clase.GUERRERO.toString());
+				if(Comunicacion.monstruoEncontrado.getClass()== Mago.class)
+					textFieldClase.setText(Clase.MAGO.toString());
+				if(Comunicacion.monstruoEncontrado.getClass()== Sacerdote.class)
+					textFieldClase.setText(Clase.SACERDOTE.toString());
+			}
 		}
-		{
-			JButton btnSeleccionar = new JButton("Seleccionar");
-			btnSeleccionar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-						Comunicacion.monstruoSeleccionado = Comunicacion.jugador.getColeccionMonstruos().get(0);
-						Principal.textFieldNombrePJ.setText(Comunicacion.monstruoSeleccionado.getNombre());
-						setVisible(false);
-				}
-			});
-			btnSeleccionar.setBounds(290, 79, 89, 23);
-			contentPanel.add(btnSeleccionar);
-		}
+		
+		txtEstadisticas = new JTextPane();
+		txtEstadisticas.setBackground(Color.WHITE);
+		if (Comunicacion.monstruoEncontrado != null)
+			txtEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
+					"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
+					"\rPoder de habilidad: "+Comunicacion.monstruoEncontrado.getPoderHabilidad()+
+					"\rArmadura: "+Comunicacion.monstruoEncontrado.getArmadura()+
+					"\rResistencia mágica: "+Comunicacion.monstruoEncontrado.getResistenciaMagica()+
+					"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoEncontrado.getProbabilidadCritico()+
+					"\rProbabilidad de esquivar: "+Comunicacion.monstruoEncontrado.getProbabilidadEsquivar());
+		txtEstadisticas.setEditable(false);
+		txtEstadisticas.setBounds(214, 11, 210, 117);
+		contentPanel.add(txtEstadisticas);
+		
+		JLabel lblNivel = new JLabel("Nivel:");
+		lblNivel.setBounds(10, 174, 46, 14);
+		contentPanel.add(lblNivel);
+		
+		JLabel lblExp = new JLabel("Exp:");
+		lblExp.setBounds(10, 227, 46, 14);
+		contentPanel.add(lblExp);
+		
+		textFieldNivel = new JTextField();
+		textFieldNivel.setEditable(false);
+		textFieldNivel.setBounds(104, 171, 86, 20);
+		contentPanel.add(textFieldNivel);
+		textFieldNivel.setColumns(10);
+		textFieldNivel.setText(""+Comunicacion.monstruoEncontrado.getNivel());
+		
+		textFieldExp = new JTextField();
+		textFieldExp.setEditable(false);
+		textFieldExp.setBounds(104, 224, 86, 20);
+		contentPanel.add(textFieldExp);
+		textFieldExp.setText(""+Comunicacion.monstruoEncontrado.getExp());
+		textFieldExp.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			int indexPrimero=0;
+			if(Comunicacion.monstruosEncontrados !=null)
+				indexPrimero = Comunicacion.monstruosEncontrados.getColeccion().indexOf(Comunicacion.monstruoEncontrado);
+			buttonPrevious = new JButton("<");
+			if(indexPrimero == 0)
+				buttonPrevious.setEnabled(false);
+			buttonPrevious.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int index = Comunicacion.monstruosEncontrados.getColeccion().indexOf(Comunicacion.monstruoEncontrado);
+					if(index == 1){
+						buttonPrevious.setEnabled(false); 
+					}else
+						buttonPrevious.setEnabled(true);
+					if(0<=--index){
+						Comunicacion.monstruoEncontrado = Comunicacion.monstruosEncontrados.get(index);
+						buttonNext.setEnabled(true);
+					}
+					actualizar();
+
+				}
+			});
+			
+			btnEliminar = new JButton("Eliminar");
+			btnEliminar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						Comunicacion.jugador.getColeccionMonstruos().remove(Comunicacion.monstruoEncontrado.getNombre());
+						setVisible(false);
+					} catch (NombreInvalidoException
+							| MonstruoNoExisteException e1) {
+						//capturar
+					}
+				}
+			});
+			buttonPane.add(btnEliminar);
+			buttonPane.add(buttonPrevious);
+			btnEliminar.setVisible(false);
+			
+			buttonNext = new JButton(">");
+			if(Comunicacion.monstruosEncontrados != null)
+				if(indexPrimero == Comunicacion.monstruosEncontrados.size()-1)
+					buttonNext.setEnabled(false);
+			buttonNext.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int index = Comunicacion.monstruosEncontrados.getColeccion().indexOf(Comunicacion.monstruoEncontrado);
+					if(index == Comunicacion.monstruosEncontrados.size()-2){
+						buttonNext.setEnabled(false); 
+					}else
+						buttonNext.setEnabled(true);
+					if(Comunicacion.monstruosEncontrados.size()>=++index){
+						Comunicacion.monstruoEncontrado = Comunicacion.monstruosEncontrados.get(index);
+						buttonPrevious.setEnabled(true);
+					}
+					actualizar();
+				}
+			});
+			buttonPane.add(buttonNext);
 			{
-				JButton okButton = new JButton("OK");
+				btnSeleccionar = new JButton("Seleccionar");
+				buttonPane.add(btnSeleccionar);
+				btnSeleccionar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+							Comunicacion.monstruoSeleccionado = Comunicacion.monstruoEncontrado;
+							Principal.actualizar();
+							setVisible(false);
+					}
+				});
+			}
+			{
+				okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						setVisible(false);
+						Comunicacion.monstruoEncontrado = null;
+						Comunicacion.monstruosEncontrados = null;
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			actualizar();
 		}
+		
+		
 	}
-
+	
+	private void actualizar(){
+		txtEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
+				"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
+				"\rPoder de habilidad: "+Comunicacion.monstruoEncontrado.getPoderHabilidad()+
+				"\rArmadura: "+Comunicacion.monstruoEncontrado.getArmadura()+
+				"\rResistencia mágica: "+Comunicacion.monstruoEncontrado.getResistenciaMagica()+
+				"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoEncontrado.getProbabilidadCritico()+
+				"\rProbabilidad de esquivar: "+Comunicacion.monstruoEncontrado.getProbabilidadEsquivar());
+		textFieldNombre.setText(Comunicacion.monstruoEncontrado.getNombre());
+		textFieldRaza.setText(Comunicacion.monstruoEncontrado.getRaza().toString());
+		if(Comunicacion.monstruoEncontrado.getClass()== Guerrero.class)
+			textFieldClase.setText(Clase.GUERRERO.toString());
+		if(Comunicacion.monstruoEncontrado.getClass()== Mago.class)
+			textFieldClase.setText(Clase.MAGO.toString());
+		if(Comunicacion.monstruoEncontrado.getClass()== Sacerdote.class)
+			textFieldClase.setText(Clase.SACERDOTE.toString());
+		textFieldNivel.setText(""+Comunicacion.monstruoEncontrado.getNivel());
+		textFieldExp.setText(""+Comunicacion.monstruoEncontrado.getExp());
+	}
 }

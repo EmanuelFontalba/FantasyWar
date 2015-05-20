@@ -26,7 +26,6 @@ public class VentanaPadreMonstruo extends JDialog {
 	protected JComboBox comboBoxRaza = new JComboBox();
 	protected JLabel lblClase = new JLabel("Clase:");
 	protected JComboBox comboBoxClase = new JComboBox();
-	protected JTextPane textPaneImage = new JTextPane();
 	protected JPanel buttonPane;
 	protected JButton buttonPrevious;
 	protected JButton buttonNext;
@@ -54,7 +53,7 @@ public class VentanaPadreMonstruo extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaPadreMonstruo() {
-		setBounds(100, 100, 380, 273);
+		setBounds(100, 100, 224, 273);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -87,12 +86,6 @@ public class VentanaPadreMonstruo extends JDialog {
 		comboBoxClase.setBounds(86, 153, 99, 20);
 		contentPanel.add(comboBoxClase);
 		comboBoxClase.setModel(new DefaultComboBoxModel(Clase.values()));
-		
-		
-		textPaneImage.setText("imagen pj");
-		textPaneImage.setEditable(false);
-		textPaneImage.setBounds(195, 23, 157, 151);
-		contentPanel.add(textPaneImage);
 		{
 			buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

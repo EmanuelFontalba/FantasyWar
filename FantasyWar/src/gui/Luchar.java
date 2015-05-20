@@ -81,7 +81,7 @@ public class Luchar extends JDialog {
 		} catch (NombreInvalidoException e2) {
 
 		}
-		setBounds(100, 100, 435, 392);
+		setBounds(100, 100, 436, 393);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(143, 188, 143));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -168,13 +168,20 @@ public class Luchar extends JDialog {
 		contentPanel.add(textFieldSaludCPU);
 		textFieldSaludCPU.setColumns(10);
 		
-		JLabel lblNewLabelRazaCPU = new JLabel("New label");
-		lblNewLabelRazaCPU.setBounds(234, 27, 46, 14);
+		JLabel lblNewLabelRazaCPU = new JLabel(monstruoCPU.getRaza().toString());
+		lblNewLabelRazaCPU.setBounds(234, 27, 162, 14);
 		contentPanel.add(lblNewLabelRazaCPU);
 		
-		JLabel lblNewLabelClaseCPU = new JLabel("New label");
-		lblNewLabelClaseCPU.setBounds(350, 27, 46, 14);
+		JLabel lblNewLabelClaseCPU= new JLabel();
+		lblNewLabelClaseCPU.setBounds(235, 43, 161, 14);
 		contentPanel.add(lblNewLabelClaseCPU);
+		if(monstruoCPU.getClass() == Guerrero.class)
+			lblNewLabelClaseCPU.setText(Clase.GUERRERO.toString());
+		if(monstruoCPU.getClass() == Mago.class)
+			lblNewLabelClaseCPU.setText(Clase.MAGO.toString());
+		if(monstruoCPU.getClass() == Sacerdote.class)
+			lblNewLabelClaseCPU.setText(Clase.SACERDOTE.toString());
+		
 		{
 			textPaneEstadisticas = new JTextPane();
 			textPaneEstadisticas.setEditable(false);
@@ -187,7 +194,7 @@ public class Luchar extends JDialog {
 
 			public void actionPerformed(ActionEvent e) {
 
-				ataqueAleatorioCPU();
+
 			
 					//Selección de el ataque del turno
 					int danno=0;
@@ -206,6 +213,7 @@ public class Luchar extends JDialog {
 						}
 						Comunicacion.jugador.aumentarExp(1000);
 						Comunicacion.monstruoSeleccionado.reestablecerse();
+						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
 					}
 
@@ -225,6 +233,7 @@ public class Luchar extends JDialog {
 						}
 						Comunicacion.jugador.aumentarExp(50);
 						Comunicacion.monstruoSeleccionado.reestablecerse();
+						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Hs perdido.");
 					}
 				
@@ -233,7 +242,7 @@ public class Luchar extends JDialog {
 
 			private Ataques ataqueAleatorioCPU() {
 				//Ataque aleatorio de la cpu
-				int dados=(int) (Math.random()*(0-3)+3);
+				int dados=(int) (Math.random()*4);
 
 				if(monstruoCPU.getClass() == Mago.class){
 					switch(dados){
@@ -245,8 +254,6 @@ public class Luchar extends JDialog {
 						return Ataques.LLUVIA_DE_METEOROS;
 					case 3:
 						return Ataques.MEDITACION;
-					default:
-						break;
 					}
 				}
 				if(monstruoCPU.getClass() == Sacerdote.class){
@@ -259,11 +266,9 @@ public class Luchar extends JDialog {
 						return Ataques.ESCUDO_DIVINO;
 					case 3:
 						return Ataques.CURACION_ABSOLUTA;
-					default: 
-						break;
 					}
 				}
-				if(guerreroCPU != null){
+				if(monstruoCPU.getClass() == Guerrero.class){
 					switch(dados){
 					case 0:
 						return Ataques.RAJAR;
@@ -273,11 +278,9 @@ public class Luchar extends JDialog {
 						return Ataques.PROTECCION;
 					case 3:
 						return Ataques.FILOTORMENTA;
-					default:
-						break;
 					}
 				}
-				return Ataques.BOLA_DE_FUEGO;
+				return null;
 			}
 
 
@@ -301,8 +304,8 @@ public class Luchar extends JDialog {
 
 
 	private void monstruoAleatorio() throws NombreInvalidoException{
-		Razas razaSeleccionada = Razas.values()[(int) (Math.random()*(0-5)+5)];
-		Clase claseSeleccionada = Clase.values()[(int) (Math.random()*(0-3)+3)];
+		Razas razaSeleccionada = Razas.values()[(int) (Math.random()*6)];
+		Clase claseSeleccionada = Clase.values()[(int) (Math.random()*3)];
 		switch(claseSeleccionada){
 		case GUERRERO:
 			monstruoCPU = new Guerrero("Monstruo", razaSeleccionada);

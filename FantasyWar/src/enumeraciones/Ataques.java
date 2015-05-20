@@ -8,8 +8,17 @@ import Monstruos.Sacerdote;
 
 public enum Ataques {
 	//Sacerdote
+	/**
+	 * Ataque energia divina. Clase sacerdote.
+	 */
 	ENERGIA_DIVINA (Sacerdote.class),
+	/**
+	 * Ataque curación ancestral. Clase sacerdote.
+	 */
 	CURACION_ANCESTRAL(Sacerdote.class),
+	/**
+	 * Ataque escudo divino. Clase sacerdote.
+	 */
 	ESCUDO_DIVINO(Sacerdote.class),
 	CURACION_ABSOLUTA(Sacerdote.class),
 	//Mago

@@ -1,5 +1,6 @@
 package clasesPrincipales;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Monstruos.Mago;
@@ -14,12 +15,21 @@ import excepciones.NombreInvalidoException;
  * @author Emanuel Galván Fontalba
  *
  */
-public class Coleccion {
+@SuppressWarnings("serial")
+public class Coleccion implements Serializable {
 	/**
 	 * Colección de monstruos
 	 */
 	private ArrayList<Monstruo> coleccion = new ArrayList<Monstruo>();
 	
+	public ArrayList<Monstruo> getColeccion() {
+		return coleccion;
+	}
+
+	public void setColeccion(ArrayList<Monstruo> coleccion) {
+		this.coleccion = coleccion;
+	}
+
 	/**
 	 * Añade un monstruo a nuestra colección
 	 * @param monstruo
@@ -46,7 +56,7 @@ public class Coleccion {
 	 * @throws MonstruoNoExisteException 
 	 * 				El monstruo no está en la colección.
 	 */
-	void remove(String nombre) throws NombreInvalidoException, MonstruoNoExisteException{
+	public void remove(String nombre) throws NombreInvalidoException, MonstruoNoExisteException{
 		Mago monstruo = new Mago(nombre);
 		if(coleccion.remove(monstruo))
 			return;
@@ -69,9 +79,9 @@ public class Coleccion {
 	 * 				El nombre no empieza por mayuscula.
 	 */
 	boolean monstruoExiste(String nombre) throws NombreInvalidoException{
-		Mago mago = new Mago(nombre);
+		Monstruo m1 = new Mago(nombre);
 		for(Monstruo monstruo : coleccion)
-			if(monstruo.getNombre().equals(mago.getNombre()))
+			if(monstruo.getNombre().equals(m1.getNombre()))
 				return true;
 		return false;
 	}

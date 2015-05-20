@@ -170,6 +170,7 @@ public class Guerrero extends Monstruo implements Luchable {
 		setIra(getIramax());
 		setArmaduraProvisional(0);
 		setResistenciaMagicaProvisional(0);
+		setMuerto(false);
 		
 	}
 

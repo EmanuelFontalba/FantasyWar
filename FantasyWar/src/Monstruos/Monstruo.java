@@ -1,5 +1,6 @@
 package Monstruos;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -17,7 +18,7 @@ import interfaces.Razable;
  *
  */
 
-public abstract class Monstruo extends Leveable implements Razable{
+public abstract class Monstruo extends Leveable implements Razable, Serializable{
 	private String nombre;
 	private Date fNacimiento;
 	private Razas raza;
@@ -198,7 +199,7 @@ public abstract class Monstruo extends Leveable implements Razable{
 	 * 			Nombre a comprobar
 	 * @return true si es valido si no false.
 	 */
-	public boolean nombreValido(String nombre){
+	public static boolean nombreValido(String nombre){
 		return PATRON_NOMBRE.matcher(nombre).matches();
 	}
 	

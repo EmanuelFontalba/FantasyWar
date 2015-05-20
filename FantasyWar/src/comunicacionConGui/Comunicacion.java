@@ -1,11 +1,8 @@
 package comunicacionConGui;
 
 import java.io.File;
-
-import Monstruos.Guerrero;
-import Monstruos.Mago;
 import Monstruos.Monstruo;
-import Monstruos.Sacerdote;
+import clasesPrincipales.Coleccion;
 import clasesPrincipales.Jugador;
 
 public class Comunicacion {
@@ -14,4 +11,6 @@ public class Comunicacion {
 	public static boolean guardado=false;
 	public static boolean modificado = false;
 	public static Monstruo monstruoSeleccionado;
+	public static Monstruo monstruoEncontrado;
+	public static Coleccion monstruosEncontrados;
 }

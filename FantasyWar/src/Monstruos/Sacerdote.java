@@ -165,6 +165,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 		setFe(getFemax());
 		setArmaduraProvisional(0);
 		setResistenciaMagicaProvisional(0);
+		setMuerto(false);
 	}
 
 	@Override

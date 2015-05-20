@@ -1,5 +1,6 @@
 package clasesPrincipales;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -9,7 +10,7 @@ import excepciones.NombreInvalidoException;
  * 
  * @author Emanuel Galván Fontalba
  */
-public class Jugador extends Leveable{
+public class Jugador extends Leveable implements Serializable{
 	//datos del jugador
 	/**
 	 * Alias del jugador
@@ -67,7 +68,7 @@ public class Jugador extends Leveable{
 	 * @throws NombreInvalidoException 
 	 * 			El nombre no comienza por mayuscula.	
 	 */
-	private void setAlias(String alias) throws NombreInvalidoException {
+	public void setAlias(String alias) throws NombreInvalidoException {
 		if(nombreValido(alias))
 			this.alias = alias;
 		else
