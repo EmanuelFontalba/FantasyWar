@@ -64,6 +64,8 @@ public class NuevoJugador extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
+					private Component contentPane;
+
 					public void actionPerformed(ActionEvent e) {
 						try {
 							Comunicacion.jugador = new Jugador(textField.getText());
@@ -74,7 +76,7 @@ public class NuevoJugador extends JDialog {
 							JOptionPane.showMessageDialog(parentComponent, "Partida creada con éxito");
 							setVisible(false);
 						} catch (NombreInvalidoException e1) {
-							//CAPTURAR EXCEPCION
+							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				});

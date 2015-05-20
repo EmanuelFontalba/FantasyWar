@@ -26,6 +26,9 @@ import java.io.IOException;
 import javax.swing.JTextField;
 
 import enumeraciones.Razas;
+import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class Principal {
 
@@ -34,6 +37,7 @@ public class Principal {
 	static JTextField textFieldNombrePJ;
 	static JTextPane txtpnEstadisticas ;
 	static JLabel lblImagenDelMonstruo;
+	private Component contentPane;
 
 	/**
 	 * Launch the application.
@@ -119,7 +123,7 @@ public class Principal {
 		
 		JMenuItem mntmGuardar = new JMenuItem("Guardar");
 		mntmGuardar.addActionListener(new ActionListener() {
-			private Component contentPane;
+			
 
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.guardado)
@@ -169,7 +173,7 @@ public class Principal {
 					Comunicacion.guardado=true;
 					Comunicacion.modificado = false;
 				} catch (IOException e1) {
-					System.out.println(e1);
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 				if(Comunicacion.archivoElegido!=null)
 					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.archivoElegido.getName());
@@ -195,7 +199,7 @@ public class Principal {
 		mntmMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null){
-					//PANEL
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					MostrarJugador mostrar = new MostrarJugador();
 					mostrar.setVisible(true);
@@ -208,7 +212,7 @@ public class Principal {
 		mntmEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null){
-					//PANEL
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					EditarJugador editar = new EditarJugador();
 					editar.setVisible(true);
@@ -225,7 +229,7 @@ public class Principal {
 		mntmAadirMonstruo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null){
-					//PANEL
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					AnnadirMonstruo annadirMonstruo = new AnnadirMonstruo();
 					annadirMonstruo.setVisible(true);
@@ -238,7 +242,7 @@ public class Principal {
 		mntmEliminarMonstruo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null){
-					//PANEL
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					BuscarParaEliminar eliminar = new BuscarParaEliminar();
 					eliminar.setVisible(true);
@@ -254,7 +258,7 @@ public class Principal {
 		mntmNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null){
-					//PANEL
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					BuscarPorNombre buscar = new BuscarPorNombre();
 					buscar.setVisible(true);
@@ -267,7 +271,7 @@ public class Principal {
 		mntmRaza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null){
-					//PANEL
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					BuscarPorRaza buscar = new BuscarPorRaza();
 					buscar.setVisible(true);
@@ -280,7 +284,7 @@ public class Principal {
 		mntmMostrarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null){
-					//PANEL
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					Comunicacion.monstruosEncontrados = Comunicacion.jugador.getColeccionMonstruos();
 					if(Comunicacion.monstruosEncontrados.size() == 0)
@@ -299,19 +303,34 @@ public class Principal {
 		mnAyuda.setMnemonic('h');
 		menuBar.add(mnAyuda);
 		
-		JMenuItem mntmTrucos = new JMenuItem("Trucos");
-		mnAyuda.add(mntmTrucos);
-		
 		JMenu mnAcercaDe = new JMenu("Acerca de...");
 		mnAyuda.add(mnAcercaDe);
 		
 		JMenuItem mntmLucha = new JMenuItem("Lucha");
+		mntmLucha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AyudaLucha ayuda = new AyudaLucha();
+				ayuda.setVisible(true);
+			}
+		});
 		mnAcercaDe.add(mntmLucha);
 		
 		JMenuItem mntmCreacin = new JMenuItem("Creaci\u00F3n");
+		mntmCreacin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AyudaCreación ayuda = new AyudaCreación();
+				ayuda.setVisible(true);
+			}
+		});
 		mnAcercaDe.add(mntmCreacin);
 		
 		JMenuItem mntmClasesYRazas = new JMenuItem("Clases y razas");
+		mntmClasesYRazas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AyudaClasesRazas ayuda = new AyudaClasesRazas();
+				ayuda.setVisible(true);
+			}
+		});
 		mnAcercaDe.add(mntmClasesYRazas);
 		
 		JMenuItem mntmCrditos = new JMenuItem("Cr\u00E9ditos");
@@ -319,10 +338,13 @@ public class Principal {
 		frmPartidaDe.getContentPane().setLayout(null);
 		
 		JLabel lblPersonaje = new JLabel("Personaje: ");
+		lblPersonaje.setForeground(Color.WHITE);
 		lblPersonaje.setBounds(10, 11, 89, 14);
 		frmPartidaDe.getContentPane().add(lblPersonaje);
 		
 		txtpnEstadisticas = new JTextPane();
+		txtpnEstadisticas.setForeground(new Color(255, 255, 255));
+		txtpnEstadisticas.setBackground(new Color(128, 128, 128));
 		txtpnEstadisticas.setEditable(false);
 		txtpnEstadisticas.setText("Estadisticas");
 		txtpnEstadisticas.setBounds(347, 36, 399, 196);
@@ -331,9 +353,10 @@ public class Principal {
 		JButton btnLuchar = new JButton("Luchar");
 		btnLuchar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null || Comunicacion.monstruoSeleccionado == null){
-					//PANEL
-				}
+				if(Comunicacion.jugador == null)
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
+				if(Comunicacion.monstruoSeleccionado == null)
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener un monstruo seleccionado.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				else{
 					Luchar lucha = new Luchar();
 					lucha.setVisible(true);
@@ -346,6 +369,7 @@ public class Principal {
 		JButton btnMazmorra = new JButton("Mazmorra");
 		btnMazmorra.setBounds(560, 240, 186, 118);
 		frmPartidaDe.getContentPane().add(btnMazmorra);
+		btnMazmorra.setEnabled(false);
 		
 		textFieldNombrePJ = new JTextField();
 		textFieldNombrePJ.setEditable(false);
@@ -356,6 +380,11 @@ public class Principal {
 		lblImagenDelMonstruo = new JLabel("");
 		lblImagenDelMonstruo.setBounds(10, 49, 298, 183);
 		frmPartidaDe.getContentPane().add(lblImagenDelMonstruo);
+		
+		JLabel labelFondo = new JLabel("");
+		labelFondo.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\fondoPrincipal.jpg"));
+		labelFondo.setBounds(-28, -37, 784, 406);
+		frmPartidaDe.getContentPane().add(labelFondo);
 	}
 	
 	private static int modificarCambios() {

@@ -2,10 +2,12 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -54,6 +56,9 @@ public class AnnadirMonstruo extends VentanaPadreMonstruo {
 			}
 		});
 		okButton.addActionListener(new ActionListener() {
+			private Component contentPane;
+			private Component parentComponent;
+
 			public void actionPerformed(ActionEvent arg0){
 				try {
 					if(textFieldNombre.getText() == null)
@@ -68,8 +73,9 @@ public class AnnadirMonstruo extends VentanaPadreMonstruo {
 						Comunicacion.jugador.getColeccionMonstruos().add
 							(new Guerrero(textFieldNombre.getText(), (Razas) comboBoxRaza.getSelectedItem()));
 					setVisible(false);
+					JOptionPane.showMessageDialog(parentComponent, "Monstruo añadido con éxito");
 				} catch (NombreInvalidoException | MonstruoYaExisteException e) {
-					System.out.println(e);
+					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

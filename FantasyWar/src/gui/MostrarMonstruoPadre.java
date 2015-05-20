@@ -1,10 +1,12 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -24,6 +26,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -175,13 +178,17 @@ public class MostrarMonstruoPadre extends JDialog {
 			
 			btnEliminar = new JButton("Eliminar");
 			btnEliminar.addActionListener(new ActionListener() {
+				private Component contentPane;
+				private Component parentComponent;
+
 				public void actionPerformed(ActionEvent e) {
 					try {
 						Comunicacion.jugador.getColeccionMonstruos().remove(Comunicacion.monstruoEncontrado.getNombre());
 						setVisible(false);
+						JOptionPane.showMessageDialog(parentComponent, "Monstruo eliminado con éxito");
 					} catch (NombreInvalidoException
 							| MonstruoNoExisteException e1) {
-						//capturar
+						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});

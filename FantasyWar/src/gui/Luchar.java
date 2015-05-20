@@ -36,9 +36,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class Luchar extends JDialog {
 
+	private Component contentPane;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldSeparator;
 	private JTextField textFieldSeparator2;
@@ -76,10 +79,11 @@ public class Luchar extends JDialog {
 	 */
 	@SuppressWarnings("unchecked")
 	public Luchar() {
+		setTitle("Lucha");
 		try {
 			monstruoAleatorio();
 		} catch (NombreInvalidoException e2) {
-
+			JOptionPane.showMessageDialog(contentPane, e2.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		setBounds(100, 100, 436, 393);
 		getContentPane().setLayout(new BorderLayout());
@@ -89,6 +93,8 @@ public class Luchar extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblTu = new JLabel("Tu:");
+			lblTu.setFont(lblTu.getFont().deriveFont(lblTu.getFont().getStyle() | Font.BOLD));
+			lblTu.setForeground(new Color(255, 255, 255));
 			lblTu.setBounds(87, 11, 46, 14);
 			contentPanel.add(lblTu);
 		}
@@ -102,12 +108,16 @@ public class Luchar extends JDialog {
 		}
 		{
 			JLabel lblCpu = new JLabel("CPU:");
+			lblCpu.setFont(lblCpu.getFont().deriveFont(lblCpu.getFont().getStyle() | Font.BOLD));
+			lblCpu.setForeground(new Color(0, 0, 0));
 			lblCpu.setBounds(304, 11, 46, 14);
 			contentPanel.add(lblCpu);
 		}
 		{
 			JLabel lblSalud = new JLabel("Salud:");
-			lblSalud.setBounds(10, 50, 46, 14);
+			lblSalud.setFont(lblSalud.getFont().deriveFont(lblSalud.getFont().getStyle() | Font.BOLD));
+			lblSalud.setForeground(new Color(255, 255, 255));
+			lblSalud.setBounds(22, 43, 46, 14);
 			contentPanel.add(lblSalud);
 		}
 		{
@@ -125,11 +135,15 @@ public class Luchar extends JDialog {
 
 
 		JLabel lblHabilidades = new JLabel("Habilidades:");
+		lblHabilidades.setFont(lblHabilidades.getFont().deriveFont(lblHabilidades.getFont().getStyle() | Font.BOLD));
+		lblHabilidades.setForeground(new Color(255, 255, 255));
 		lblHabilidades.setBounds(235, 134, 161, 14);
 		contentPanel.add(lblHabilidades);
 
 		JLabel lblTusEstadisticas = new JLabel("Tus estadisticas:");
-		lblTusEstadisticas.setBounds(10, 113, 191, 14);
+		lblTusEstadisticas.setFont(lblTusEstadisticas.getFont().deriveFont(lblTusEstadisticas.getFont().getStyle() | Font.BOLD));
+		lblTusEstadisticas.setForeground(new Color(255, 255, 255));
+		lblTusEstadisticas.setBounds(23, 109, 191, 14);
 		contentPanel.add(lblTusEstadisticas);
 
 		{
@@ -138,6 +152,7 @@ public class Luchar extends JDialog {
 			textFieldEnergia.setBounds(101, 72, 86, 20);
 			contentPanel.add(textFieldEnergia);
 			textFieldEnergia.setColumns(10);
+			
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -169,10 +184,14 @@ public class Luchar extends JDialog {
 		textFieldSaludCPU.setColumns(10);
 		
 		JLabel lblNewLabelRazaCPU = new JLabel(monstruoCPU.getRaza().toString());
+		lblNewLabelRazaCPU.setFont(lblNewLabelRazaCPU.getFont().deriveFont(lblNewLabelRazaCPU.getFont().getStyle() | Font.BOLD));
+		lblNewLabelRazaCPU.setForeground(new Color(0, 0, 0));
 		lblNewLabelRazaCPU.setBounds(234, 27, 162, 14);
 		contentPanel.add(lblNewLabelRazaCPU);
 		
 		JLabel lblNewLabelClaseCPU= new JLabel();
+		lblNewLabelClaseCPU.setFont(lblNewLabelClaseCPU.getFont().deriveFont(lblNewLabelClaseCPU.getFont().getStyle() | Font.BOLD));
+		lblNewLabelClaseCPU.setForeground(new Color(0, 0, 0));
 		lblNewLabelClaseCPU.setBounds(235, 43, 161, 14);
 		contentPanel.add(lblNewLabelClaseCPU);
 		if(monstruoCPU.getClass() == Guerrero.class)
@@ -188,6 +207,45 @@ public class Luchar extends JDialog {
 			textPaneEstadisticas.setBounds(10, 134, 215, 176);
 			contentPanel.add(textPaneEstadisticas);
 		}
+		{
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\fondoLucha.jpg"));
+			label.setBounds(-38, -55, 677, 506);
+			contentPanel.add(label);
+		}
+		
+//		{
+//			JLabel labelIra= new JLabel("Ira");
+//			JLabel labelMana= new JLabel("Mana");
+//			JLabel labelFe= new JLabel("Fe");
+//			labelIra.setBounds(22, 73, 46, 14);
+//			contentPanel.add(labelIra);
+//			labelIra.setFont(labelIra.getFont().deriveFont(labelIra.getFont().getStyle() | Font.BOLD));
+//			labelIra.setForeground(new Color(255, 255, 255));
+//			
+//			labelMana.setBounds(22, 73, 46, 14);
+//			contentPanel.add(labelMana);
+//			labelMana.setFont(labelMana.getFont().deriveFont(labelMana.getFont().getStyle() | Font.BOLD));
+//			labelMana.setForeground(new Color(255, 255, 255));
+//			
+//			labelFe.setBounds(22, 73, 46, 14);
+//			contentPanel.add(labelFe);
+//			labelFe.setFont(labelFe.getFont().deriveFont(labelFe.getFont().getStyle() | Font.BOLD));
+//			labelFe.setForeground(new Color(255, 255, 255));
+//			
+//			labelIra.setVisible(false);
+//			labelFe.setVisible(false);
+//			labelMana.setVisible(false);
+//			
+//			if(Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class)
+//				labelIra.setVisible(true);
+//			if(Comunicacion.monstruoSeleccionado.getClass() == Sacerdote.class)
+//				labelFe.setVisible(true);
+//			if(Comunicacion.monstruoSeleccionado.getClass() == Mago.class)
+//				labelMana.setVisible(true);
+//			
+//			
+//		}
 		actualizarVista();
 		btnNewButton.addActionListener(new ActionListener() {
 			private Component parentComponent;
@@ -201,7 +259,7 @@ public class Luchar extends JDialog {
 					try {
 						Comunicacion.monstruoSeleccionado.luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
 					} catch (Exception e1) {
-						// capturar
+						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 					if(monstruoCPU.isMuerto()){
 						setVisible(false);
@@ -209,7 +267,7 @@ public class Luchar extends JDialog {
 							Comunicacion.jugador.getColeccionMonstruos().get(Comunicacion.monstruoSeleccionado.getNombre()).aumentarExp(2000);
 						} catch (MonstruoNoExisteException
 								| NombreInvalidoException e1) {
-							// capturar
+							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 						Comunicacion.jugador.aumentarExp(1000);
 						Comunicacion.monstruoSeleccionado.reestablecerse();
@@ -220,7 +278,7 @@ public class Luchar extends JDialog {
 					try {
 						monstruoCPU.luchar(ataqueAleatorioCPU(), Comunicacion.monstruoSeleccionado);
 					} catch (Exception e1) {
-						// capturar
+						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 					if(Comunicacion.monstruoSeleccionado.isMuerto()){
 						setVisible(false);
@@ -229,7 +287,7 @@ public class Luchar extends JDialog {
 							(Comunicacion.monstruoSeleccionado.getNombre()).aumentarExp(100);
 						} catch (MonstruoNoExisteException
 								| NombreInvalidoException e1) {
-							// capturar
+							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 						Comunicacion.jugador.aumentarExp(50);
 						Comunicacion.monstruoSeleccionado.reestablecerse();
@@ -288,6 +346,9 @@ public class Luchar extends JDialog {
 
 	}
 
+	/**
+	 * Actualiza la vista de la ventana.
+	 */
 	private void actualizarVista() {
 		textFieldSaludCPU.setText((new Integer(monstruoCPU.getSaludActual())).toString());
 		textFieldSalud.setText((new Integer(Comunicacion.monstruoSeleccionado.getSaludActual())).toString());
@@ -302,7 +363,11 @@ public class Luchar extends JDialog {
 	}
 
 
-
+	/**
+	 * Genera un monstruo aleatorio.
+	 * @throws NombreInvalidoException
+	 * 				Si el nombre no empieza por mayuscula
+	 */
 	private void monstruoAleatorio() throws NombreInvalidoException{
 		Razas razaSeleccionada = Razas.values()[(int) (Math.random()*6)];
 		Clase claseSeleccionada = Clase.values()[(int) (Math.random()*3)];
