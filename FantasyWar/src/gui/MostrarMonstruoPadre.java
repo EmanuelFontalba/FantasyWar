@@ -117,6 +117,7 @@ public class MostrarMonstruoPadre extends JDialog {
 		}
 		
 		txtEstadisticas = new JTextPane();
+		txtEstadisticas.setOpaque(false);
 		txtEstadisticas.setBackground(Color.WHITE);
 		if (Comunicacion.monstruoEncontrado != null)
 			txtEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+

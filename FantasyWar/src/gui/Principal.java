@@ -84,6 +84,11 @@ public class Principal {
 		JMenuItem mntmNuevaPartida = new JMenuItem("Nueva partida");
 		mntmNuevaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(Comunicacion.jugador == null){
+					NuevoJugador nuevo = new NuevoJugador();
+					nuevo.setVisible(true);
+					return;
+				}
 				if(Comunicacion.modificado){
 					Nuevo nuevo = new Nuevo();
 					nuevo.setVisible(true);
@@ -346,6 +351,7 @@ public class Principal {
 		frmPartidaDe.getContentPane().add(lblPersonaje);
 		
 		txtpnEstadisticas = new JTextPane();
+		txtpnEstadisticas.setOpaque(false);
 		txtpnEstadisticas.setFont(txtpnEstadisticas.getFont().deriveFont(txtpnEstadisticas.getFont().getStyle() | Font.BOLD));
 		txtpnEstadisticas.setForeground(new Color(255, 255, 255));
 		txtpnEstadisticas.setBackground(new Color(189, 183, 107));

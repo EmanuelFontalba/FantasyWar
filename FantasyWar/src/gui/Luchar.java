@@ -192,6 +192,9 @@ public class Luchar extends JDialog {
 		
 		{
 			textPaneEstadisticas = new JTextPane();
+			textPaneEstadisticas.setOpaque(false);
+			textPaneEstadisticas.setForeground(new Color(255, 255, 255));
+			textPaneEstadisticas.setFont(textPaneEstadisticas.getFont().deriveFont(textPaneEstadisticas.getFont().getStyle() | Font.BOLD));
 			textPaneEstadisticas.setEditable(false);
 			textPaneEstadisticas.setBounds(10, 134, 215, 176);
 			contentPanel.add(textPaneEstadisticas);
