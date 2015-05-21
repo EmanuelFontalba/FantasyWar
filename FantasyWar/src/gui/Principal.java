@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 
 import Monstruos.Guerrero;
 import Monstruos.Mago;
+import Monstruos.Sacerdote;
 import clasesPrincipales.GestionFicheros;
 import clasesPrincipales.Jugador;
 import comunicacionConGui.Comunicacion;
@@ -26,9 +27,11 @@ import java.io.IOException;
 import javax.swing.JTextField;
 
 import enumeraciones.Razas;
+
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Font;
 
 public class Principal {
 
@@ -343,8 +346,9 @@ public class Principal {
 		frmPartidaDe.getContentPane().add(lblPersonaje);
 		
 		txtpnEstadisticas = new JTextPane();
+		txtpnEstadisticas.setFont(txtpnEstadisticas.getFont().deriveFont(txtpnEstadisticas.getFont().getStyle() | Font.BOLD));
 		txtpnEstadisticas.setForeground(new Color(255, 255, 255));
-		txtpnEstadisticas.setBackground(new Color(128, 128, 128));
+		txtpnEstadisticas.setBackground(new Color(189, 183, 107));
 		txtpnEstadisticas.setEditable(false);
 		txtpnEstadisticas.setText("Estadisticas");
 		txtpnEstadisticas.setBounds(347, 36, 399, 196);
@@ -378,11 +382,11 @@ public class Principal {
 		textFieldNombrePJ.setColumns(10);
 		
 		lblImagenDelMonstruo = new JLabel("");
-		lblImagenDelMonstruo.setBounds(10, 49, 298, 183);
+		lblImagenDelMonstruo.setBounds(34, 49, 274, 183);
 		frmPartidaDe.getContentPane().add(lblImagenDelMonstruo);
 		
 		JLabel labelFondo = new JLabel("");
-		labelFondo.setIcon(new ImageIcon("fondoPrincipal.jpg"));
+		labelFondo.setIcon(new ImageIcon("src\\imagenes\\fondoPrincipal.jpg"));
 		labelFondo.setBounds(-28, -37, 784, 406);
 		frmPartidaDe.getContentPane().add(labelFondo);
 	}
@@ -392,16 +396,7 @@ public class Principal {
 	}
 
 	public static void actualizar() {
-		lblImagenDelMonstruo.setIcon(null);
-		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Mago.class){
-			lblImagenDelMonstruo.setIcon(null);
-			lblImagenDelMonstruo.setIcon(new ImageIcon("enanoMago.jpg"));
-		}
-		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class){
-			lblImagenDelMonstruo.setText("");
-			lblImagenDelMonstruo.setIcon(null);
-			lblImagenDelMonstruo.setIcon(new ImageIcon("enanoGuerrero.jpg"));
-		}
+		lblImagenDelMonstruo.setIcon(new ImageIcon(Comunicacion.monstruoSeleccionado.getRutaImg()));		
 		textFieldNombrePJ.setText(Comunicacion.monstruoSeleccionado.getNombre());
 		txtpnEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
 				"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+

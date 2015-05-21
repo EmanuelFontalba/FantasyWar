@@ -44,6 +44,7 @@ public class MostrarMonstruoPadre extends JDialog {
 	JButton btnEliminar;
 	JButton btnSeleccionar;
 	JButton okButton;
+	JLabel labelImg;
 
 	/**
 	 * Launch the application.
@@ -151,10 +152,7 @@ public class MostrarMonstruoPadre extends JDialog {
 		textFieldExp.setText(""+Comunicacion.monstruoEncontrado.getExp());
 		textFieldExp.setColumns(10);
 		
-		JLabel labelImg = new JLabel("");
-		//labelImg.setIcon(new ImageIcon("enanoGuerrero.jpg"));
-		labelImg.setBounds(214, 139, 210, 144);
-		contentPanel.add(labelImg);
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -245,6 +243,12 @@ public class MostrarMonstruoPadre extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
+			
+			labelImg = new JLabel("");
+			labelImg.setIcon(new ImageIcon(Comunicacion.monstruoEncontrado.getRutaImg()));
+			labelImg.setBounds(214, 139, 210, 144);
+			contentPanel.add(labelImg);
+			
 			actualizar();
 		}
 		
@@ -252,6 +256,7 @@ public class MostrarMonstruoPadre extends JDialog {
 	}
 	
 	private void actualizar(){
+		labelImg.setIcon(new ImageIcon(Comunicacion.monstruoEncontrado.getRutaImg()));
 		txtEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
 				"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
 				"\rPoder de habilidad: "+Comunicacion.monstruoEncontrado.getPoderHabilidad()+

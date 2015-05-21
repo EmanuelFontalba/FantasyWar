@@ -32,6 +32,7 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 	private int probabilidadEsquivar;
 	private boolean muerto;
 	private TipoDeDanno tipo;
+	private String rutaImg;
 	
 	private int armaduraProvisional=0;
 	private int resistenciaMagicaProvisional=0;
@@ -398,5 +399,14 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 			return;
 		disminuirSaludActual(danno) ;
 	}
+
+	public String getRutaImg() {
+		return rutaImg;
+	}
+
+	protected void setRutaImg(String rutaImg) {
+		this.rutaImg = rutaImg;
+	}
 		
+	abstract void estableceImg();
 }

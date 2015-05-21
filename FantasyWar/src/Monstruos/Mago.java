@@ -27,6 +27,7 @@ public class Mago extends Monstruo implements Hechizable{
 		incrementaPoderHabilidad();
 		decrementaAtaqueBasico();
 		setTipo(TipoDeDanno.MAGICO);
+		estableceImg();
 	}
 	
 	/**
@@ -186,6 +187,34 @@ public class Mago extends Monstruo implements Hechizable{
 	@Override
 	public int getPotenciador() {
 		return getMana();
+	}
+	
+	/**
+	 * Establece la ruta de la imagen en función de su raza.
+	 */
+	@Override
+	void estableceImg() {
+		switch (getRaza()) {
+		case DEMONIO:
+			setRutaImg("src\\imagenes\\demonioMago.jpg");
+			break;
+		case ELFO:
+			setRutaImg("src\\imagenes\\elfoMago.jpg");
+			break;
+		case ENANO:
+			setRutaImg("src\\imagenes\\enanoMago.jpg");
+			break;
+		case HUMANO:
+			setRutaImg("src\\imagenes\\humanoMago.jpg");
+			break;
+		case NOMUERTO:
+			setRutaImg("src\\imagenes\\noMuertoMago.jpg");
+			break;
+		case ORCO:
+			setRutaImg("src\\imagenes\\orcoMago.jpg");
+			break;
+		}
+		
 	}
 
 }

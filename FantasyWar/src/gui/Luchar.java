@@ -85,7 +85,7 @@ public class Luchar extends JDialog {
 		} catch (NombreInvalidoException e2) {
 			JOptionPane.showMessageDialog(contentPane, e2.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
-		setBounds(100, 100, 436, 393);
+		setBounds(100, 100, 436, 358);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(143, 188, 143));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -109,7 +109,7 @@ public class Luchar extends JDialog {
 		{
 			JLabel lblCpu = new JLabel("CPU:");
 			lblCpu.setFont(lblCpu.getFont().deriveFont(lblCpu.getFont().getStyle() | Font.BOLD));
-			lblCpu.setForeground(new Color(0, 0, 0));
+			lblCpu.setForeground(Color.WHITE);
 			lblCpu.setBounds(304, 11, 46, 14);
 			contentPanel.add(lblCpu);
 		}
@@ -149,21 +149,10 @@ public class Luchar extends JDialog {
 		{
 			textFieldEnergia = new JTextField();
 			textFieldEnergia.setEditable(false);
-			textFieldEnergia.setBounds(101, 72, 86, 20);
+			textFieldEnergia.setBounds(114, 71, 86, 20);
 			contentPanel.add(textFieldEnergia);
 			textFieldEnergia.setColumns(10);
 			
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
 		}
 
 		comboBoxHabilidad.setModel(new DefaultComboBoxModel(Ataques.getArray(Comunicacion.monstruoSeleccionado.getClass())));
@@ -173,25 +162,25 @@ public class Luchar extends JDialog {
 		
 		textFieldSalud = new JTextField();
 		textFieldSalud.setEditable(false);
-		textFieldSalud.setBounds(101, 47, 86, 20);
+		textFieldSalud.setBounds(114, 40, 86, 20);
 		contentPanel.add(textFieldSalud);
 		textFieldSalud.setColumns(10);
 		
 		textFieldSaludCPU = new JTextField();
 		textFieldSaludCPU.setEditable(false);
-		textFieldSaludCPU.setBounds(273, 67, 86, 20);
+		textFieldSaludCPU.setBounds(310, 67, 86, 20);
 		contentPanel.add(textFieldSaludCPU);
 		textFieldSaludCPU.setColumns(10);
 		
 		JLabel lblNewLabelRazaCPU = new JLabel(monstruoCPU.getRaza().toString());
 		lblNewLabelRazaCPU.setFont(lblNewLabelRazaCPU.getFont().deriveFont(lblNewLabelRazaCPU.getFont().getStyle() | Font.BOLD));
-		lblNewLabelRazaCPU.setForeground(new Color(0, 0, 0));
+		lblNewLabelRazaCPU.setForeground(Color.WHITE);
 		lblNewLabelRazaCPU.setBounds(234, 27, 162, 14);
 		contentPanel.add(lblNewLabelRazaCPU);
 		
 		JLabel lblNewLabelClaseCPU= new JLabel();
 		lblNewLabelClaseCPU.setFont(lblNewLabelClaseCPU.getFont().deriveFont(lblNewLabelClaseCPU.getFont().getStyle() | Font.BOLD));
-		lblNewLabelClaseCPU.setForeground(new Color(0, 0, 0));
+		lblNewLabelClaseCPU.setForeground(Color.WHITE);
 		lblNewLabelClaseCPU.setBounds(235, 43, 161, 14);
 		contentPanel.add(lblNewLabelClaseCPU);
 		if(monstruoCPU.getClass() == Guerrero.class)
@@ -208,44 +197,28 @@ public class Luchar extends JDialog {
 			contentPanel.add(textPaneEstadisticas);
 		}
 		{
+			JLabel labelEnergia = new JLabel(nombreEnergia());
+			labelEnergia.setFont(labelEnergia.getFont().deriveFont(labelEnergia.getFont().getStyle() | Font.BOLD));
+			labelEnergia.setForeground(Color.WHITE);
+			labelEnergia.setBounds(22, 73, 46, 14);
+			contentPanel.add(labelEnergia);
+		}
+		
+		{
 			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon("fondoLucha.jpg"));
+			label.setIcon(new ImageIcon("src\\imagenes\\fondoLucha.jpg"));
 			label.setBounds(-38, -55, 677, 506);
 			contentPanel.add(label);
 		}
+		{
+			JLabel lblSalud_1 = new JLabel("Salud: ");
+			lblSalud_1.setFont(lblSalud_1.getFont().deriveFont(lblSalud_1.getFont().getStyle() | Font.BOLD));
+			lblSalud_1.setForeground(new Color(255, 255, 255));
+			lblSalud_1.setBounds(245, 71, 46, 14);
+			contentPanel.add(lblSalud_1);
+		}
 		
-//		{
-//			JLabel labelIra= new JLabel("Ira");
-//			JLabel labelMana= new JLabel("Mana");
-//			JLabel labelFe= new JLabel("Fe");
-//			labelIra.setBounds(22, 73, 46, 14);
-//			contentPanel.add(labelIra);
-//			labelIra.setFont(labelIra.getFont().deriveFont(labelIra.getFont().getStyle() | Font.BOLD));
-//			labelIra.setForeground(new Color(255, 255, 255));
-//			
-//			labelMana.setBounds(22, 73, 46, 14);
-//			contentPanel.add(labelMana);
-//			labelMana.setFont(labelMana.getFont().deriveFont(labelMana.getFont().getStyle() | Font.BOLD));
-//			labelMana.setForeground(new Color(255, 255, 255));
-//			
-//			labelFe.setBounds(22, 73, 46, 14);
-//			contentPanel.add(labelFe);
-//			labelFe.setFont(labelFe.getFont().deriveFont(labelFe.getFont().getStyle() | Font.BOLD));
-//			labelFe.setForeground(new Color(255, 255, 255));
-//			
-//			labelIra.setVisible(false);
-//			labelFe.setVisible(false);
-//			labelMana.setVisible(false);
-//			
-//			if(Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class)
-//				labelIra.setVisible(true);
-//			if(Comunicacion.monstruoSeleccionado.getClass() == Sacerdote.class)
-//				labelFe.setVisible(true);
-//			if(Comunicacion.monstruoSeleccionado.getClass() == Mago.class)
-//				labelMana.setVisible(true);
-//			
-//			
-//		}
+
 		actualizarVista();
 		btnNewButton.addActionListener(new ActionListener() {
 			private Component parentComponent;
@@ -386,4 +359,14 @@ public class Luchar extends JDialog {
 		}
 
 	}	
+	
+	private String nombreEnergia(){
+		if(Comunicacion.monstruoSeleccionado.getClass() == Mago.class)
+			return "Mana";
+		if(Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class)
+			return "Ira";
+		if(Comunicacion.monstruoSeleccionado.getClass() == Sacerdote.class)
+			return "Fe";
+		return "¿?";
+	}
 }

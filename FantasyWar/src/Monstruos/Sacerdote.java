@@ -21,6 +21,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 		decrementaAtaqueBasico();
 		setTipo(TipoDeDanno.MAGICO);
 		setFe(getFemax());
+		estableceImg();
 	}
 	
 	/**
@@ -172,6 +173,34 @@ public class Sacerdote extends Monstruo implements Saneable {
 	@Override
 	public int getPotenciador() {
 		return getFe();
+	}
+	
+	/**
+	 * Establece la ruta de la imagen en función de su raza.
+	 */
+	@Override
+	void estableceImg() {
+		switch (getRaza()) {
+		case DEMONIO:
+			setRutaImg("src\\imagenes\\demonioSacerdote.jpg");
+			break;
+		case ELFO:
+			setRutaImg("src\\imagenes\\elfoSacerdote.jpg");
+			break;
+		case ENANO:
+			setRutaImg("src\\imagenes\\enanoSacerdote.jpg");
+			break;
+		case HUMANO:
+			setRutaImg("src\\imagenes\\humanoSacerdote.jpg");
+			break;
+		case NOMUERTO:
+			setRutaImg("src\\imagenes\\noMuertoSacerdote.jpg");
+			break;
+		case ORCO:
+			setRutaImg("src\\imagenes\\orcoSacerdote.jpg");
+			break;
+		}
+		
 	}
 
 }

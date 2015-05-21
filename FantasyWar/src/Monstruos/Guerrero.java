@@ -18,6 +18,7 @@ public class Guerrero extends Monstruo implements Luchable {
 		incrementaAtaqueBasico();
 		decrementaPoderHabilidad();
 		setTipo(TipoDeDanno.FISICO);
+		estableceImg();
 	}
 
 	/**
@@ -177,6 +178,34 @@ public class Guerrero extends Monstruo implements Luchable {
 	@Override
 	public int getPotenciador() {
 		return getIra();
+	}
+	
+	/**
+	 * Establece la ruta de la imagen en función de su raza.
+	 */
+	@Override
+	void estableceImg() {
+		switch (getRaza()) {
+		case DEMONIO:
+			setRutaImg("src\\imagenes\\demonioGuerrero.jpg");
+			break;
+		case ELFO:
+			setRutaImg("src\\imagenes\\elfoGuerrero.jpg");
+			break;
+		case ENANO:
+			setRutaImg("src\\imagenes\\enanoGuerrero.jpg");
+			break;
+		case HUMANO:
+			setRutaImg("src\\imagenes\\humanoGuerrero.jpg");
+			break;
+		case NOMUERTO:
+			setRutaImg("src\\imagenes\\noMuertoGuerrero.jpg");
+			break;
+		case ORCO:
+			setRutaImg("src\\imagenes\\orcoGuerrero.jpg");
+			break;
+		}
+		
 	}
 
 
