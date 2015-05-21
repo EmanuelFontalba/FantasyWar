@@ -209,7 +209,7 @@ public class Luchar extends JDialog {
 		}
 		{
 			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\fondoLucha.jpg"));
+			label.setIcon(new ImageIcon("fondoLucha.jpg"));
 			label.setBounds(-38, -55, 677, 506);
 			contentPanel.add(label);
 		}

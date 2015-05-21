@@ -150,6 +150,11 @@ public class MostrarMonstruoPadre extends JDialog {
 		contentPanel.add(textFieldExp);
 		textFieldExp.setText(""+Comunicacion.monstruoEncontrado.getExp());
 		textFieldExp.setColumns(10);
+		
+		JLabel labelImg = new JLabel("");
+		//labelImg.setIcon(new ImageIcon("enanoGuerrero.jpg"));
+		labelImg.setBounds(214, 139, 210, 144);
+		contentPanel.add(labelImg);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

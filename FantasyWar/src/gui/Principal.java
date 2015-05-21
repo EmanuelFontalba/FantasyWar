@@ -382,7 +382,7 @@ public class Principal {
 		frmPartidaDe.getContentPane().add(lblImagenDelMonstruo);
 		
 		JLabel labelFondo = new JLabel("");
-		labelFondo.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\fondoPrincipal.jpg"));
+		labelFondo.setIcon(new ImageIcon("fondoPrincipal.jpg"));
 		labelFondo.setBounds(-28, -37, 784, 406);
 		frmPartidaDe.getContentPane().add(labelFondo);
 	}
@@ -392,20 +392,16 @@ public class Principal {
 	}
 
 	public static void actualizar() {
-//		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Mago.class){
-//			lblImagenDelMonstruo.setText("");
-//			lblImagenDelMonstruo.setIcon(null);
-//			lblImagenDelMonstruo.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\enanoMago.jpg"));
-//		}
-//		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class){
-//			lblImagenDelMonstruo.setText("");
-//			lblImagenDelMonstruo.setIcon(null);
-//			lblImagenDelMonstruo.setIcon(new ImageIcon("C:\\Users\\Azahara\\Desktop\\ema\\repositoriosGit\\FantasyWar\\FantasyWar\\enanoGuerrero.jpg"));
-//		}
-//		else{
-//			lblImagenDelMonstruo.setText("Aún sin imagen");
-//			lblImagenDelMonstruo.setIcon(null);
-//		}
+		lblImagenDelMonstruo.setIcon(null);
+		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Mago.class){
+			lblImagenDelMonstruo.setIcon(null);
+			lblImagenDelMonstruo.setIcon(new ImageIcon("enanoMago.jpg"));
+		}
+		if(Comunicacion.monstruoSeleccionado.getRaza() == Razas.ENANO && Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class){
+			lblImagenDelMonstruo.setText("");
+			lblImagenDelMonstruo.setIcon(null);
+			lblImagenDelMonstruo.setIcon(new ImageIcon("enanoGuerrero.jpg"));
+		}
 		textFieldNombrePJ.setText(Comunicacion.monstruoSeleccionado.getNombre());
 		txtpnEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
 				"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
