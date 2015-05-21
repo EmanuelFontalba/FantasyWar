@@ -355,6 +355,8 @@ public class Principal {
 		frmPartidaDe.getContentPane().add(txtpnEstadisticas);
 		
 		JButton btnLuchar = new JButton("Luchar");
+		btnLuchar.setFont(new Font("LilyUPC", Font.PLAIN, 46));
+		btnLuchar.setForeground(new Color(165, 42, 42));
 		btnLuchar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Comunicacion.jugador == null)
