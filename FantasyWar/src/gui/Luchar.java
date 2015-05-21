@@ -273,6 +273,7 @@ public class Luchar extends JDialog {
 						Comunicacion.monstruoSeleccionado.reestablecerse();
 						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
+						return;
 					}
 
 					try {
@@ -293,6 +294,7 @@ public class Luchar extends JDialog {
 						Comunicacion.monstruoSeleccionado.reestablecerse();
 						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Hs perdido.");
+						return;
 					}
 				
 				actualizarVista();

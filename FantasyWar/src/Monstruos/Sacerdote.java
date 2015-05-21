@@ -20,6 +20,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 		incrementaPoderHabilidad();
 		decrementaAtaqueBasico();
 		setTipo(TipoDeDanno.MAGICO);
+		setFe(getFemax());
 	}
 	
 	/**
