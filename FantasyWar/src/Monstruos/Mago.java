@@ -146,7 +146,8 @@ public class Mago extends Monstruo implements Hechizable{
 			throws ManaInsuficienteException {
 		int dadosAtacante = (int) ((Math.random()*(0-100)+100));
 		int danno=0;
-	
+		
+		regeneracionMana();
 		switch (ataque) {
 		case BOLA_DE_FUEGO:
 			danno = bolaDeFuego();
@@ -171,7 +172,7 @@ public class Mago extends Monstruo implements Hechizable{
 			
 		defensor.recibirDannoMagico(danno);
 		
-		regeneracionMana();
+		
 	}
 
 	@Override

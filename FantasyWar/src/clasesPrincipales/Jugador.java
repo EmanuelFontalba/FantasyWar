@@ -25,6 +25,9 @@ public class Jugador extends Leveable implements Serializable{
 	 */
 	private Coleccion coleccionMonstruos;
 	
+	private int exp;
+	private int nivel;
+	
 	//estadisticas del jugador
 	
 	
@@ -99,5 +102,38 @@ public class Jugador extends Leveable implements Serializable{
 	@Override
 	public void aumentarNivel() {
 		setNivel(getNivel()+1);
-	}	
+	}
+
+	@Override
+	/**
+	 * Aumenta la experiencia.
+	 * @param exp
+	 * 			Experiencia a aumentar.
+	 */
+	public void aumentarExp(int exp){
+		if(getNivel()<getNivelMaximo()){
+			setExp(getExp()+exp);
+			if (getExp()>getExpMaxima()){
+				aumentarNivel();
+				setExp(-(getExpMaxima()-getExp()));
+			}
+		}
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
 }

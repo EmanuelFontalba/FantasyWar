@@ -34,6 +34,9 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 	private TipoDeDanno tipo;
 	private String rutaImg;
 	
+	private int nivel;
+	private int exp;
+	
 	private int armaduraProvisional=0;
 	private int resistenciaMagicaProvisional=0;
 
@@ -78,6 +81,22 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 	public void aumentarNivel(){
 		setNivel(getNivel()+1);
 		aumentarEstadisticas();
+	}
+	
+	@Override
+	/**
+	 * Aumenta la experiencia.
+	 * @param exp
+	 * 			Experiencia a aumentar.
+	 */
+	public void aumentarExp(int exp){
+		if(getNivel()<getNivelMaximo()){
+			setExp(getExp()+exp);
+			if (getExp()>getExpMaxima()){
+				aumentarNivel();
+				setExp(-(getExpMaxima()-getExp()));
+			}
+		}
 	}
 	
 	/**
@@ -409,4 +428,20 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 	}
 		
 	abstract void estableceImg();
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
 }

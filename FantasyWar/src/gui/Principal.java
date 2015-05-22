@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.AbstractButton;
 
 import Monstruos.Guerrero;
 import Monstruos.Mago;
@@ -25,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import enumeraciones.Razas;
 
@@ -41,6 +44,7 @@ public class Principal {
 	static JTextPane txtpnEstadisticas ;
 	static JLabel lblImagenDelMonstruo;
 	private Component contentPane;
+	private static Component parent;
 
 	/**
 	 * Launch the application.
@@ -71,7 +75,7 @@ public class Principal {
 	private void initialize() {
 		frmPartidaDe = new JFrame();
 		frmPartidaDe.setTitle("Fantasy War. - Sin título");
-		frmPartidaDe.setBounds(100, 100, 772, 428);
+		frmPartidaDe.setBounds(100, 100, 515, 425);
 		frmPartidaDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -109,10 +113,25 @@ public class Principal {
 		JMenuItem mntmCargarPartida = new JMenuItem("Cargar partida");
 		mntmCargarPartida.addActionListener(new ActionListener() {
 			private Component contentPane;
+			
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Abrir menuAbrir= new Abrir();
+					
+					FileNameExtensionFilter filtro = new FileNameExtensionFilter("OBJ", "obj");
+					JFileChooser fc = new JFileChooser();
+					fc.setFileFilter(filtro);
+					
+					int respuesta = fc.showOpenDialog(parent);
+
+					if (respuesta == JFileChooser.APPROVE_OPTION)
+					{
+						Comunicacion.archivoElegido = fc.getSelectedFile();
+					}
+					if (respuesta == JFileChooser.CANCEL_OPTION){
+						
+					}
+					
 					if(Comunicacion.archivoElegido==null)
 						return;
 					Comunicacion.jugador=(Jugador)GestionFicheros.abrir(Comunicacion.archivoElegido);
@@ -153,7 +172,7 @@ public class Principal {
 						}
 				else
 					try {
-						GuardarComo menuGuardarComo = new GuardarComo();
+						guardarComo();
 						if(Comunicacion.archivoElegido==null)
 							return;
 						GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
@@ -172,9 +191,11 @@ public class Principal {
 		
 		JMenuItem mntmGuardarComo = new JMenuItem("Guardar como...");
 		mntmGuardarComo.addActionListener(new ActionListener() {
+			private Component parent;
+
 			public void actionPerformed(ActionEvent e) {
 				try {
-					GuardarComo menuGuardarComo = new GuardarComo();
+					guardarComo();
 					if(Comunicacion.archivoElegido==null)
 						return;
 					GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
@@ -188,6 +209,8 @@ public class Principal {
 				else
 					frmPartidaDe.setTitle("Fantasy War. - Sin título");
 			}
+
+			
 		});
 		mnArchivo.add(mntmGuardarComo);
 		
@@ -347,7 +370,7 @@ public class Principal {
 		
 		JLabel lblPersonaje = new JLabel("Personaje: ");
 		lblPersonaje.setForeground(Color.WHITE);
-		lblPersonaje.setBounds(10, 11, 89, 14);
+		lblPersonaje.setBounds(20, 21, 89, 14);
 		frmPartidaDe.getContentPane().add(lblPersonaje);
 		
 		txtpnEstadisticas = new JTextPane();
@@ -357,7 +380,7 @@ public class Principal {
 		txtpnEstadisticas.setBackground(new Color(189, 183, 107));
 		txtpnEstadisticas.setEditable(false);
 		txtpnEstadisticas.setText("Estadisticas");
-		txtpnEstadisticas.setBounds(347, 36, 399, 196);
+		txtpnEstadisticas.setBounds(270, 11, 214, 196);
 		frmPartidaDe.getContentPane().add(txtpnEstadisticas);
 		
 		JButton btnLuchar = new JButton("Luchar");
@@ -375,17 +398,17 @@ public class Principal {
 				}
 			}
 		});
-		btnLuchar.setBounds(347, 240, 194, 118);
+		btnLuchar.setBounds(34, 233, 194, 118);
 		frmPartidaDe.getContentPane().add(btnLuchar);
 		
 		JButton btnMazmorra = new JButton("Mazmorra");
-		btnMazmorra.setBounds(560, 240, 186, 118);
+		btnMazmorra.setBounds(297, 233, 186, 118);
 		frmPartidaDe.getContentPane().add(btnMazmorra);
 		btnMazmorra.setEnabled(false);
 		
 		textFieldNombrePJ = new JTextField();
 		textFieldNombrePJ.setEditable(false);
-		textFieldNombrePJ.setBounds(88, 8, 86, 20);
+		textFieldNombrePJ.setBounds(89, 18, 86, 20);
 		frmPartidaDe.getContentPane().add(textFieldNombrePJ);
 		textFieldNombrePJ.setColumns(10);
 		
@@ -414,5 +437,20 @@ public class Principal {
 				"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoEncontrado.getProbabilidadCritico()+
 				"\rProbabilidad de esquivar: "+Comunicacion.monstruoEncontrado.getProbabilidadEsquivar());
 		
+	}
+	static void guardarComo() {
+		
+		FileNameExtensionFilter filtro = new FileNameExtensionFilter("OBJ", "obj");
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(filtro);
+		int respuesta = fc.showSaveDialog(parent);
+
+		if (respuesta == JFileChooser.APPROVE_OPTION)
+		{
+			Comunicacion.archivoElegido = fc.getSelectedFile();
+		}
+		if (respuesta == JFileChooser.CANCEL_OPTION){
+			fc.setVisible(false);
+		}
 	}
 }

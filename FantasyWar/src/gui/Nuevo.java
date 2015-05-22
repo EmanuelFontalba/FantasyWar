@@ -82,7 +82,7 @@ public class Nuevo extends JDialog {
 								}
 						else
 							try {
-								GuardarComo menuGuardarComo = new GuardarComo();
+								Principal.guardarComo();
 								GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
 								Comunicacion.modificado=false;
 								NuevoJugador nuevoJugador = new NuevoJugador();

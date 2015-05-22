@@ -255,7 +255,7 @@ public class Luchar extends JDialog {
 					try {
 						monstruoCPU.luchar(ataqueAleatorioCPU(), Comunicacion.monstruoSeleccionado);
 					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+						//No se captura
 					}
 					if(Comunicacion.monstruoSeleccionado.isMuerto()){
 						setVisible(false);
@@ -269,7 +269,7 @@ public class Luchar extends JDialog {
 						Comunicacion.jugador.aumentarExp(50);
 						Comunicacion.monstruoSeleccionado.reestablecerse();
 						Principal.actualizar();
-						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Hs perdido.");
+						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Has perdido.");
 						return;
 					}
 				

@@ -125,7 +125,8 @@ public class Sacerdote extends Monstruo implements Saneable {
 			throws Exception {
 		int dadosAtacante = (int) ((Math.random()*(0-100)+100));
 		int danno=0;
-	
+		
+		regeneracionFe();
 		switch (ataque) {
 		case CURACION_ABSOLUTA :
 			danno = 0;
@@ -158,7 +159,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 			return;
 		}
 		
-		regeneracionFe();
+		
 	}
 
 	@Override

@@ -6,19 +6,13 @@ package clasesPrincipales;
  *
  */
 public abstract class Leveable {
-	/**
-	 * Experiencia.
-	 */
-	private int exp;
+
 	
 	/**
 	 * Valor máximo que puede tomar la experiencia.
 	 */
 	private static final int EXP_MAXIMA = 2000;
-	/**
-	 * Nivel.
-	 */
-	private int nivel;
+
 	/**
 	 * Valor máximo que puede tomar el nivel.
 	 */
@@ -36,30 +30,9 @@ public abstract class Leveable {
 	 * 			experiencia a aumentar
 	 * @return true si sube de nivel sino false
 	 */
-	public boolean aumentarExp(int exp){
-		if(getNivel()<getNivelMaximo()){
-			setExp(getExp()+exp);
-			if (getExp()>getExpMaxima()){
-				aumentarNivel();
-				setExp(-(getExpMaxima()-getExp()));
-				return true;
-			}
-		}
-		return false;
-	}
+	public abstract void aumentarExp(int exp);
 	
-	public int getExp() {
-		return exp;
-	}
-	public void setExp(int exp) {
-		this.exp = exp;
-	}
-	public int getNivel() {
-		return nivel;
-	}
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
+
 	public static int getExpMaxima() {
 		return EXP_MAXIMA;
 	}

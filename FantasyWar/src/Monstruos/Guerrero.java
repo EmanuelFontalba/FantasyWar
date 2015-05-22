@@ -132,7 +132,8 @@ public class Guerrero extends Monstruo implements Luchable {
 
 		int dadosAtacante = (int) ((Math.random()*(0-100)+100));
 		int danno=0;
-	
+		
+		regeneracionDeIra();
 		switch (ataque) {
 		case RAJAR:
 			danno = rajar();
@@ -162,7 +163,7 @@ public class Guerrero extends Monstruo implements Luchable {
 			return;
 		}
 		
-		regeneracionDeIra();
+		
 	}
 
 	@Override
