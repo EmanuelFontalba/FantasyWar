@@ -16,10 +16,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import clasesPrincipales.Monstruo;
+import clasesPrincipales.MonstruoNoExisteException;
+import clasesPrincipales.NombreInvalidoException;
 import comunicacionConGui.Comunicacion;
-import excepciones.MonstruoNoExisteException;
-import excepciones.NombreInvalidoException;
-import Monstruos.Monstruo;
 
 public class BuscarPorNombre extends JDialog {
 
@@ -43,6 +43,7 @@ public class BuscarPorNombre extends JDialog {
 	 * Create the dialog.
 	 */
 	public BuscarPorNombre() {
+		setModal(true);
 		textField = new JTextField();
 		textField.setBounds(87, 8, 86, 20);
 		contentPanel.add(textField);

@@ -1,4 +1,4 @@
-package enumeraciones;
+package clasesPrincipales;
 
 /**
  * Razas disponibles.

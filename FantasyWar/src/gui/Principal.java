@@ -13,27 +13,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
-import javax.swing.AbstractButton;
-
-import Monstruos.Guerrero;
-import Monstruos.Mago;
-import Monstruos.Sacerdote;
 import clasesPrincipales.GestionFicheros;
 import clasesPrincipales.Jugador;
 import comunicacionConGui.Comunicacion;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import enumeraciones.Razas;
-
-import java.awt.Toolkit;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.Font;
 
 public class Principal {
@@ -91,12 +79,14 @@ public class Principal {
 				if(Comunicacion.jugador == null){
 					NuevoJugador nuevo = new NuevoJugador();
 					nuevo.setVisible(true);
+					Comunicacion.monstruoSeleccionado = null;
 					return;
 				}
 				if(Comunicacion.modificado){
 					Nuevo nuevo = new Nuevo();
 					nuevo.setVisible(true);
 					Comunicacion.archivoElegido=null;
+					Comunicacion.monstruoSeleccionado = null;
 				}
 				else{
 					Nuevo nuevo = new Nuevo();
@@ -137,6 +127,7 @@ public class Principal {
 					Comunicacion.jugador=(Jugador)GestionFicheros.abrir(Comunicacion.archivoElegido);
 					Comunicacion.guardado=true;
 					Comunicacion.modificado = false;
+					Comunicacion.monstruoSeleccionado = null;
 				} catch (ClassNotFoundException | IOException e1) {
 					JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
@@ -191,7 +182,6 @@ public class Principal {
 		
 		JMenuItem mntmGuardarComo = new JMenuItem("Guardar como...");
 		mntmGuardarComo.addActionListener(new ActionListener() {
-			private Component parent;
 
 			public void actionPerformed(ActionEvent e) {
 				try {

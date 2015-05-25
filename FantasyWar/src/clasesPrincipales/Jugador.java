@@ -3,8 +3,6 @@ package clasesPrincipales;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.regex.Pattern;
-
-import excepciones.NombreInvalidoException;
 /**
  * Se guardan los datos del jugador y sus estadisticas, junto con su colección de monstruos.
  * 
@@ -24,25 +22,19 @@ public class Jugador extends Leveable implements Serializable{
 	 * Colección del jugador
 	 */
 	private Coleccion coleccionMonstruos;
-	
+	/**
+	 * Experiencia del jugador.
+	 */
 	private int exp;
+	/**
+	 * Nivel del jugador.
+	 */
 	private int nivel;
-	
-	//estadisticas del jugador
-	
-	
-	
 	/**
 	 * Patrón para nombres correctos. Deben de empezar por una mayúscula.
 	 */
 	private static final Pattern patronNombre = Pattern.compile("^[A-Z][a-z]*[a-z]$");
-	
-	/**
-	 * Constructor
-	 * @param alias
-	 * @throws NombreInvalidoException 
-	 * 				El nombre no comienza por mayuscula.
-	 */
+
 	public Jugador(String alias) throws NombreInvalidoException{
 		super();
 		setAlias(alias);
@@ -60,6 +52,30 @@ public class Jugador extends Leveable implements Serializable{
 	 */
 	private boolean nombreValido(String nombre){
 		return patronNombre.matcher(nombre).matches();
+	}
+	
+	/**
+	 * Incrementa el nivel en 1.
+	 */
+	@Override
+	public void aumentarNivel() {
+		setNivel(getNivel()+1);
+	}
+
+	@Override
+	/**
+	 * Aumenta la experiencia sin que sobrepase el valor máximo.
+	 * @param exp
+	 * 			Experiencia a aumentar.
+	 */
+	public void aumentarExp(int exp){
+		if(getNivel()<getNivelMaximo()){
+			setExp(getExp()+exp);
+			if (getExp()>getExpMaxima()){
+				aumentarNivel();
+				setExp(-(getExpMaxima()-getExp()));
+			}
+		}
 	}
 
 	
@@ -97,27 +113,6 @@ public class Jugador extends Leveable implements Serializable{
 
 	private void setColeccionMonstruos(Coleccion coleccionMonstruos) {
 		this.coleccionMonstruos = coleccionMonstruos;
-	}
-
-	@Override
-	public void aumentarNivel() {
-		setNivel(getNivel()+1);
-	}
-
-	@Override
-	/**
-	 * Aumenta la experiencia.
-	 * @param exp
-	 * 			Experiencia a aumentar.
-	 */
-	public void aumentarExp(int exp){
-		if(getNivel()<getNivelMaximo()){
-			setExp(getExp()+exp);
-			if (getExp()>getExpMaxima()){
-				aumentarNivel();
-				setExp(-(getExpMaxima()-getExp()));
-			}
-		}
 	}
 
 	public int getNivel() {

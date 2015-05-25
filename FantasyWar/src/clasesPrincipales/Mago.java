@@ -1,13 +1,5 @@
-package Monstruos;
+package clasesPrincipales;
 
-import enumeraciones.Ataques;
-import enumeraciones.Clase;
-import enumeraciones.Razas;
-import enumeraciones.TipoDeDanno;
-import excepciones.IraInsuficienteException;
-import excepciones.ManaInsuficienteException;
-import excepciones.NombreInvalidoException;
-import interfaces.Hechizable;
 
 /**
  * Por ser clase mago cambia treinta puntos de ataque basico por otros treinta de poder de habilidad.
@@ -127,19 +119,9 @@ public class Mago extends Monstruo implements Hechizable{
 		setAtaqueBasico(getAtaqueBasico()-30);
 	}
 	
-	//-------------------------------GETTERS & SETTERS---------------------
-	public int getMana() {
-		return mana;
-	}
-
-	private void setMana(int mana) {
-		this.mana = mana;
-	}
-
-	private static int getManamax() {
-		return MANA_MAX;
-	}
-
+	/**
+	 * Calcula el daño verdadero a realizar, y se lo aplica al monstruo defensor.
+	 */
 	@Override
 	public
 	void luchar(Ataques ataque, Monstruo defensor)
@@ -174,7 +156,10 @@ public class Mago extends Monstruo implements Hechizable{
 		
 		
 	}
-
+	
+	/**
+	 * Reestablece la salud, el maná y los atributos provisionales del turno.
+	 */
 	@Override
 	public void reestablecerse() {
 		setSaludActual(getSaludMaxima());
@@ -183,11 +168,6 @@ public class Mago extends Monstruo implements Hechizable{
 		setResistenciaMagicaProvisional(0);
 		setMuerto(false);
 		
-	}
-
-	@Override
-	public int getPotenciador() {
-		return getMana();
 	}
 	
 	/**
@@ -216,6 +196,25 @@ public class Mago extends Monstruo implements Hechizable{
 			break;
 		}
 		
+	}
+	
+	//-------------------------------GETTERS & SETTERS---------------------
+	public int getMana() {
+		return mana;
+	}
+
+	private void setMana(int mana) {
+		this.mana = mana;
+	}
+
+	private static int getManamax() {
+		return MANA_MAX;
+	}
+
+
+	@Override
+	public int getPotenciador() {
+		return getMana();
 	}
 
 }

@@ -30,6 +30,7 @@ public class MostrarPorRaza extends MostrarMonstruoPadre {
 	public MostrarPorRaza() {
 		super();
 		setTitle("Monstruo");
+		setModal(true);
 	}
 
 }

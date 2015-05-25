@@ -41,6 +41,7 @@ public class MostrarJugador extends JDialog {
 	 * Create the dialog.
 	 */
 	public MostrarJugador() {
+		setModal(true);
 		setTitle("Mostrar jugador");
 		setAlwaysOnTop(true);
 		setBounds(100, 100, 337, 248);

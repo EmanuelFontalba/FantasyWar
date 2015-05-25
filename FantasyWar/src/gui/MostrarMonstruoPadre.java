@@ -12,20 +12,27 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import Monstruos.Guerrero;
-import Monstruos.Mago;
-import Monstruos.Sacerdote;
+import clasesPrincipales.Clase;
+import clasesPrincipales.Guerrero;
+import clasesPrincipales.Mago;
+import clasesPrincipales.MonstruoNoExisteException;
+import clasesPrincipales.NombreInvalidoException;
+import clasesPrincipales.Razas;
+import clasesPrincipales.Sacerdote;
 import comunicacionConGui.Comunicacion;
-import enumeraciones.Clase;
-import enumeraciones.Razas;
-import excepciones.MonstruoNoExisteException;
-import excepciones.NombreInvalidoException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
+
+
+
+
+
+
+
 
 
 import java.awt.Color;
@@ -64,6 +71,7 @@ public class MostrarMonstruoPadre extends JDialog {
 	 * Create the dialog.
 	 */
 	public MostrarMonstruoPadre() {
+		setModal(true);
 		setBounds(100, 100, 450, 389);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

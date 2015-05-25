@@ -1,10 +1,6 @@
-package enumeraciones;
+package clasesPrincipales;
 
 import java.util.ArrayList;
-
-import Monstruos.Guerrero;
-import Monstruos.Mago;
-import Monstruos.Sacerdote;
 
 public enum Ataques {
 	//Sacerdote

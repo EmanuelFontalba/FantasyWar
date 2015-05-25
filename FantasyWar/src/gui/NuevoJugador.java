@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 import clasesPrincipales.Jugador;
+import clasesPrincipales.NombreInvalidoException;
 import comunicacionConGui.Comunicacion;
-import excepciones.NombreInvalidoException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -41,6 +41,7 @@ public class NuevoJugador extends JDialog {
 	 * Create the dialog.
 	 */
 	public NuevoJugador() {
+		setModal(true);
 		setAlwaysOnTop(true);
 		setTitle("Nuevo jugador");
 		setBounds(100, 100, 216, 160);

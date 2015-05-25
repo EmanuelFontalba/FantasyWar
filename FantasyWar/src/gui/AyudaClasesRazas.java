@@ -33,6 +33,7 @@ public class AyudaClasesRazas extends JDialog {
 	 * Create the dialog.
 	 */
 	public AyudaClasesRazas() {
+		setModal(true);
 		setTitle("Ayuda de clases y razas");
 		setBounds(100, 100, 622, 472);
 		getContentPane().setLayout(new BorderLayout());

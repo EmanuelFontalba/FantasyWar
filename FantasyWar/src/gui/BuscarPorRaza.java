@@ -14,8 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
 import clasesPrincipales.Coleccion;
+import clasesPrincipales.Razas;
 import comunicacionConGui.Comunicacion;
-import enumeraciones.Razas;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -42,6 +42,7 @@ public class BuscarPorRaza extends JDialog {
 	 * Create the dialog.
 	 */
 	public BuscarPorRaza() {
+		setModal(true);
 		setTitle("Buscar por raza");
 		setBounds(100, 100, 201, 135);
 		getContentPane().setLayout(new BorderLayout());

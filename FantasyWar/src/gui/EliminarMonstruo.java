@@ -33,6 +33,7 @@ public class EliminarMonstruo extends MostrarMonstruoPadre {
 		buttonPrevious.setVisible(false);
 		btnSeleccionar.setVisible(false);
 		okButton.setText("Cancelar");
+		setModal(true);
 	}
 
 }

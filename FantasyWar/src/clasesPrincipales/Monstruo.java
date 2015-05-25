@@ -1,17 +1,9 @@
-package Monstruos;
+package clasesPrincipales;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
-
-import clasesPrincipales.Leveable;
-import enumeraciones.Ataques;
-import enumeraciones.Razas;
-import enumeraciones.TipoDeDanno;
-import excepciones.IraInsuficienteException;
-import excepciones.NombreInvalidoException;
-import interfaces.Razable;
 /**
  * Clase monstruo.
  * @author Emanuel Galván Fontalba
@@ -33,17 +25,10 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 	private boolean muerto;
 	private TipoDeDanno tipo;
 	private String rutaImg;
-	
 	private int nivel;
 	private int exp;
-	
 	private int armaduraProvisional=0;
 	private int resistenciaMagicaProvisional=0;
-
-
-
-	
-
 	/**
 	 * Patrón para nombres correctos. Deben de empezar por una mayúscula.
 	 */
@@ -69,10 +54,20 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 		setMuerto(false);
 	}
 	
+	/**
+	 * Constructor solo con el nombre.
+	 * @param nombre
+	 * 			Nombre del monstruo.
+	 * @throws NombreInvalidoException
+	 * 			El nombre no comienza por mayuscula
+	 */
 	Monstruo(String nombre) throws NombreInvalidoException{
 		setNombre(nombre);
 	}
 	
+	/**
+	 * Reestablece al monstruo despues de una pelea.
+	 */
 	abstract public void reestablecerse();
 	
 	/**
@@ -223,6 +218,48 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 		return PATRON_NOMBRE.matcher(nombre).matches();
 	}
 	
+	/**
+	 * Calcula el daño fisico a recibir.
+	 * @param dannoVerdadero
+	 * 			Daño verdadero a recibir.
+	 */
+	public void recibirDannoFisico(int dannoVerdadero) {
+		int dadosDefensor = (int) Math.random()*(0-100)+100;
+		int danno;
+
+		if(dannoVerdadero==0)
+			return;
+		if(dadosDefensor<=getProbabilidadEsquivar())
+			return;
+		danno=dannoVerdadero - (getArmadura()+getArmaduraProvisional());
+		if(danno<=0)
+			return;
+		if(getSaludActual()<=0)
+			setMuerto(true);
+		disminuirSaludActual(danno) ;
+	}
+	
+	/**
+	 * Calcula el daño mágico a recibir.
+	 * @param dannoVerdadero
+	 * 			Daño verdadero a recibir.
+	 */
+	public void recibirDannoMagico(int dannoVerdadero) {
+		int dadosDefensor = (int) Math.random()*(0-100)+100;
+		int danno;
+
+		if(dannoVerdadero==0)
+			return;
+		if(dadosDefensor<=getProbabilidadEsquivar())
+			return;
+		danno=dannoVerdadero - (getResistenciaMagica()+getResistenciaMagicaProvisional());
+		if(getSaludActual()<=0)
+			setMuerto(true);
+		if(danno<=0)
+			return;
+		disminuirSaludActual(danno) ;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -245,6 +282,10 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 			return false;
 		return true;
 	}
+	
+	public abstract int getPotenciador();
+	
+	public abstract void luchar(Ataques ataque, Monstruo defensor) throws Exception ;
 	
 	
 	//--------------------------------GETTERS & SETTERS--------------------------------------
@@ -381,42 +422,6 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 
 	public void setResistenciaMagicaProvisional(int resistenciaMagicaProvisional) {
 		this.resistenciaMagicaProvisional = resistenciaMagicaProvisional;
-	}
-
-	public abstract int getPotenciador();
-	
-	public abstract void luchar(Ataques ataque, Monstruo defensor) throws Exception ;
-
-	public void recibirDannoFisico(int dannoVerdadero) {
-		int dadosDefensor = (int) Math.random()*(0-100)+100;
-		int danno;
-
-		if(dannoVerdadero==0)
-			return;
-		if(dadosDefensor<=getProbabilidadEsquivar())
-			return;
-		danno=dannoVerdadero - (getArmadura()+getArmaduraProvisional());
-		if(danno<=0)
-			return;
-		if(getSaludActual()<=0)
-			setMuerto(true);
-		disminuirSaludActual(danno) ;
-	}
-
-	public void recibirDannoMagico(int dannoVerdadero) {
-		int dadosDefensor = (int) Math.random()*(0-100)+100;
-		int danno;
-
-		if(dannoVerdadero==0)
-			return;
-		if(dadosDefensor<=getProbabilidadEsquivar())
-			return;
-		danno=dannoVerdadero - (getResistenciaMagica()+getResistenciaMagicaProvisional());
-		if(getSaludActual()<=0)
-			setMuerto(true);
-		if(danno<=0)
-			return;
-		disminuirSaludActual(danno) ;
 	}
 
 	public String getRutaImg() {

@@ -1,6 +1,5 @@
-package interfaces;
+package clasesPrincipales;
 
-import enumeraciones.Razas;
 
 /**
  * Interfaz que se le aplica a toda clase que tenga raza y atributos de raza.
@@ -8,5 +7,10 @@ import enumeraciones.Razas;
  *
  */
 public interface Razable {
+	/**
+	 * Establece unos atributos según la raza.
+	 * @param raza
+	 * 			Raza.
+	 */
 	void estableceAtributosDeRaza(Razas raza);
 }

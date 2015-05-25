@@ -1,12 +1,5 @@
-package Monstruos;
+package clasesPrincipales;
 
-import enumeraciones.Ataques;
-import enumeraciones.Clase;
-import enumeraciones.Razas;
-import enumeraciones.TipoDeDanno;
-import excepciones.IraInsuficienteException;
-import excepciones.NombreInvalidoException;
-import interfaces.Luchable;
 
 public class Guerrero extends Monstruo implements Luchable {
 	private int ira;
@@ -112,20 +105,10 @@ public class Guerrero extends Monstruo implements Luchable {
 	private void decrementaPoderHabilidad() {
 		setPoderHabilidad(getPoderHabilidad() - 80);
 	}
-
-	// -------------------------GETTERS & SETTERS -----------------------
-	public int getIra() {
-		return ira;
-	}
-
-	public void setIra(int ira) {
-		this.ira = ira;
-	}
-
-	public static int getIramax() {
-		return IRA_MAX;
-	}
 	
+	/**
+	 * Calcula el daño verdadero se lo realiza al monstruo defensor.
+	 */
 	@Override
 	public void luchar(Ataques ataque, Monstruo defensor)
 			throws IraInsuficienteException {
@@ -165,7 +148,10 @@ public class Guerrero extends Monstruo implements Luchable {
 		
 		
 	}
-
+	
+	/**
+	 * Se reestablece la salud, ira y las estadisticas aumentadas en el turno.
+	 */
 	@Override
 	public void reestablecerse() {
 		setSaludActual(getSaludMaxima());
@@ -176,10 +162,6 @@ public class Guerrero extends Monstruo implements Luchable {
 		
 	}
 
-	@Override
-	public int getPotenciador() {
-		return getIra();
-	}
 	
 	/**
 	 * Establece la ruta de la imagen en función de su raza.
@@ -209,5 +191,23 @@ public class Guerrero extends Monstruo implements Luchable {
 		
 	}
 
+	// -------------------------GETTERS & SETTERS -----------------------
+	public int getIra() {
+		return ira;
+	}
+
+	public void setIra(int ira) {
+		this.ira = ira;
+	}
+
+	public static int getIramax() {
+		return IRA_MAX;
+	}
+	
+
+	@Override
+	public int getPotenciador() {
+		return getIra();
+	}
 
 }

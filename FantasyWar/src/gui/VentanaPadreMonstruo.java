@@ -14,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 
-import enumeraciones.Clase;
-import enumeraciones.Razas;
+import clasesPrincipales.Clase;
+import clasesPrincipales.Razas;
 
 public class VentanaPadreMonstruo extends JDialog {
 
@@ -53,6 +53,7 @@ public class VentanaPadreMonstruo extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaPadreMonstruo() {
+		setModal(true);
 		setBounds(100, 100, 224, 273);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

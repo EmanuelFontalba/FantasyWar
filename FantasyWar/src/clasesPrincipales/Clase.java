@@ -1,4 +1,4 @@
-package enumeraciones;
+package clasesPrincipales;
 /**
  * Todas la clases disponibles
  * @author Emanuel Galván Fontalba

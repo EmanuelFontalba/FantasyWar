@@ -14,22 +14,21 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
-import Monstruos.Guerrero;
-import Monstruos.Mago;
-import Monstruos.Monstruo;
-import Monstruos.Sacerdote;
+import clasesPrincipales.Ataques;
+import clasesPrincipales.Clase;
+import clasesPrincipales.ErrorEnElTurnoException;
+import clasesPrincipales.FeInsuficienteException;
+import clasesPrincipales.Guerrero;
+import clasesPrincipales.IraInsuficienteException;
+import clasesPrincipales.Mago;
+import clasesPrincipales.ManaInsuficienteException;
+import clasesPrincipales.Monstruo;
+import clasesPrincipales.MonstruoNoExisteException;
+import clasesPrincipales.NombreInvalidoException;
+import clasesPrincipales.Razas;
+import clasesPrincipales.Sacerdote;
+import clasesPrincipales.TipoDeDanno;
 import comunicacionConGui.Comunicacion;
-import clasesPrincipales.Combate;
-import enumeraciones.Ataques;
-import enumeraciones.Clase;
-import enumeraciones.Razas;
-import enumeraciones.TipoDeDanno;
-import excepciones.ErrorEnElTurnoException;
-import excepciones.FeInsuficienteException;
-import excepciones.IraInsuficienteException;
-import excepciones.ManaInsuficienteException;
-import excepciones.MonstruoNoExisteException;
-import excepciones.NombreInvalidoException;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -37,6 +36,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
 
 public class Luchar extends JDialog {
@@ -79,6 +79,7 @@ public class Luchar extends JDialog {
 	 */
 	@SuppressWarnings("unchecked")
 	public Luchar() {
+		setModal(true);
 		setTitle("Lucha");
 		try {
 			monstruoAleatorio();
@@ -206,13 +207,6 @@ public class Luchar extends JDialog {
 			labelEnergia.setBounds(22, 73, 46, 14);
 			contentPanel.add(labelEnergia);
 		}
-		
-		{
-			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon("src\\imagenes\\fondoLucha.jpg"));
-			label.setBounds(-38, -55, 677, 506);
-			contentPanel.add(label);
-		}
 		{
 			JLabel lblSalud_1 = new JLabel("Salud: ");
 			lblSalud_1.setFont(lblSalud_1.getFont().deriveFont(lblSalud_1.getFont().getStyle() | Font.BOLD));
@@ -220,6 +214,14 @@ public class Luchar extends JDialog {
 			lblSalud_1.setBounds(245, 71, 46, 14);
 			contentPanel.add(lblSalud_1);
 		}
+		
+		{
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon("src\\imagenes\\fondoLucha.jpg"));
+			label.setBounds(-38, -55, 677, 506);
+			contentPanel.add(label);
+		}
+		
 		
 
 		actualizarVista();

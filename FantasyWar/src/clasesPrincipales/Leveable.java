@@ -19,7 +19,9 @@ public abstract class Leveable {
 	
 	private static final int NIVEL_MAXIMO = 100;
 
-	
+	/**
+	 * Aumenta el nivel.
+	 */
 	public abstract void aumentarNivel();
 	
 	/**

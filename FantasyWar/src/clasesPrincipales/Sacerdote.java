@@ -1,13 +1,5 @@
-package Monstruos;
+package clasesPrincipales;
 
-import enumeraciones.Ataques;
-import enumeraciones.Clase;
-import enumeraciones.Razas;
-import enumeraciones.TipoDeDanno;
-import excepciones.FeInsuficienteException;
-import excepciones.IraInsuficienteException;
-import excepciones.NombreInvalidoException;
-import interfaces.Saneable;
 
 public class Sacerdote extends Monstruo implements Saneable {
 	
@@ -106,19 +98,9 @@ public class Sacerdote extends Monstruo implements Saneable {
 		setAtaqueBasico(getAtaqueBasico()-30);
 	}
 	
-	//---------------------------------GETTES & SETTERS---------------------------------
-	public int getFe() {
-		return fe;
-	}
-
-	private void setFe(int fe) {
-		this.fe = fe;
-	}
-
-	private static int getFemax() {
-		return FE_MAX;
-	}
-
+	/**
+	 * Calcula el daño verdadero y se lo aplica al monstruo defensor.
+	 */
 	@Override
 	public
 	void luchar(Ataques ataque, Monstruo defensor)
@@ -161,7 +143,10 @@ public class Sacerdote extends Monstruo implements Saneable {
 		
 		
 	}
-
+	
+	/**
+	 * Reestablece su salud, fe y atributos provisionales modificados en el turno.
+	 */
 	@Override
 	public void reestablecerse() {
 		setSaludActual(getSaludMaxima());
@@ -169,11 +154,6 @@ public class Sacerdote extends Monstruo implements Saneable {
 		setArmaduraProvisional(0);
 		setResistenciaMagicaProvisional(0);
 		setMuerto(false);
-	}
-
-	@Override
-	public int getPotenciador() {
-		return getFe();
 	}
 	
 	/**
@@ -202,6 +182,25 @@ public class Sacerdote extends Monstruo implements Saneable {
 			break;
 		}
 		
+	}
+	
+	//---------------------------------GETTES & SETTERS---------------------------------
+	public int getFe() {
+		return fe;
+	}
+
+	private void setFe(int fe) {
+		this.fe = fe;
+	}
+
+	private static int getFemax() {
+		return FE_MAX;
+	}
+
+
+	@Override
+	public int getPotenciador() {
+		return getFe();
 	}
 
 }

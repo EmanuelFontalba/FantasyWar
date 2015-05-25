@@ -11,16 +11,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import clasesPrincipales.Clase;
+import clasesPrincipales.ClaseNoSelecionadaException;
+import clasesPrincipales.Guerrero;
+import clasesPrincipales.Mago;
+import clasesPrincipales.Monstruo;
+import clasesPrincipales.MonstruoYaExisteException;
+import clasesPrincipales.NombreInvalidoException;
+import clasesPrincipales.Razas;
+import clasesPrincipales.Sacerdote;
 import comunicacionConGui.Comunicacion;
-import enumeraciones.Clase;
-import enumeraciones.Razas;
-import excepciones.ClaseNoSelecionadaException;
-import excepciones.MonstruoYaExisteException;
-import excepciones.NombreInvalidoException;
-import Monstruos.Guerrero;
-import Monstruos.Mago;
-import Monstruos.Monstruo;
-import Monstruos.Sacerdote;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;

@@ -33,6 +33,7 @@ public class AyudaCreación extends JDialog {
 	 * Create the dialog.
 	 */
 	public AyudaCreación() {
+		setModal(true);
 		setTitle("Ayuda para la creaci\u00F3n de monstruos.");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

@@ -25,6 +25,7 @@ public class MostrarPorNombre extends MostrarMonstruoPadre {
 		setTitle("Monstruo");
 		buttonNext.setVisible(false);
 		buttonPrevious.setVisible(false);
+		setModal(true);
 	}
 
 }

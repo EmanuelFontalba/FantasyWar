@@ -34,6 +34,7 @@ public class AyudaLucha extends JDialog {
 	 * Create the dialog.
 	 */
 	public AyudaLucha() {
+		setModal(true);
 		setTitle("Ayuda para la lucha");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

@@ -1,9 +1,10 @@
 package comunicacionConGui;
 
 import java.io.File;
-import Monstruos.Monstruo;
+
 import clasesPrincipales.Coleccion;
 import clasesPrincipales.Jugador;
+import clasesPrincipales.Monstruo;
 
 public class Comunicacion {
 	public static Jugador jugador;

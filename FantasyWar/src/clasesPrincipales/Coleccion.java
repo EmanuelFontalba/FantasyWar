@@ -2,13 +2,6 @@ package clasesPrincipales;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import Monstruos.Mago;
-import Monstruos.Monstruo;
-import enumeraciones.Razas;
-import excepciones.MonstruoNoExisteException;
-import excepciones.MonstruoYaExisteException;
-import excepciones.NombreInvalidoException;
 /**
  * Envoltorio de un ArrayList
  * Colección de monstruo donde se hace la gestión de la colección.
@@ -21,14 +14,6 @@ public class Coleccion implements Serializable {
 	 * Colección de monstruos
 	 */
 	private ArrayList<Monstruo> coleccion = new ArrayList<Monstruo>();
-	
-	public ArrayList<Monstruo> getColeccion() {
-		return coleccion;
-	}
-
-	public void setColeccion(ArrayList<Monstruo> coleccion) {
-		this.coleccion = coleccion;
-	}
 
 	/**
 	 * Añade un monstruo a nuestra colección
@@ -127,5 +112,13 @@ public class Coleccion implements Serializable {
 				monstruosDeRaza.add(monstruo);
 		}
 		return monstruosDeRaza;
+	}
+	
+	public ArrayList<Monstruo> getColeccion() {
+		return coleccion;
+	}
+
+	public void setColeccion(ArrayList<Monstruo> coleccion) {
+		this.coleccion = coleccion;
 	}
 }

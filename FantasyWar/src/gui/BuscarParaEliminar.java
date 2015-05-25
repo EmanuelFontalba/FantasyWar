@@ -1,8 +1,5 @@
 package gui;
 
-import excepciones.MonstruoNoExisteException;
-import excepciones.NombreInvalidoException;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -19,8 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import Monstruos.Monstruo;
-
+import clasesPrincipales.Monstruo;
+import clasesPrincipales.MonstruoNoExisteException;
+import clasesPrincipales.NombreInvalidoException;
 import comunicacionConGui.Comunicacion;
 
 public class BuscarParaEliminar extends JDialog {
@@ -45,6 +43,7 @@ public class BuscarParaEliminar extends JDialog {
 	 * Create the dialog.
 	 */
 	public BuscarParaEliminar() {
+		setModal(true);
 		textField = new JTextField();
 		textField.setBounds(87, 8, 86, 20);
 		contentPanel.add(textField);

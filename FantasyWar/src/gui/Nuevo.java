@@ -42,6 +42,7 @@ public class Nuevo extends JDialog {
 	 * Create the dialog.
 	 */
 	public Nuevo() {
+		setModal(true);
 		setTitle("Sobreescribir");
 		setBounds(100, 100, 683, 166);
 		getContentPane().setLayout(new BorderLayout());
@@ -77,6 +78,7 @@ public class Nuevo extends JDialog {
 										NuevoJugador nuevoJugador = new NuevoJugador();
 										nuevoJugador.setVisible(true);
 										Comunicacion.guardado=false;
+										Comunicacion.monstruoSeleccionado = null;
 								} catch (IOException e1) {
 									JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 								}
@@ -87,6 +89,7 @@ public class Nuevo extends JDialog {
 								Comunicacion.modificado=false;
 								NuevoJugador nuevoJugador = new NuevoJugador();
 								nuevoJugador.setVisible(true);
+								Comunicacion.monstruoSeleccionado = null;
 							} catch (IOException e1) {
 								JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 							}
