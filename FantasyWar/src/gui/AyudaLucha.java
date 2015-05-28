@@ -31,9 +31,10 @@ public class AyudaLucha extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JEditorPane dtrpnHolaHolahola = new JEditorPane();
+		dtrpnHolaHolahola.setContentType("text/html");
 		dtrpnHolaHolahola.setBackground(SystemColor.control);
 		dtrpnHolaHolahola.setEditable(false);
-		dtrpnHolaHolahola.setText("La lucha es simple.\r\nSelecciona el ataque  que vas a usar y tras aceptar usar\u00E1s tu turno, y a la vez  el monstruo enemigo usar\u00E1 un ataque contra t\u00ED.\r\n\r\nCada clase va a tener una especie de \"energia\", que se va acabando en funci\u00F3n del coste que tenga cada ataque. Cuando esta \"energia\", no podr\u00E1s realizar los ataques hasta que no se regenere al menos el coste.\r\n\r\nEl primero en morir pierde y se lleva un poco de experiencia.\r\nEl ganador se llevar\u00E1 mucha m\u00E1s experiencia.");
+		dtrpnHolaHolahola.setText("<strong>La lucha</strong> es simple.\r\n<p>Selecciona el ataque  que vas a usar y tras aceptar usar\u00E1s tu turno, y a la vez  el monstruo enemigo usar\u00E1 un ataque contra t\u00ED.</p>\r\n\r\n<p>Cada clase va a tener una especie de \"energia\", que se va acabando en funci\u00F3n del coste que tenga cada ataque. Cuando esta \"energia\", no podr\u00E1s realizar los ataques hasta que no se regenere al menos el coste.</p>\r\n\r\n<p>El primero en morir pierde y se lleva un poco de experiencia.\r\nEl ganador se llevar\u00E1 mucha m\u00E1s experiencia.</p>");
 		dtrpnHolaHolahola.setBounds(0, 0, 434, 229);
 		contentPanel.add(dtrpnHolaHolahola);
 		{

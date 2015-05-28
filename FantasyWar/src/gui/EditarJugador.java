@@ -66,7 +66,7 @@ public class EditarJugador extends JDialog {
 						textFieldNombre.setForeground(Color.RED);
 				}
 			});
-			textFieldNombre.setText(Comunicacion.jugador.getAlias());
+			textFieldNombre.setText(Comunicacion.getJugador().getAlias());
 			textFieldNombre.setBounds(76, 19, 235, 20);
 			contentPanel.add(textFieldNombre);
 			textFieldNombre.setColumns(10);
@@ -78,7 +78,7 @@ public class EditarJugador extends JDialog {
 		}
 		{
 			textFieldNivel = new JTextField();
-			textFieldNivel.setText(new Integer(Comunicacion.jugador.getNivel()).toString());
+			textFieldNivel.setText(new Integer(Comunicacion.getJugador().getNivel()).toString());
 			textFieldNivel.setEditable(false);
 			textFieldNivel.setBounds(76, 50, 76, 20);
 			contentPanel.add(textFieldNivel);
@@ -91,7 +91,7 @@ public class EditarJugador extends JDialog {
 		}
 		{
 			textFieldExp = new JTextField();
-			textFieldExp.setText(new Integer(Comunicacion.jugador.getExp()).toString());
+			textFieldExp.setText(new Integer(Comunicacion.getJugador().getExp()).toString());
 			textFieldExp.setEditable(false);
 			textFieldExp.setBounds(76, 81, 76, 20);
 			contentPanel.add(textFieldExp);
@@ -99,7 +99,7 @@ public class EditarJugador extends JDialog {
 		}
 		{
 			textFieldCreacion = new JTextField();
-			textFieldCreacion.setText(Comunicacion.jugador.getfNacimiento().toString());
+			textFieldCreacion.setText(Comunicacion.getJugador().getfNacimiento().toString());
 			textFieldCreacion.setEditable(false);
 			textFieldCreacion.setBounds(76, 112, 235, 20);
 			contentPanel.add(textFieldCreacion);
@@ -112,7 +112,7 @@ public class EditarJugador extends JDialog {
 		}
 		{
 			textFieldNumMons = new JTextField();
-			textFieldNumMons.setText(new Integer(Comunicacion.jugador.getColeccionMonstruos().size()).toString());
+			textFieldNumMons.setText(new Integer(Comunicacion.getJugador().getColeccionMonstruos().size()).toString());
 			textFieldNumMons.setEditable(false);
 			textFieldNumMons.setBounds(76, 143, 76, 20);
 			contentPanel.add(textFieldNumMons);
@@ -134,7 +134,7 @@ public class EditarJugador extends JDialog {
 
 					public void actionPerformed(ActionEvent e) {
 						try {
-							Comunicacion.jugador.setAlias(textFieldNombre.getText());
+							Comunicacion.getJugador().setAlias(textFieldNombre.getText());
 							setVisible(false);
 						} catch (NombreInvalidoException e1) {
 							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -76,7 +76,7 @@ public class MostrarMonstruoPadre extends JDialog {
 			textFieldNombre.setBounds(104, 8, 86, 20);
 			contentPanel.add(textFieldNombre);
 			textFieldNombre.setColumns(10);
-			textFieldNombre.setText(Comunicacion.monstruoEncontrado.getNombre());
+			textFieldNombre.setText(Comunicacion.getMonstruoEncontrado().getNombre());
 		}
 		{
 			JLabel lblRaza = new JLabel("Raza:");
@@ -89,8 +89,8 @@ public class MostrarMonstruoPadre extends JDialog {
 			textFieldRaza.setBounds(104, 58, 86, 20);
 			contentPanel.add(textFieldRaza);
 			textFieldRaza.setColumns(10);
-			if (Comunicacion.monstruoEncontrado != null)
-				textFieldRaza.setText(Comunicacion.monstruoEncontrado.getRaza().toString());
+			if (Comunicacion.getMonstruoEncontrado() != null)
+				textFieldRaza.setText(Comunicacion.getMonstruoEncontrado().getRaza().toString());
 		}
 		{
 			JLabel lblClase = new JLabel("Clase:");
@@ -103,12 +103,12 @@ public class MostrarMonstruoPadre extends JDialog {
 			textFieldClase.setBounds(104, 111, 86, 20);
 			contentPanel.add(textFieldClase);
 			textFieldClase.setColumns(10);
-			if (Comunicacion.monstruoEncontrado != null){
-				if(Comunicacion.monstruoEncontrado.getClass()== Guerrero.class)
+			if (Comunicacion.getMonstruoEncontrado() != null){
+				if(Comunicacion.getMonstruoEncontrado().getClass()== Guerrero.class)
 					textFieldClase.setText(Clase.GUERRERO.toString());
-				if(Comunicacion.monstruoEncontrado.getClass()== Mago.class)
+				if(Comunicacion.getMonstruoEncontrado().getClass()== Mago.class)
 					textFieldClase.setText(Clase.MAGO.toString());
-				if(Comunicacion.monstruoEncontrado.getClass()== Sacerdote.class)
+				if(Comunicacion.getMonstruoEncontrado().getClass()== Sacerdote.class)
 					textFieldClase.setText(Clase.SACERDOTE.toString());
 			}
 		}
@@ -116,14 +116,14 @@ public class MostrarMonstruoPadre extends JDialog {
 		txtEstadisticas = new JTextPane();
 		txtEstadisticas.setOpaque(false);
 		txtEstadisticas.setBackground(Color.WHITE);
-		if (Comunicacion.monstruoEncontrado != null)
-			txtEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
-					"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
-					"\rPoder de habilidad: "+Comunicacion.monstruoEncontrado.getPoderHabilidad()+
-					"\rArmadura: "+Comunicacion.monstruoEncontrado.getArmadura()+
-					"\rResistencia mágica: "+Comunicacion.monstruoEncontrado.getResistenciaMagica()+
-					"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoEncontrado.getProbabilidadCritico()+
-					"\rProbabilidad de esquivar: "+Comunicacion.monstruoEncontrado.getProbabilidadEsquivar());
+		if (Comunicacion.getMonstruoEncontrado() != null)
+			txtEstadisticas.setText("Salud máxima: "+Comunicacion.getMonstruoEncontrado().getSaludMaxima()+
+					"\rAtaque básico: "+Comunicacion.getMonstruoEncontrado().getAtaqueBasico()+
+					"\rPoder de habilidad: "+Comunicacion.getMonstruoEncontrado().getPoderHabilidad()+
+					"\rArmadura: "+Comunicacion.getMonstruoEncontrado().getArmadura()+
+					"\rResistencia mágica: "+Comunicacion.getMonstruoEncontrado().getResistenciaMagica()+
+					"\rProbabilidad de impacto crítico: "+Comunicacion.getMonstruoEncontrado().getProbabilidadCritico()+
+					"\rProbabilidad de esquivar: "+Comunicacion.getMonstruoEncontrado().getProbabilidadEsquivar());
 		txtEstadisticas.setEditable(false);
 		txtEstadisticas.setBounds(214, 11, 210, 117);
 		contentPanel.add(txtEstadisticas);
@@ -141,13 +141,13 @@ public class MostrarMonstruoPadre extends JDialog {
 		textFieldNivel.setBounds(104, 171, 86, 20);
 		contentPanel.add(textFieldNivel);
 		textFieldNivel.setColumns(10);
-		textFieldNivel.setText(""+Comunicacion.monstruoEncontrado.getNivel());
+		textFieldNivel.setText(""+Comunicacion.getMonstruoEncontrado().getNivel());
 		
 		textFieldExp = new JTextField();
 		textFieldExp.setEditable(false);
 		textFieldExp.setBounds(104, 224, 86, 20);
 		contentPanel.add(textFieldExp);
-		textFieldExp.setText(""+Comunicacion.monstruoEncontrado.getExp());
+		textFieldExp.setText(""+Comunicacion.getMonstruoEncontrado().getExp());
 		textFieldExp.setColumns(10);
 		
 		
@@ -156,20 +156,20 @@ public class MostrarMonstruoPadre extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			int indexPrimero=0;
-			if(Comunicacion.monstruosEncontrados !=null)
-				indexPrimero = Comunicacion.monstruosEncontrados.getColeccion().indexOf(Comunicacion.monstruoEncontrado);
+			if(Comunicacion.getMonstruosEncontrados() !=null)
+				indexPrimero = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
 			buttonPrevious = new JButton("<");
 			if(indexPrimero == 0)
 				buttonPrevious.setEnabled(false);
 			buttonPrevious.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int index = Comunicacion.monstruosEncontrados.getColeccion().indexOf(Comunicacion.monstruoEncontrado);
+					int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
 					if(index == 1){
 						buttonPrevious.setEnabled(false); 
 					}else
 						buttonPrevious.setEnabled(true);
 					if(0<=--index){
-						Comunicacion.monstruoEncontrado = Comunicacion.monstruosEncontrados.get(index);
+						Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(index));
 						buttonNext.setEnabled(true);
 					}
 					actualizar();
@@ -184,7 +184,7 @@ public class MostrarMonstruoPadre extends JDialog {
 
 				public void actionPerformed(ActionEvent e) {
 					try {
-						Comunicacion.jugador.getColeccionMonstruos().remove(Comunicacion.monstruoEncontrado.getNombre());
+						Comunicacion.getJugador().getColeccionMonstruos().remove(Comunicacion.getMonstruoEncontrado().getNombre());
 						setVisible(false);
 						JOptionPane.showMessageDialog(parentComponent, "Monstruo eliminado con éxito");
 					} catch (NombreInvalidoException
@@ -198,18 +198,18 @@ public class MostrarMonstruoPadre extends JDialog {
 			btnEliminar.setVisible(false);
 			
 			buttonNext = new JButton(">");
-			if(Comunicacion.monstruosEncontrados != null)
-				if(indexPrimero == Comunicacion.monstruosEncontrados.size()-1)
+			if(Comunicacion.getMonstruosEncontrados() != null)
+				if(indexPrimero == Comunicacion.getMonstruosEncontrados().size()-1)
 					buttonNext.setEnabled(false);
 			buttonNext.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int index = Comunicacion.monstruosEncontrados.getColeccion().indexOf(Comunicacion.monstruoEncontrado);
-					if(index == Comunicacion.monstruosEncontrados.size()-2){
+					int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
+					if(index == Comunicacion.getMonstruosEncontrados().size()-2){
 						buttonNext.setEnabled(false); 
 					}else
 						buttonNext.setEnabled(true);
-					if(Comunicacion.monstruosEncontrados.size()>=++index){
-						Comunicacion.monstruoEncontrado = Comunicacion.monstruosEncontrados.get(index);
+					if(Comunicacion.getMonstruosEncontrados().size()>=++index){
+						Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(index));
 						buttonPrevious.setEnabled(true);
 					}
 					actualizar();
@@ -222,7 +222,7 @@ public class MostrarMonstruoPadre extends JDialog {
 				btnSeleccionar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-							Comunicacion.monstruoSeleccionado = Comunicacion.monstruoEncontrado;
+							Comunicacion.setMonstruoSeleccionado(Comunicacion.getMonstruoEncontrado());
 							Principal.actualizar();
 							setVisible(false);
 					}
@@ -233,8 +233,8 @@ public class MostrarMonstruoPadre extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
-						Comunicacion.monstruoEncontrado = null;
-						Comunicacion.monstruosEncontrados = null;
+						Comunicacion.setMonstruoEncontrado(null);
+						Comunicacion.setMonstruosEncontrados(null);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -243,7 +243,7 @@ public class MostrarMonstruoPadre extends JDialog {
 			}
 			
 			labelImg = new JLabel("");
-			labelImg.setIcon(new ImageIcon(Comunicacion.monstruoEncontrado.getRutaImg()));
+			labelImg.setIcon(new ImageIcon(Comunicacion.getMonstruoEncontrado().getRutaImg()));
 			labelImg.setBounds(214, 139, 210, 144);
 			contentPanel.add(labelImg);
 			
@@ -254,23 +254,23 @@ public class MostrarMonstruoPadre extends JDialog {
 	}
 	
 	private void actualizar(){
-		labelImg.setIcon(new ImageIcon(Comunicacion.monstruoEncontrado.getRutaImg()));
-		txtEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
-				"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
-				"\rPoder de habilidad: "+Comunicacion.monstruoEncontrado.getPoderHabilidad()+
-				"\rArmadura: "+Comunicacion.monstruoEncontrado.getArmadura()+
-				"\rResistencia mágica: "+Comunicacion.monstruoEncontrado.getResistenciaMagica()+
-				"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoEncontrado.getProbabilidadCritico()+
-				"\rProbabilidad de esquivar: "+Comunicacion.monstruoEncontrado.getProbabilidadEsquivar());
-		textFieldNombre.setText(Comunicacion.monstruoEncontrado.getNombre());
-		textFieldRaza.setText(Comunicacion.monstruoEncontrado.getRaza().toString());
-		if(Comunicacion.monstruoEncontrado.getClass()== Guerrero.class)
+		labelImg.setIcon(new ImageIcon(Comunicacion.getMonstruoEncontrado().getRutaImg()));
+		txtEstadisticas.setText("Salud máxima: "+Comunicacion.getMonstruoEncontrado().getSaludMaxima()+
+				"\rAtaque básico: "+Comunicacion.getMonstruoEncontrado().getAtaqueBasico()+
+				"\rPoder de habilidad: "+Comunicacion.getMonstruoEncontrado().getPoderHabilidad()+
+				"\rArmadura: "+Comunicacion.getMonstruoEncontrado().getArmadura()+
+				"\rResistencia mágica: "+Comunicacion.getMonstruoEncontrado().getResistenciaMagica()+
+				"\rProbabilidad de impacto crítico: "+Comunicacion.getMonstruoEncontrado().getProbabilidadCritico()+
+				"\rProbabilidad de esquivar: "+Comunicacion.getMonstruoEncontrado().getProbabilidadEsquivar());
+		textFieldNombre.setText(Comunicacion.getMonstruoEncontrado().getNombre());
+		textFieldRaza.setText(Comunicacion.getMonstruoEncontrado().getRaza().toString());
+		if(Comunicacion.getMonstruoEncontrado().getClass()== Guerrero.class)
 			textFieldClase.setText(Clase.GUERRERO.toString());
-		if(Comunicacion.monstruoEncontrado.getClass()== Mago.class)
+		if(Comunicacion.getMonstruoEncontrado().getClass()== Mago.class)
 			textFieldClase.setText(Clase.MAGO.toString());
-		if(Comunicacion.monstruoEncontrado.getClass()== Sacerdote.class)
+		if(Comunicacion.getMonstruoEncontrado().getClass()== Sacerdote.class)
 			textFieldClase.setText(Clase.SACERDOTE.toString());
-		textFieldNivel.setText(""+Comunicacion.monstruoEncontrado.getNivel());
-		textFieldExp.setText(""+Comunicacion.monstruoEncontrado.getExp());
+		textFieldNivel.setText(""+Comunicacion.getMonstruoEncontrado().getNivel());
+		textFieldExp.setText(""+Comunicacion.getMonstruoEncontrado().getExp());
 	}
 }

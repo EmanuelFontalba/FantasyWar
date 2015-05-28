@@ -309,7 +309,11 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 		if(nombreValido(nombre))
 			this.nombre = nombre;
 		else
-			throw new NombreInvalidoException("El nombre introducido no es valido. Debe comenzar por mayuscula.");
+			throw new NombreInvalidoException("El nombre introducido no es valido.\n"
+					+ "Posibles errores: \n"
+					+ "-El nombre no comienza por mayuscula. \n"
+					+ "-Hay alguna mayuscula además de la primera.\n"
+					+ "-Hay algún digito en el nombre.");
 	}
 
 	public Date getfNacimiento() {

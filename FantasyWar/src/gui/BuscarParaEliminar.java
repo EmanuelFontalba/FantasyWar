@@ -82,12 +82,12 @@ public class BuscarParaEliminar extends JDialog {
 				private Component contentPane;
 
 				public void actionPerformed(ActionEvent arg0) {
-					if( Comunicacion.jugador.getColeccionMonstruos().size() == 0)
+					if( Comunicacion.getJugador().getColeccionMonstruos().size() == 0)
 						JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección", "ERROR", JOptionPane.ERROR_MESSAGE);
 					else{
 						
 						try {
-							Comunicacion.monstruoEncontrado = Comunicacion.jugador.getColeccionMonstruos().get(textField.getText());
+							Comunicacion.setMonstruoEncontrado(Comunicacion.getJugador().getColeccionMonstruos().get(textField.getText()));
 							EliminarMonstruo eliminar = new EliminarMonstruo();
 							eliminar.setVisible(true);
 							setVisible(false);

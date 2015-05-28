@@ -7,11 +7,55 @@ import clasesPrincipales.Jugador;
 import clasesPrincipales.Monstruo;
 
 public class Comunicacion {
-	public static Jugador jugador;
-	public static File archivoElegido;	
-	public static boolean guardado=false;
-	public static boolean modificado = false;
-	public static Monstruo monstruoSeleccionado;
-	public static Monstruo monstruoEncontrado;
-	public static Coleccion monstruosEncontrados;
+	private static Jugador jugador;
+	private static File archivoElegido;	
+	private static boolean guardado=false;
+	private static boolean modificado = false;
+	private static Monstruo monstruoSeleccionado;
+	private static Monstruo monstruoEncontrado;
+	private static Coleccion monstruosEncontrados;
+	
+	public static Jugador getJugador() {
+		return jugador;
+	}
+	public static void setJugador(Jugador jugador) {
+		Comunicacion.jugador = jugador;
+	}
+	public static File getArchivoElegido() {
+		return archivoElegido;
+	}
+	public static void setArchivoElegido(File archivoElegido) {
+		Comunicacion.archivoElegido = archivoElegido;
+	}
+	public static boolean isGuardado() {
+		return guardado;
+	}
+	public static void setGuardado(boolean guardado) {
+		Comunicacion.guardado = guardado;
+	}
+	public static boolean isModificado() {
+		return modificado;
+	}
+	public static void setModificado(boolean modificado) {
+		Comunicacion.modificado = modificado;
+	}
+	public static Monstruo getMonstruoSeleccionado() {
+		return monstruoSeleccionado;
+	}
+	public static void setMonstruoSeleccionado(Monstruo monstruoSeleccionado) {
+		Comunicacion.monstruoSeleccionado = monstruoSeleccionado;
+	}
+	public static Monstruo getMonstruoEncontrado() {
+		return monstruoEncontrado;
+	}
+	public static void setMonstruoEncontrado(Monstruo monstruoEncontrado) {
+		Comunicacion.monstruoEncontrado = monstruoEncontrado;
+	}
+	public static Coleccion getMonstruosEncontrados() {
+		return monstruosEncontrados;
+	}
+	public static void setMonstruosEncontrados(Coleccion monstruosEncontrados) {
+		Comunicacion.monstruosEncontrados = monstruosEncontrados;
+	}
+	
 }

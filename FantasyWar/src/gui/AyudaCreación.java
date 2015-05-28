@@ -23,16 +23,18 @@ public class AyudaCreación extends JDialog {
 		setResizable(false);
 		setModal(true);
 		setTitle("Ayuda para la creaci\u00F3n de monstruos.");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 359);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JEditorPane dtrpnCreacinDeMonstruos = new JEditorPane();
+			dtrpnCreacinDeMonstruos.setEditable(false);
+			dtrpnCreacinDeMonstruos.setContentType("text/html");
 			dtrpnCreacinDeMonstruos.setBackground(SystemColor.control);
-			dtrpnCreacinDeMonstruos.setText("Creaci\u00F3n de monstruos.\r\n\r\nConsejos:\r\n-Debes de tomar buenas decisiones, ya que algunas razas beneficiar a algunas clases y/o hacerles el juego m\u00E1s dificil.\r\n\r\n-Para saber que ofrecen las razas y clases, visita la ayuda Clases y Razas.\r\n\r\nBuenas combinaciones:\r\n-NoMuerto - Mago\r\n-Orco -Guerrero");
-			dtrpnCreacinDeMonstruos.setBounds(0, 0, 434, 229);
+			dtrpnCreacinDeMonstruos.setText("<html><h1>Creaci\u00F3n de monstruos.</h1>\r\n\r\n<strong>Consejos:</strong>\r\n<ul>\r\n<li>Debes de tomar buenas decisiones, ya que algunas razas beneficiar a algunas clases y/o hacerles el juego m\u00E1s dificil.</li>\r\n\r\n<li>Para saber que ofrecen las razas y clases, visita la ayuda Clases y Razas.</li>\r\n</ul>\r\n<br />\r\n<strong>Buenas combinaciones:</strong>\r\n<ul><li>NoMuerto - Mago</li>\r\n<li>Orco -Guerrero</li></ul>");
+			dtrpnCreacinDeMonstruos.setBounds(0, 0, 434, 287);
 			contentPanel.add(dtrpnCreacinDeMonstruos);
 		}
 		{

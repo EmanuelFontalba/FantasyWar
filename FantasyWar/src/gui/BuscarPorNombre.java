@@ -82,14 +82,14 @@ public class BuscarPorNombre extends JDialog {
 				private Component contentPane;
 
 				public void actionPerformed(ActionEvent arg0) {
-					if( Comunicacion.jugador.getColeccionMonstruos().size() == 0)
+					if( Comunicacion.getJugador().getColeccionMonstruos().size() == 0)
 						JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección", "ERROR", JOptionPane.ERROR_MESSAGE);
 					else{
 						
 						try {
-							Comunicacion.monstruoEncontrado = Comunicacion.jugador.getColeccionMonstruos().get(textField.getText());
+							Comunicacion.setMonstruoEncontrado(Comunicacion.getJugador().getColeccionMonstruos().get(textField.getText()));
 							MostrarPorNombre mostrar = new MostrarPorNombre();
-							if (Comunicacion.monstruoEncontrado == null)
+							if (Comunicacion.getMonstruoEncontrado() == null)
 								System.out.println("El monstruo no esta");
 							mostrar.setVisible(true);
 						} catch (MonstruoNoExisteException

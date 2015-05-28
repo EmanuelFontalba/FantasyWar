@@ -91,7 +91,11 @@ public class Jugador extends Leveable implements Serializable{
 		if(nombreValido(alias))
 			this.alias = alias;
 		else
-			throw new NombreInvalidoException("El nombre introducido no es valido. Debe comenzar por mayuscula.");
+			throw new NombreInvalidoException("El nombre introducido no es valido.\n"
+					+ "Posibles errores: \n"
+					+ "-El nombre no comienza por mayuscula. \n"
+					+ "-Hay alguna mayuscula además de la primera.\n"
+					+ "-Hay algún digito en el nombre.");
 	}
 
 	public  String getAlias() {

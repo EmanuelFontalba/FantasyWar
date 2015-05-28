@@ -57,10 +57,10 @@ public class NuevoJugador extends JDialog {
 
 					public void actionPerformed(ActionEvent e) {
 						try {
-							Comunicacion.jugador = new Jugador(textField.getText());
-							Comunicacion.guardado=false;
-							Comunicacion.modificado=false;
-							Comunicacion.archivoElegido=null;
+							Comunicacion.setJugador(new Jugador(textField.getText()));
+							Comunicacion.setGuardado(false);
+							Comunicacion.setModificado(false);
+							Comunicacion.setArchivoElegido(null);
 							Component parentComponent = null;
 							JOptionPane.showMessageDialog(parentComponent, "Partida creada con éxito");
 							setVisible(false);

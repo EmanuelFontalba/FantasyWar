@@ -51,13 +51,13 @@ public class AnnadirMonstruo extends VentanaPadreMonstruo {
 					if(textFieldNombre.getText() == null)
 						throw new NombreInvalidoException("Debes introducir el nombre del monstruo");
 					if(comboBoxClase.getSelectedItem() == Clase.MAGO)
-						Comunicacion.jugador.getColeccionMonstruos().add
+						Comunicacion.getJugador().getColeccionMonstruos().add
 							(new Mago(textFieldNombre.getText(), (Razas) comboBoxRaza.getSelectedItem()));
 					if(comboBoxClase.getSelectedItem() == Clase.SACERDOTE)
-						Comunicacion.jugador.getColeccionMonstruos().add
+						Comunicacion.getJugador().getColeccionMonstruos().add
 							(new Sacerdote(textFieldNombre.getText(), (Razas) comboBoxRaza.getSelectedItem()));
 					if(comboBoxClase.getSelectedItem() == Clase.GUERRERO)
-						Comunicacion.jugador.getColeccionMonstruos().add
+						Comunicacion.getJugador().getColeccionMonstruos().add
 							(new Guerrero(textFieldNombre.getText(), (Razas) comboBoxRaza.getSelectedItem()));
 					setVisible(false);
 					JOptionPane.showMessageDialog(parentComponent, "Monstruo añadido con éxito");

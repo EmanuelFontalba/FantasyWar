@@ -80,7 +80,7 @@ public class Luchar extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblTu = new JLabel(Comunicacion.monstruoSeleccionado.getNombre());
+			JLabel lblTu = new JLabel(Comunicacion.getMonstruoSeleccionado().getNombre());
 			lblTu.setFont(lblTu.getFont().deriveFont(lblTu.getFont().getStyle() | Font.BOLD));
 			lblTu.setForeground(new Color(255, 255, 255));
 			lblTu.setBounds(87, 11, 46, 14);
@@ -143,7 +143,7 @@ public class Luchar extends JDialog {
 			
 		}
 
-		comboBoxHabilidad.setModel(new DefaultComboBoxModel(Ataques.getArray(Comunicacion.monstruoSeleccionado.getClass())));
+		comboBoxHabilidad.setModel(new DefaultComboBoxModel(Ataques.getArray(Comunicacion.getMonstruoSeleccionado().getClass())));
 		JButton btnNewButton = new JButton("Atacar");
 		btnNewButton.setBounds(235, 244, 161, 66);
 		contentPanel.add(btnNewButton);
@@ -222,41 +222,41 @@ public class Luchar extends JDialog {
 					//Selección de el ataque del turno
 					int danno=0;
 					try {
-						Comunicacion.monstruoSeleccionado.luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
+						Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 					if(monstruoCPU.isMuerto()){
 						setVisible(false);
 						try {
-							Comunicacion.jugador.getColeccionMonstruos().get(Comunicacion.monstruoSeleccionado.getNombre()).aumentarExp(2000);
+							Comunicacion.getJugador().getColeccionMonstruos().get(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(2000);
 						} catch (MonstruoNoExisteException
 								| NombreInvalidoException e1) {
 							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
-						Comunicacion.jugador.aumentarExp(1000);
-						Comunicacion.monstruoSeleccionado.reestablecerse();
+						Comunicacion.getJugador().aumentarExp(1000);
+						Comunicacion.getMonstruoSeleccionado().reestablecerse();
 						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
 						return;
 					}
 
 					try {
-						monstruoCPU.luchar(ataqueAleatorioCPU(), Comunicacion.monstruoSeleccionado);
+						monstruoCPU.luchar(ataqueAleatorioCPU(), Comunicacion.getMonstruoSeleccionado());
 					} catch (Exception e1) {
 						//No se captura
 					}
-					if(Comunicacion.monstruoSeleccionado.isMuerto()){
+					if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
 						setVisible(false);
 						try {
-							Comunicacion.jugador.getColeccionMonstruos().get
-							(Comunicacion.monstruoSeleccionado.getNombre()).aumentarExp(100);
+							Comunicacion.getJugador().getColeccionMonstruos().get
+							(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(100);
 						} catch (MonstruoNoExisteException
 								| NombreInvalidoException e1) {
 							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
-						Comunicacion.jugador.aumentarExp(50);
-						Comunicacion.monstruoSeleccionado.reestablecerse();
+						Comunicacion.getJugador().aumentarExp(50);
+						Comunicacion.getMonstruoSeleccionado().reestablecerse();
 						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Has perdido.");
 						return;
@@ -318,15 +318,15 @@ public class Luchar extends JDialog {
 	 */
 	private void actualizarVista() {
 		textFieldSaludCPU.setText((new Integer(monstruoCPU.getSaludActual())).toString());
-		textFieldSalud.setText((new Integer(Comunicacion.monstruoSeleccionado.getSaludActual())).toString());
-		textFieldEnergia.setText((new Integer(Comunicacion.monstruoSeleccionado.getPotenciador())).toString());
-		textPaneEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoSeleccionado.getSaludMaxima()+
-				"\rAtaque básico: "+Comunicacion.monstruoSeleccionado.getAtaqueBasico()+
-				"\rPoder de habilidad: "+Comunicacion.monstruoSeleccionado.getPoderHabilidad()+
-				"\rArmadura: "+(Comunicacion.monstruoSeleccionado.getArmadura()+Comunicacion.monstruoSeleccionado.getArmaduraProvisional())+
-				"\rResistencia mágica: "+(Comunicacion.monstruoSeleccionado.getResistenciaMagica()+Comunicacion.monstruoSeleccionado.getResistenciaMagicaProvisional())+
-				"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoSeleccionado.getProbabilidadCritico()+
-				"\rProbabilidad de esquivar: "+Comunicacion.monstruoSeleccionado.getProbabilidadEsquivar());
+		textFieldSalud.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getSaludActual())).toString());
+		textFieldEnergia.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getPotenciador())).toString());
+		textPaneEstadisticas.setText("Salud máxima: "+Comunicacion.getMonstruoSeleccionado().getSaludMaxima()+
+				"\rAtaque básico: "+Comunicacion.getMonstruoSeleccionado().getAtaqueBasico()+
+				"\rPoder de habilidad: "+Comunicacion.getMonstruoSeleccionado().getPoderHabilidad()+
+				"\rArmadura: "+(Comunicacion.getMonstruoSeleccionado().getArmadura()+Comunicacion.getMonstruoSeleccionado().getArmaduraProvisional())+
+				"\rResistencia mágica: "+(Comunicacion.getMonstruoSeleccionado().getResistenciaMagica()+Comunicacion.getMonstruoSeleccionado().getResistenciaMagicaProvisional())+
+				"\rProbabilidad de impacto crítico: "+Comunicacion.getMonstruoSeleccionado().getProbabilidadCritico()+
+				"\rProbabilidad de esquivar: "+Comunicacion.getMonstruoSeleccionado().getProbabilidadEsquivar());
 	}
 
 
@@ -353,11 +353,11 @@ public class Luchar extends JDialog {
 	}	
 	
 	private String nombreEnergia(){
-		if(Comunicacion.monstruoSeleccionado.getClass() == Mago.class)
+		if(Comunicacion.getMonstruoSeleccionado().getClass() == Mago.class)
 			return "Mana";
-		if(Comunicacion.monstruoSeleccionado.getClass() == Guerrero.class)
+		if(Comunicacion.getMonstruoSeleccionado().getClass() == Guerrero.class)
 			return "Ira";
-		if(Comunicacion.monstruoSeleccionado.getClass() == Sacerdote.class)
+		if(Comunicacion.getMonstruoSeleccionado().getClass() == Sacerdote.class)
 			return "Fe";
 		return "¿?";
 	}

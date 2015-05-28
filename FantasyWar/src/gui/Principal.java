@@ -13,14 +13,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+
 import clasesPrincipales.GestionFicheros;
 import clasesPrincipales.Jugador;
 import comunicacionConGui.Comunicacion;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -77,24 +81,24 @@ public class Principal {
 		JMenuItem mntmNuevaPartida = new JMenuItem("Nueva partida");
 		mntmNuevaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					NuevoJugador nuevo = new NuevoJugador();
 					nuevo.setVisible(true);
-					Comunicacion.monstruoSeleccionado = null;
+					Comunicacion.setMonstruoSeleccionado(null);
 					return;
 				}
-				if(Comunicacion.modificado){
+				if(Comunicacion.isModificado()){
 					Nuevo nuevo = new Nuevo();
 					nuevo.setVisible(true);
-					Comunicacion.archivoElegido=null;
-					Comunicacion.monstruoSeleccionado = null;
+					Comunicacion.setArchivoElegido(null);
+					Comunicacion.setMonstruoSeleccionado(null);
 				}
 				else{
 					Nuevo nuevo = new Nuevo();
 					nuevo.setVisible(true);
 				}
-				if(Comunicacion.archivoElegido!=null)
-					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.archivoElegido.getName());
+				if(Comunicacion.getArchivoElegido()!=null)
+					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.getArchivoElegido().getName());
 				else
 					frmPartidaDe.setTitle("Fantasy War. - Sin título");
 			}
@@ -117,24 +121,24 @@ public class Principal {
 
 					if (respuesta == JFileChooser.APPROVE_OPTION)
 					{
-						Comunicacion.archivoElegido = fc.getSelectedFile();
+						Comunicacion.setArchivoElegido(fc.getSelectedFile());
 					}
 					if (respuesta == JFileChooser.CANCEL_OPTION){
 						
 					}
 					
-					if(Comunicacion.archivoElegido==null)
+					if(Comunicacion.getArchivoElegido()==null)
 						return;
-					Comunicacion.jugador=(Jugador)GestionFicheros.abrir(Comunicacion.archivoElegido);
-					Comunicacion.guardado=true;
-					Comunicacion.modificado = false;
-					Comunicacion.monstruoSeleccionado = null;
-					if(Comunicacion.archivoElegido!=null)
-						frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.archivoElegido.getName());
+					Comunicacion.setJugador((Jugador)GestionFicheros.abrir(Comunicacion.getArchivoElegido()));
+					Comunicacion.setGuardado(true);
+					Comunicacion.setModificado(false);
+					Comunicacion.setMonstruoSeleccionado(null);
+					if(Comunicacion.getArchivoElegido()!=null)
+						frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.getArchivoElegido().getName());
 					else
 						frmPartidaDe.setTitle("Fantasy War. - Sin título");
 				} catch (ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "El archivo elegido no corresponde con Fantasy War.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -146,36 +150,36 @@ public class Principal {
 			
 
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.guardado)
-					if(Comunicacion.modificado)
+				if(Comunicacion.isGuardado())
+					if(Comunicacion.isModificado())
 						try {
 							if(modificarCambios() == JOptionPane.YES_OPTION){
-								GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
-								Comunicacion.modificado = false;
+								GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
+								Comunicacion.setModificado(false);
 							}
 						} catch (IOException e1) {
 							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 					else
 						try {
-							GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
-							Comunicacion.modificado=false;
+							GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
+							Comunicacion.setModificado(false);
 						} catch (IOException e1) {
 							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 				else
 					try {
 						guardarComo();
-						if(Comunicacion.archivoElegido==null)
+						if(Comunicacion.getArchivoElegido()==null)
 							return;
-						GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
-						Comunicacion.guardado=true;
-						Comunicacion.modificado = false;
+						GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
+						Comunicacion.setGuardado(true);
+						Comunicacion.setModificado(false);
 					} catch (IOException e1) {
 						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
-				if(Comunicacion.archivoElegido!=null)
-					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.archivoElegido.getName());
+				if(Comunicacion.getArchivoElegido()!=null)
+					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.getArchivoElegido().getName());
 				else
 					frmPartidaDe.setTitle("Fantasy War. - Sin título");
 			}
@@ -188,16 +192,16 @@ public class Principal {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					guardarComo();
-					if(Comunicacion.archivoElegido==null)
+					if(Comunicacion.getArchivoElegido()==null)
 						return;
-					GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
-					Comunicacion.guardado=true;
-					Comunicacion.modificado = false;
+					GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
+					Comunicacion.setGuardado(true);
+					Comunicacion.setModificado(false);
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
-				if(Comunicacion.archivoElegido!=null)
-					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.archivoElegido.getName());
+				if(Comunicacion.getArchivoElegido()!=null)
+					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.getArchivoElegido().getName());
 				else
 					frmPartidaDe.setTitle("Fantasy War. - Sin título");
 			}
@@ -221,7 +225,7 @@ public class Principal {
 		JMenuItem mntmMostrar = new JMenuItem("Mostrar");
 		mntmMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					MostrarJugador mostrar = new MostrarJugador();
@@ -234,7 +238,7 @@ public class Principal {
 		JMenuItem mntmEditar = new JMenuItem("Editar");
 		mntmEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					EditarJugador editar = new EditarJugador();
@@ -251,7 +255,7 @@ public class Principal {
 		JMenuItem mntmAadirMonstruo = new JMenuItem("A\u00F1adir monstruo");
 		mntmAadirMonstruo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					AnnadirMonstruo annadirMonstruo = new AnnadirMonstruo();
@@ -264,7 +268,7 @@ public class Principal {
 		JMenuItem mntmEliminarMonstruo = new JMenuItem("Eliminar monstruo");
 		mntmEliminarMonstruo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					BuscarParaEliminar eliminar = new BuscarParaEliminar();
@@ -280,7 +284,7 @@ public class Principal {
 		JMenuItem mntmNombre = new JMenuItem("Nombre");
 		mntmNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					BuscarPorNombre buscar = new BuscarPorNombre();
@@ -293,7 +297,7 @@ public class Principal {
 		JMenuItem mntmRaza = new JMenuItem("Raza");
 		mntmRaza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
 					BuscarPorRaza buscar = new BuscarPorRaza();
@@ -306,14 +310,14 @@ public class Principal {
 		JMenuItem mntmMostrarTodos = new JMenuItem("Mostrar todos");
 		mntmMostrarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null){
+				if(Comunicacion.getJugador() == null){
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}else{
-					Comunicacion.monstruosEncontrados = Comunicacion.jugador.getColeccionMonstruos();
-					if(Comunicacion.monstruosEncontrados.size() == 0)
+					Comunicacion.setMonstruosEncontrados(Comunicacion.getJugador().getColeccionMonstruos());
+					if(Comunicacion.getMonstruosEncontrados().size() == 0)
 						System.out.println("Array vacio"); //controlar
 					else{
-						Comunicacion.monstruoEncontrado = Comunicacion.monstruosEncontrados.get(0);
+						Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(0));
 						MostrarMonstruoPadre mostrar = new MostrarMonstruoPadre();
 						mostrar.setVisible(true);
 					}
@@ -326,7 +330,7 @@ public class Principal {
 		mnAyuda.setMnemonic('h');
 		menuBar.add(mnAyuda);
 		
-		JMenu mnAcercaDe = new JMenu("Acerca de...");
+		JMenu mnAcercaDe = new JMenu("Manuales");
 		mnAyuda.add(mnAcercaDe);
 		
 		JMenuItem mntmLucha = new JMenuItem("Lucha");
@@ -336,6 +340,15 @@ public class Principal {
 				ayuda.setVisible(true);
 			}
 		});
+		
+		JMenuItem mntmComoEmpezar = new JMenuItem("Como empezar");
+		mntmComoEmpezar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ComoEmpezar ayuda = new ComoEmpezar();
+				ayuda.setVisible(true);
+			}
+		});
+		mnAcercaDe.add(mntmComoEmpezar);
 		mnAcercaDe.add(mntmLucha);
 		
 		JMenuItem mntmCreacin = new JMenuItem("Creaci\u00F3n");
@@ -356,7 +369,13 @@ public class Principal {
 		});
 		mnAcercaDe.add(mntmClasesYRazas);
 		
-		JMenuItem mntmCrditos = new JMenuItem("Cr\u00E9ditos");
+		JMenuItem mntmCrditos = new JMenuItem("Acerca de...");
+		mntmCrditos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AcercaDe acerca = new AcercaDe();
+				acerca.setVisible(true);
+			}
+		});
 		mnAyuda.add(mntmCrditos);
 		frmPartidaDe.getContentPane().setLayout(null);
 		
@@ -380,9 +399,9 @@ public class Principal {
 		btnLuchar.setForeground(new Color(165, 42, 42));
 		btnLuchar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Comunicacion.jugador == null)
+				if(Comunicacion.getJugador() == null)
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener jugador.", "ERROR", JOptionPane.ERROR_MESSAGE);
-				if(Comunicacion.monstruoSeleccionado == null)
+				if(Comunicacion.getMonstruoSeleccionado() == null)
 					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener un monstruo seleccionado.", "ERROR", JOptionPane.ERROR_MESSAGE);
 				else{
 					Luchar lucha = new Luchar();
@@ -397,6 +416,7 @@ public class Principal {
 		btnMazmorra.setBounds(297, 233, 186, 118);
 		frmPartidaDe.getContentPane().add(btnMazmorra);
 		btnMazmorra.setEnabled(false);
+		btnMazmorra.setVisible(false);
 		
 		textFieldNombrePJ = new JTextField();
 		textFieldNombrePJ.setEditable(false);
@@ -419,15 +439,15 @@ public class Principal {
 	}
 
 	public static void actualizar() {
-		lblImagenDelMonstruo.setIcon(new ImageIcon(Comunicacion.monstruoSeleccionado.getRutaImg()));		
-		textFieldNombrePJ.setText(Comunicacion.monstruoSeleccionado.getNombre());
-		txtpnEstadisticas.setText("Salud máxima: "+Comunicacion.monstruoEncontrado.getSaludMaxima()+
-				"\rAtaque básico: "+Comunicacion.monstruoEncontrado.getAtaqueBasico()+
-				"\rPoder de habilidad: "+Comunicacion.monstruoEncontrado.getPoderHabilidad()+
-				"\rArmadura: "+Comunicacion.monstruoEncontrado.getArmadura()+
-				"\rResistencia mágica: "+Comunicacion.monstruoEncontrado.getResistenciaMagica()+
-				"\rProbabilidad de impacto crítico: "+Comunicacion.monstruoEncontrado.getProbabilidadCritico()+
-				"\rProbabilidad de esquivar: "+Comunicacion.monstruoEncontrado.getProbabilidadEsquivar());
+		lblImagenDelMonstruo.setIcon(new ImageIcon(Comunicacion.getMonstruoEncontrado().getRutaImg()));		
+		textFieldNombrePJ.setText(Comunicacion.getMonstruoEncontrado().getNombre());
+		txtpnEstadisticas.setText("Salud máxima: "+Comunicacion.getMonstruoEncontrado().getSaludMaxima()+
+				"\rAtaque básico: "+Comunicacion.getMonstruoEncontrado().getAtaqueBasico()+
+				"\rPoder de habilidad: "+Comunicacion.getMonstruoEncontrado().getPoderHabilidad()+
+				"\rArmadura: "+Comunicacion.getMonstruoEncontrado().getArmadura()+
+				"\rResistencia mágica: "+Comunicacion.getMonstruoEncontrado().getResistenciaMagica()+
+				"\rProbabilidad de impacto crítico: "+Comunicacion.getMonstruoEncontrado().getProbabilidadCritico()+
+				"\rProbabilidad de esquivar: "+Comunicacion.getMonstruoEncontrado().getProbabilidadEsquivar());
 		
 	}
 	static void guardarComo() {
@@ -439,7 +459,7 @@ public class Principal {
 
 		if (respuesta == JFileChooser.APPROVE_OPTION)
 		{
-			Comunicacion.archivoElegido = fc.getSelectedFile();
+			Comunicacion.setArchivoElegido(fc.getSelectedFile());
 		}
 		if (respuesta == JFileChooser.CANCEL_OPTION){
 			fc.setVisible(false);

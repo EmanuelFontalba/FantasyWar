@@ -43,8 +43,8 @@ public class Nuevo extends JDialog {
 			txtpnVaACrear.setEditable(false);
 			txtpnVaACrear.setBounds(27, 33, 601, 22);
 			txtpnVaACrear.setFont(new Font("Tahoma", Font.BOLD, 13));
-			if(Comunicacion.archivoElegido!=null)
-				txtpnVaACrear.setText("Va a crear una nueva partida. \u00BFDesea guardar los cambios hechos a "+Comunicacion.archivoElegido.getName()+"?");
+			if(Comunicacion.getArchivoElegido()!=null)
+				txtpnVaACrear.setText("Va a crear una nueva partida. \u00BFDesea guardar los cambios hechos a "+Comunicacion.getArchivoElegido().getName()+"?");
 			else
 				txtpnVaACrear.setText("Va a crear una nueva partida. \u00BFDesea guardar los cambios hechos a Sin título?");
 			contentPanel.add(txtpnVaACrear);
@@ -59,25 +59,25 @@ public class Nuevo extends JDialog {
 					
 
 					public void actionPerformed(ActionEvent e) {
-						if(Comunicacion.guardado)
+						if(Comunicacion.isGuardado())
 								try {
-										GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
-										Comunicacion.modificado=false;
+										GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
+										Comunicacion.setModificado(false);
 										NuevoJugador nuevoJugador = new NuevoJugador();
 										nuevoJugador.setVisible(true);
-										Comunicacion.guardado=false;
-										Comunicacion.monstruoSeleccionado = null;
+										Comunicacion.setGuardado(false);
+										Comunicacion.setMonstruoSeleccionado(null);
 								} catch (IOException e1) {
 									JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 								}
 						else
 							try {
 								Principal.guardarComo();
-								GestionFicheros.guardar(Comunicacion.jugador,Comunicacion.archivoElegido);
-								Comunicacion.modificado=false;
+								GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
+								Comunicacion.setModificado(false);
 								NuevoJugador nuevoJugador = new NuevoJugador();
 								nuevoJugador.setVisible(true);
-								Comunicacion.monstruoSeleccionado = null;
+								Comunicacion.setMonstruoSeleccionado(null);
 							} catch (IOException e1) {
 								JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 							}
@@ -96,8 +96,8 @@ public class Nuevo extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						NuevoJugador nuevoJugador = new NuevoJugador();
 						nuevoJugador.setVisible(true);
-						Comunicacion.guardado=false;
-						Comunicacion.modificado=false;
+						Comunicacion.setGuardado(false);
+						Comunicacion.setModificado(false);
 						setVisible(false);
 					}
 				});

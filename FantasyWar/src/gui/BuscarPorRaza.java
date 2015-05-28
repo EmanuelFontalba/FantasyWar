@@ -57,12 +57,12 @@ public class BuscarPorRaza extends JDialog {
 					private Component contentPane;
 
 					public void actionPerformed(ActionEvent e) {
-						Comunicacion.monstruosEncontrados = new Coleccion();
-						Comunicacion.monstruosEncontrados.setColeccion(Comunicacion.jugador.getColeccionMonstruos().getMostruosRaza(((Razas)comboBox.getSelectedItem())));
-						if(Comunicacion.monstruosEncontrados.size() == 0)
+						Comunicacion.setMonstruosEncontrados(new Coleccion());
+						Comunicacion.getMonstruosEncontrados().setColeccion(Comunicacion.getJugador().getColeccionMonstruos().getMostruosRaza(((Razas)comboBox.getSelectedItem())));
+						if(Comunicacion.getMonstruosEncontrados().size() == 0)
 							JOptionPane.showMessageDialog(contentPane, "No tienes monstruos en tu colección.", "ERROR", JOptionPane.ERROR_MESSAGE);
 						else{
-							Comunicacion.monstruoEncontrado = Comunicacion.monstruosEncontrados.get(0);
+							Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(0));
 							MostrarPorRaza mostrar = new MostrarPorRaza();
 							mostrar.setVisible(true);
 							setVisible(false);
