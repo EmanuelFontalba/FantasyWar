@@ -62,6 +62,7 @@ public class Principal {
 	 */
 	private void initialize() {
 		frmPartidaDe = new JFrame();
+		frmPartidaDe.setResizable(false);
 		frmPartidaDe.setTitle("Fantasy War. - Sin título");
 		frmPartidaDe.setBounds(100, 100, 515, 425);
 		frmPartidaDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,13 +129,14 @@ public class Principal {
 					Comunicacion.guardado=true;
 					Comunicacion.modificado = false;
 					Comunicacion.monstruoSeleccionado = null;
+					if(Comunicacion.archivoElegido!=null)
+						frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.archivoElegido.getName());
+					else
+						frmPartidaDe.setTitle("Fantasy War. - Sin título");
 				} catch (ClassNotFoundException | IOException e1) {
 					JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
-				if(Comunicacion.archivoElegido!=null)
-					frmPartidaDe.setTitle("Fantasy War. - "+ Comunicacion.archivoElegido.getName());
-				else
-					frmPartidaDe.setTitle("Fantasy War. - Sin título");
+				
 			}
 		});
 		mnArchivo.add(mntmCargarPartida);

@@ -25,22 +25,10 @@ public class MostrarJugador extends JDialog {
 	private JTextField textFieldNumMons;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			MostrarJugador dialog = new MostrarJugador();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public MostrarJugador() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Mostrar jugador");
 		setAlwaysOnTop(true);

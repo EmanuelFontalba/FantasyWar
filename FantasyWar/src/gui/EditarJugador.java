@@ -36,22 +36,10 @@ public class EditarJugador extends JDialog {
 	private static final Pattern PATRON_NOMBRE = Pattern.compile("^[A-Z][a-z]*[a-z]$");
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			MostrarJugador dialog = new MostrarJugador();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public EditarJugador() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Edici\u00F3n de jugador");
 		setAlwaysOnTop(true);

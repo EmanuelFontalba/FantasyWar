@@ -25,22 +25,10 @@ public class NuevoJugador extends JDialog {
 	private JTextField textField;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NuevoJugador dialog = new NuevoJugador();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public NuevoJugador() {
+		setResizable(false);
 		setModal(true);
 		setAlwaysOnTop(true);
 		setTitle("Nuevo jugador");

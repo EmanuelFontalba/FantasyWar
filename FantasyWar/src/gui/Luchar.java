@@ -60,25 +60,12 @@ public class Luchar extends JDialog {
 	private JTextField textFieldSaludCPU;
 	private JTextPane textPaneEstadisticas;
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Luchar dialog = new Luchar();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Create the dialog.
 	 */
 	@SuppressWarnings("unchecked")
 	public Luchar() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Lucha");
 		try {
@@ -93,7 +80,7 @@ public class Luchar extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblTu = new JLabel("Tu:");
+			JLabel lblTu = new JLabel(Comunicacion.monstruoSeleccionado.getNombre());
 			lblTu.setFont(lblTu.getFont().deriveFont(lblTu.getFont().getStyle() | Font.BOLD));
 			lblTu.setForeground(new Color(255, 255, 255));
 			lblTu.setBounds(87, 11, 46, 14);
@@ -108,7 +95,7 @@ public class Luchar extends JDialog {
 			textFieldSeparator.setColumns(10);
 		}
 		{
-			JLabel lblCpu = new JLabel("CPU:");
+			JLabel lblCpu = new JLabel(monstruoCPU.getNombre());
 			lblCpu.setFont(lblCpu.getFont().deriveFont(lblCpu.getFont().getStyle() | Font.BOLD));
 			lblCpu.setForeground(Color.WHITE);
 			lblCpu.setBounds(304, 11, 46, 14);

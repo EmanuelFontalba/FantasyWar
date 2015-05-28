@@ -55,22 +55,10 @@ public class MostrarMonstruoPadre extends JDialog {
 	JLabel labelImg;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			MostrarMonstruoPadre dialog = new MostrarMonstruoPadre();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public MostrarMonstruoPadre() {
+		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 389);
 		getContentPane().setLayout(new BorderLayout());

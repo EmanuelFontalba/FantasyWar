@@ -17,22 +17,10 @@ public class AyudaCreación extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			AyudaCreación dialog = new AyudaCreación();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public AyudaCreación() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Ayuda para la creaci\u00F3n de monstruos.");
 		setBounds(100, 100, 450, 300);

@@ -26,22 +26,10 @@ public class Nuevo extends JDialog {
 	private Component contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Nuevo dialog = new Nuevo();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public Nuevo() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Sobreescribir");
 		setBounds(100, 100, 683, 166);

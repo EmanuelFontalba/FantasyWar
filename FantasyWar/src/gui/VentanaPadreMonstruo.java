@@ -37,22 +37,10 @@ public class VentanaPadreMonstruo extends JDialog {
 	private static final Pattern PATRON_NOMBRE = Pattern.compile("^[A-Z][a-z]*[a-z]$");
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			VentanaPadreMonstruo dialog = new VentanaPadreMonstruo();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public VentanaPadreMonstruo() {
+		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 224, 273);
 		getContentPane().setLayout(new BorderLayout());

@@ -26,22 +26,10 @@ public class BuscarPorRaza extends JDialog {
 	JComboBox comboBox = new JComboBox();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			BuscarPorRaza dialog = new BuscarPorRaza();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public BuscarPorRaza() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Buscar por raza");
 		setBounds(100, 100, 201, 135);

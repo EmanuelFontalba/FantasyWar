@@ -13,22 +13,10 @@ public class Mazmorras extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Mazmorras dialog = new Mazmorras();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public Mazmorras() {
+		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
