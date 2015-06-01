@@ -38,6 +38,7 @@ import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class Luchar extends JDialog {
 
@@ -59,6 +60,7 @@ public class Luchar extends JDialog {
 	private JTextField textFieldSalud;
 	private JTextField textFieldSaludCPU;
 	private JTextPane textPaneEstadisticas;
+	private JTextField textFieldNivelCPU;
 
 	/**
 	 * Create the dialog.
@@ -81,9 +83,10 @@ public class Luchar extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblTu = new JLabel(Comunicacion.getMonstruoSeleccionado().getNombre());
+			lblTu.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTu.setFont(lblTu.getFont().deriveFont(lblTu.getFont().getStyle() | Font.BOLD));
 			lblTu.setForeground(new Color(255, 255, 255));
-			lblTu.setBounds(87, 11, 46, 14);
+			lblTu.setBounds(58, 11, 103, 14);
 			contentPanel.add(lblTu);
 		}
 		{
@@ -96,9 +99,10 @@ public class Luchar extends JDialog {
 		}
 		{
 			JLabel lblCpu = new JLabel(monstruoCPU.getNombre());
+			lblCpu.setHorizontalAlignment(SwingConstants.CENTER);
 			lblCpu.setFont(lblCpu.getFont().deriveFont(lblCpu.getFont().getStyle() | Font.BOLD));
 			lblCpu.setForeground(Color.WHITE);
-			lblCpu.setBounds(304, 11, 46, 14);
+			lblCpu.setBounds(280, 11, 97, 14);
 			contentPanel.add(lblCpu);
 		}
 		{
@@ -156,20 +160,20 @@ public class Luchar extends JDialog {
 		
 		textFieldSaludCPU = new JTextField();
 		textFieldSaludCPU.setEditable(false);
-		textFieldSaludCPU.setBounds(310, 67, 86, 20);
+		textFieldSaludCPU.setBounds(280, 71, 86, 20);
 		contentPanel.add(textFieldSaludCPU);
 		textFieldSaludCPU.setColumns(10);
 		
 		JLabel lblNewLabelRazaCPU = new JLabel(monstruoCPU.getRaza().toString());
 		lblNewLabelRazaCPU.setFont(lblNewLabelRazaCPU.getFont().deriveFont(lblNewLabelRazaCPU.getFont().getStyle() | Font.BOLD));
 		lblNewLabelRazaCPU.setForeground(Color.WHITE);
-		lblNewLabelRazaCPU.setBounds(234, 27, 162, 14);
+		lblNewLabelRazaCPU.setBounds(234, 27, 110, 14);
 		contentPanel.add(lblNewLabelRazaCPU);
 		
 		JLabel lblNewLabelClaseCPU= new JLabel();
 		lblNewLabelClaseCPU.setFont(lblNewLabelClaseCPU.getFont().deriveFont(lblNewLabelClaseCPU.getFont().getStyle() | Font.BOLD));
 		lblNewLabelClaseCPU.setForeground(Color.WHITE);
-		lblNewLabelClaseCPU.setBounds(235, 43, 161, 14);
+		lblNewLabelClaseCPU.setBounds(235, 43, 96, 14);
 		contentPanel.add(lblNewLabelClaseCPU);
 		if(monstruoCPU.getClass() == Guerrero.class)
 			lblNewLabelClaseCPU.setText(Clase.GUERRERO.toString());
@@ -177,6 +181,19 @@ public class Luchar extends JDialog {
 			lblNewLabelClaseCPU.setText(Clase.MAGO.toString());
 		if(monstruoCPU.getClass() == Sacerdote.class)
 			lblNewLabelClaseCPU.setText(Clase.SACERDOTE.toString());
+		
+		JLabel lblNivel = new JLabel("Nivel:");
+		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNivel.setForeground(Color.WHITE);
+		lblNivel.setBounds(359, 27, 60, 14);
+		contentPanel.add(lblNivel);
+		
+		textFieldNivelCPU = new JTextField();
+		textFieldNivelCPU.setEditable(false);
+		textFieldNivelCPU.setBounds(359, 40, 60, 20);
+		contentPanel.add(textFieldNivelCPU);
+		textFieldNivelCPU.setColumns(10);
+		textFieldNivelCPU.setText(""+monstruoCPU.getNivel());
 		
 		{
 			textPaneEstadisticas = new JTextPane();
@@ -198,7 +215,7 @@ public class Luchar extends JDialog {
 			JLabel lblSalud_1 = new JLabel("Salud: ");
 			lblSalud_1.setFont(lblSalud_1.getFont().deriveFont(lblSalud_1.getFont().getStyle() | Font.BOLD));
 			lblSalud_1.setForeground(new Color(255, 255, 255));
-			lblSalud_1.setBounds(245, 71, 46, 14);
+			lblSalud_1.setBounds(224, 74, 46, 14);
 			contentPanel.add(lblSalud_1);
 		}
 		
@@ -210,8 +227,11 @@ public class Luchar extends JDialog {
 		}
 		
 		
+		
 
 		actualizarVista();
+		
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			private Component parentComponent;
 
@@ -242,7 +262,7 @@ public class Luchar extends JDialog {
 					}
 
 					try {
-						monstruoCPU.luchar(ataqueAleatorioCPU(), Comunicacion.getMonstruoSeleccionado());
+						monstruoCPU.luchar(monstruoCPU.ataqueInteligente(Comunicacion.getMonstruoSeleccionado()), Comunicacion.getMonstruoSeleccionado());
 					} catch (Exception e1) {
 						//No se captura
 					}
@@ -265,48 +285,7 @@ public class Luchar extends JDialog {
 				actualizarVista();
 			}
 
-			private Ataques ataqueAleatorioCPU() {
-				//Ataque aleatorio de la cpu
-				int dados=(int) (Math.random()*4);
-
-				if(monstruoCPU.getClass() == Mago.class){
-					switch(dados){
-					case 0:
-						return Ataques.BOLA_DE_FUEGO;
-					case 1:
-						return Ataques.ESCUDO_DE_ESCARCHA;
-					case 2:
-						return Ataques.LLUVIA_DE_METEOROS;
-					case 3:
-						return Ataques.MEDITACION;
-					}
-				}
-				if(monstruoCPU.getClass() == Sacerdote.class){
-					switch(dados){
-					case 0:
-						return Ataques.ENERGIA_DIVINA;
-					case 1:
-						return Ataques.CURACION_ANCESTRAL;
-					case 2:
-						return Ataques.ESCUDO_DIVINO;
-					case 3:
-						return Ataques.CURACION_ABSOLUTA;
-					}
-				}
-				if(monstruoCPU.getClass() == Guerrero.class){
-					switch(dados){
-					case 0:
-						return Ataques.RAJAR;
-					case 1:
-						return Ataques.EJECUTAR;
-					case 2:
-						return Ataques.PROTECCION;
-					case 3:
-						return Ataques.FILOTORMENTA;
-					}
-				}
-				return null;
-			}
+			
 
 
 		});
@@ -320,7 +299,8 @@ public class Luchar extends JDialog {
 		textFieldSaludCPU.setText((new Integer(monstruoCPU.getSaludActual())).toString());
 		textFieldSalud.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getSaludActual())).toString());
 		textFieldEnergia.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getPotenciador())).toString());
-		textPaneEstadisticas.setText("Salud máxima: "+Comunicacion.getMonstruoSeleccionado().getSaludMaxima()+
+		textPaneEstadisticas.setText("Nivel: "+Comunicacion.getMonstruoSeleccionado().getNivel()+
+				"\rSalud máxima: "+Comunicacion.getMonstruoSeleccionado().getSaludMaxima()+
 				"\rAtaque básico: "+Comunicacion.getMonstruoSeleccionado().getAtaqueBasico()+
 				"\rPoder de habilidad: "+Comunicacion.getMonstruoSeleccionado().getPoderHabilidad()+
 				"\rArmadura: "+(Comunicacion.getMonstruoSeleccionado().getArmadura()+Comunicacion.getMonstruoSeleccionado().getArmaduraProvisional())+
@@ -338,6 +318,8 @@ public class Luchar extends JDialog {
 	private void monstruoAleatorio() throws NombreInvalidoException{
 		Razas razaSeleccionada = Razas.values()[(int) (Math.random()*6)];
 		Clase claseSeleccionada = Clase.values()[(int) (Math.random()*3)];
+		int seleccionNivel = (int) (Math.random()*3);
+		
 		switch(claseSeleccionada){
 		case GUERRERO:
 			monstruoCPU = new Guerrero("Monstruo", razaSeleccionada);
@@ -349,6 +331,26 @@ public class Luchar extends JDialog {
 			monstruoCPU = new Sacerdote("Monstruo", razaSeleccionada);
 			break;
 		}
+		
+		switch(seleccionNivel){
+		case 0:
+			if(Comunicacion.getMonstruoSeleccionado().getNivel() == 1){
+				break;
+			}
+			while(Comunicacion.getMonstruoSeleccionado().getNivel()-1 > monstruoCPU.getNivel())
+				monstruoCPU.aumentarNivel();
+			break;
+		case 1:
+			while(Comunicacion.getMonstruoSeleccionado().getNivel() > monstruoCPU.getNivel())
+				monstruoCPU.aumentarNivel();
+			break;
+		case 2:
+			while(Comunicacion.getMonstruoSeleccionado().getNivel()+1 > monstruoCPU.getNivel())
+				monstruoCPU.aumentarNivel();
+			break;
+		}
+		
+		
 
 	}	
 	

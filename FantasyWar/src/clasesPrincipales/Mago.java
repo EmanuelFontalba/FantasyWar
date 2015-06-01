@@ -64,30 +64,34 @@ public class Mago extends Monstruo implements Hechizable{
 	/**
 	 * Incrementa su armadura y su resistencia mágica en 5 puntos.
 	 * Tiene un coste de 40 de maná
+	 * @return 
 	 * @throws ManaInsuficienteException 
 	 * 				No hay maná suficiente para lanzar el hechizo.
 	 */
 	@Override
-	public void escudoDeEscarcha() throws ManaInsuficienteException {
+	public int escudoDeEscarcha() throws ManaInsuficienteException {
 		if(getMana()<40)
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		setArmadura(getArmadura()+5);
 		setResistenciaMagicaProvisional(getResistenciaMagicaProvisional()+5);
 		setMana(getMana()-40);
+		return 0;
 	}
 	
 	/**
 	 * Se cura a el mismo un 12% de su vida máxima.
 	 * Tiene un coste de 20 de maná.
+	 * @return 
 	 * @throws ManaInsuficienteException 
 	 * 				No hay maná suficiente para lanzar el hechizo.
 	 */
 	@Override
-	public void meditacion() throws ManaInsuficienteException {
+	public int meditacion() throws ManaInsuficienteException {
 		if(getMana()<20)
 			throw new ManaInsuficienteException("Tienes el maná agotado");
 		aumentarSaludActual((int) Math.round(getSaludMaxima()*0.12));
 		setMana(getMana()-20);
+		return 0;
 	}
 	
 	/**
@@ -198,6 +202,39 @@ public class Mago extends Monstruo implements Hechizable{
 		
 	}
 	
+	/**
+	 * Realiza un ataque inteligente para la cpu.
+	 * @return Daño realizado.
+	 */
+	@Override
+	public Ataques ataqueInteligente(Monstruo defensor){
+		if(getMana() > 20)
+			if(defensor.getSaludMaxima()/2 >= defensor.getSaludActual())
+				if(getSaludMaxima()/2 >= getSaludActual())
+					if(getSaludActual() > defensor.getSaludActual())
+						if(defensor.getSaludMaxima()/4 >= defensor.getSaludActual())
+							return Ataques.LLUVIA_DE_METEOROS;
+						else
+							return Ataques.BOLA_DE_FUEGO;
+					else
+						return Ataques.BOLA_DE_FUEGO;
+				else
+					return Ataques.MEDITACION;
+			else
+				if(getSaludMaxima()/2 >= getSaludActual())
+						return Ataques.BOLA_DE_FUEGO;
+				else
+					if(getSaludActual() > defensor.getSaludActual())
+						if(defensor.getSaludMaxima()/4 >= defensor.getSaludActual())
+							return Ataques.LLUVIA_DE_METEOROS;
+						else
+							return Ataques.BOLA_DE_FUEGO;
+					else
+						return Ataques.ESCUDO_DE_ESCARCHA;	
+		else
+			return Ataques.BOLA_DE_FUEGO;
+	}
+	
 	//-------------------------------GETTERS & SETTERS---------------------
 	public int getMana() {
 		return mana;
@@ -216,5 +253,7 @@ public class Mago extends Monstruo implements Hechizable{
 	public int getPotenciador() {
 		return getMana();
 	}
+
+	
 
 }

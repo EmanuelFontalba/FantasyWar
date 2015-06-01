@@ -15,22 +15,25 @@ public interface Saneable {
 	int energiaDivina() throws FeInsuficienteException;
 	/**
 	 * Ataque curación ancestral. No tiene daño.
+	 * @return 
 	 * @throws FeInsuficienteException
 	 * 			No hay suficiente fé para realizar el ataque.
 	 */
-	void curacionAncestral() throws FeInsuficienteException;
+	int curacionAncestral() throws FeInsuficienteException;
 	/**
 	 * Ataque escudo divino. No tiene daño.
+	 * @return 
 	 * @throws FeInsuficienteException
 	 * 			No hay suficiente fé para realizar el ataque.
 	 */
-	void escudoDivino() throws FeInsuficienteException;
+	int escudoDivino() throws FeInsuficienteException;
 	/**
 	 * Ataque curación absoluta. No tiene daño.
+	 * @return 
 	 * @throws FeInsuficienteException
 	 * 			No hay suficiente fé para realizar el ataque.
 	 */
-	void curacionAbsoluta() throws FeInsuficienteException;
+	int curacionAbsoluta() throws FeInsuficienteException;
 	/**
 	 * Regeneración de fe por turno.
 	 */

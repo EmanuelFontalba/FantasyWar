@@ -48,12 +48,13 @@ public class Sacerdote extends Monstruo implements Saneable {
 	 * 				No hay suficiente fé para lanzar el hechizo.
 	 */
 	@Override
-	public void curacionAncestral() throws FeInsuficienteException {
+	public int curacionAncestral() throws FeInsuficienteException {
 		if(getFe()<40)
 			throw new FeInsuficienteException("No tienes suficiente fé");
 		aumentarSaludActual(getFe());
 		incrementaPoderHabilidad();
 		setFe(getFe()-40);
+		return 0;
 	}
 	/**
 	 * Aumenta su armadura y resistencia mágica en 5 puntos.
@@ -62,26 +63,29 @@ public class Sacerdote extends Monstruo implements Saneable {
 	 * 				No hay suficiente fé para lanzar el hechizo.
 	 */
 	@Override
-	public void escudoDivino() throws FeInsuficienteException {
+	public int escudoDivino() throws FeInsuficienteException {
 		if(getFe()<10)
 			throw new FeInsuficienteException("No tienes suficiente fé");
 		setArmaduraProvisional(getArmadura()+5);
 		setResistenciaMagicaProvisional(getResistenciaMagica()+5);
 		setFe(getFe()-10);
+		return 0;
 	}
 	
 	/**
 	 * Se cura una gran cantidad de vida.
 	 * Tiene un coste de 60 puntos de fe.
+	 * @return 
 	 * @throws FeInsuficienteException 
 	 * 				No hay suficiente fé para lanzar el hechizo.
 	 */
 	@Override
-	public void curacionAbsoluta() throws FeInsuficienteException {
+	public int curacionAbsoluta() throws FeInsuficienteException {
 		if(getFe()<60)
 			throw new FeInsuficienteException("No tienes suficiente fé");
 		aumentarSaludActual((int) Math.round(getSaludMaxima()*0.5)+getFe());
 		setFe(getFe()-60);
+		return 0;
 	}
 	
 	/**
@@ -184,6 +188,41 @@ public class Sacerdote extends Monstruo implements Saneable {
 		
 	}
 	
+	/**
+	 * Realiza un ataque inteligente para la cpu.
+	 * @return Daño realizado. 
+	 */
+	@Override
+	public Ataques ataqueInteligente(Monstruo defensor){
+		if(getFe() > 20){
+			if(getSaludActual()== getSaludMaxima())
+				return Ataques.ENERGIA_DIVINA;
+			if(defensor.getSaludMaxima()/2 >= defensor.getSaludActual())
+				if(getSaludMaxima()/2 >= getSaludActual())
+					if(getSaludActual() > defensor.getSaludActual())
+						if(defensor.getSaludMaxima()/4 >= defensor.getSaludActual())
+							return Ataques.CURACION_ABSOLUTA;
+						else
+							return Ataques.CURACION_ANCESTRAL;
+					else
+						return Ataques.ESCUDO_DIVINO;
+				else
+					return Ataques.ENERGIA_DIVINA;
+			else
+				if(getSaludMaxima()/2 >= getSaludActual())
+						return Ataques.CURACION_ABSOLUTA;
+				else
+					if(getSaludActual() > defensor.getSaludActual())
+						if(defensor.getSaludMaxima()/4 >= defensor.getSaludActual())
+							return Ataques.ENERGIA_DIVINA;
+						else
+							return Ataques.CURACION_ANCESTRAL;
+					else
+						return Ataques.CURACION_ABSOLUTA;	
+		}else
+			return Ataques.ENERGIA_DIVINA;
+	}
+	
 	//---------------------------------GETTES & SETTERS---------------------------------
 	public int getFe() {
 		return fe;
@@ -202,5 +241,7 @@ public class Sacerdote extends Monstruo implements Saneable {
 	public int getPotenciador() {
 		return getFe();
 	}
+	
+	
 
 }

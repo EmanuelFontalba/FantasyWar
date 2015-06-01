@@ -23,10 +23,11 @@ public interface Luchable {
 	int ejecutar() throws IraInsuficienteException;
 	/**
 	 * Ataque protección. No tiene daño
+	 * @return 
 	 * @throws IraInsuficienteException
 	 * 			No hay ira suficiente para hacer el ataque.
 	 */
-	void proteccion() throws IraInsuficienteException; 
+	int proteccion() throws IraInsuficienteException; 
 	/**
 	 * Ataque filotormenta.
 	 * @return Daño verdadero.

@@ -16,17 +16,19 @@ public interface Hechizable {
 	
 	/**
 	 * Ataque escudo de escarcha. No hace daño.
+	 * @return 
 	 * @throws ManaInsuficienteException
 	 * 			No se tiene el maná suficiente para realizar el ataque.
 	 */
-	void escudoDeEscarcha() throws ManaInsuficienteException;
+	int escudoDeEscarcha() throws ManaInsuficienteException;
 	
 	/**
 	 * Ataque meditación. No hace daño.
+	 * @return 
 	 * @throws ManaInsuficienteException
 	 * 			No se tiene el maná suficiente para realizar el ataque.
 	 */
-	void meditacion() throws ManaInsuficienteException;
+	int meditacion() throws ManaInsuficienteException;
 	
 	/**
 	 * Ataque lluvia de meteoros.

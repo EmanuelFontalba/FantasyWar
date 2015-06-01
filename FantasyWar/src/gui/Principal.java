@@ -439,9 +439,11 @@ public class Principal {
 	}
 
 	public static void actualizar() {
-		lblImagenDelMonstruo.setIcon(new ImageIcon(Comunicacion.getMonstruoEncontrado().getRutaImg()));		
+		lblImagenDelMonstruo.setIcon(new ImageIcon(Comunicacion.getMonstruoEncontrado().getRutaImg()));	
+		lblImagenDelMonstruo.setSize(200, 150);
 		textFieldNombrePJ.setText(Comunicacion.getMonstruoEncontrado().getNombre());
-		txtpnEstadisticas.setText("Salud máxima: "+Comunicacion.getMonstruoEncontrado().getSaludMaxima()+
+		txtpnEstadisticas.setText("Nivel: "+Comunicacion.getMonstruoSeleccionado().getNivel()+
+				"\rSalud máxima: "+Comunicacion.getMonstruoEncontrado().getSaludMaxima()+
 				"\rAtaque básico: "+Comunicacion.getMonstruoEncontrado().getAtaqueBasico()+
 				"\rPoder de habilidad: "+Comunicacion.getMonstruoEncontrado().getPoderHabilidad()+
 				"\rArmadura: "+Comunicacion.getMonstruoEncontrado().getArmadura()+

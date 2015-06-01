@@ -288,6 +288,9 @@ public abstract class Monstruo extends Leveable implements Razable, Serializable
 	public abstract void luchar(Ataques ataque, Monstruo defensor) throws Exception ;
 	
 	
+	public abstract Ataques ataqueInteligente(Monstruo defensor);
+	
+	
 	//--------------------------------GETTERS & SETTERS--------------------------------------
 	
 	

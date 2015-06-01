@@ -68,12 +68,13 @@ public class Guerrero extends Monstruo implements Luchable {
 	 *             No hay ira suficiente para hacer el ataque
 	 */
 	@Override
-	public void proteccion() throws IraInsuficienteException {
+	public int proteccion() throws IraInsuficienteException {
 		if (getIra() < 10)
 			throw new IraInsuficienteException("No tienes suficiente ira. ");
 		setArmaduraProvisional(getArmadura() + 30);
 		setResistenciaMagicaProvisional(getResistenciaMagica() + 20);
 		setIra(getIra() - 30);
+		return 0;
 	}
 
 	/**
@@ -190,6 +191,39 @@ public class Guerrero extends Monstruo implements Luchable {
 		}
 		
 	}
+	
+	/**
+	 * Realiza un ataque inteligente para la cpu.
+	 * @return Daño realizado.
+	 */
+	@Override
+	public Ataques ataqueInteligente(Monstruo defensor){
+		if(getIra() > 20)
+			if(defensor.getSaludMaxima()/2 >= defensor.getSaludActual())
+				if(getSaludMaxima()/2 >= getSaludActual())
+					if(getSaludActual() > defensor.getSaludActual())
+						if(defensor.getSaludMaxima()/4 >= defensor.getSaludActual())
+							return Ataques.EJECUTAR;
+						else
+							return Ataques.RAJAR;
+					else
+						return Ataques.PROTECCION;
+				else
+					return Ataques.FILOTORMENTA;
+			else
+				if(getSaludMaxima()/2 >= getSaludActual())
+						return Ataques.FILOTORMENTA;
+				else
+					if(getSaludActual() > defensor.getSaludActual())
+						if(defensor.getSaludMaxima()/4 >= defensor.getSaludActual())
+							return Ataques.EJECUTAR;
+						else
+							return Ataques.RAJAR;
+					else
+						return Ataques.PROTECCION;	
+		else
+			return Ataques.RAJAR;
+	}
 
 	// -------------------------GETTERS & SETTERS -----------------------
 	public int getIra() {
@@ -209,5 +243,6 @@ public class Guerrero extends Monstruo implements Luchable {
 	public int getPotenciador() {
 		return getIra();
 	}
+
 
 }
