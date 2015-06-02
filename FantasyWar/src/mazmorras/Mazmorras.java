@@ -2,7 +2,6 @@ package mazmorras;
 
 import java.util.ArrayList;
 
-import clasesPrincipales.Ataques;
 
 public enum Mazmorras {
 	GUL_DAN(10),

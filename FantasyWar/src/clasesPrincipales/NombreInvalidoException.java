@@ -6,6 +6,7 @@ package clasesPrincipales;
  *
  */
 public class NombreInvalidoException extends Exception {
+	private static final long serialVersionUID = 7735334833591147324L;
 
 	public NombreInvalidoException(String string) {
 		super(string);

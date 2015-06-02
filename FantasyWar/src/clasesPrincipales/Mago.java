@@ -8,7 +8,7 @@ package clasesPrincipales;
  *
  */
 public class Mago extends Monstruo implements Hechizable{
-
+	private static final long serialVersionUID = -7456235836948543809L;
 	private int mana;
 	private static final int MANA_MAX = 200;
 	 

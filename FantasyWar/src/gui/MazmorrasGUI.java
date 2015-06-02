@@ -10,12 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import mazmorras.Mazmorras;
 
+import mazmorras.Mazmorras;
 import comunicacionConGui.Comunicacion;
 
 public class MazmorrasGUI extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
 	/**
@@ -34,10 +34,10 @@ public class MazmorrasGUI extends JDialog {
 		lblMazmorras.setBounds(10, 11, 87, 14);
 		contentPanel.add(lblMazmorras);
 		
-		JComboBox comboBoxMazmorras = new JComboBox();
+		JComboBox<Object> comboBoxMazmorras = new JComboBox<Object>();
 		comboBoxMazmorras.setBounds(116, 8, 143, 20);
 		contentPanel.add(comboBoxMazmorras);
-		comboBoxMazmorras.setModel(new DefaultComboBoxModel(Mazmorras.getArray(Comunicacion.getMonstruoSeleccionado().getNivel())));
+		comboBoxMazmorras.setModel(new DefaultComboBoxModel<Object>(Mazmorras.getArray(Comunicacion.getMonstruoSeleccionado().getNivel())));
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

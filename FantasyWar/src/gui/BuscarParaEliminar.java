@@ -22,7 +22,8 @@ import clasesPrincipales.NombreInvalidoException;
 import comunicacionConGui.Comunicacion;
 
 public class BuscarParaEliminar extends JDialog {
-
+	private static final long serialVersionUID = -6217286020518915175L;
+	private static final Component contentPane = null;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
@@ -56,7 +57,6 @@ public class BuscarParaEliminar extends JDialog {
 		lblNombre.setBounds(10, 11, 75, 14);
 		contentPanel.add(lblNombre);
 		
-		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -67,8 +67,6 @@ public class BuscarParaEliminar extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 				
-			
-			
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
@@ -79,29 +77,34 @@ public class BuscarParaEliminar extends JDialog {
 				}
 			});
 			okButton.addActionListener(new ActionListener() {
-				private Component contentPane;
-
 				public void actionPerformed(ActionEvent arg0) {
-					if( Comunicacion.getJugador().getColeccionMonstruos().size() == 0)
-						JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección", "ERROR", JOptionPane.ERROR_MESSAGE);
-					else{
-						
-						try {
-							Comunicacion.setMonstruoEncontrado(Comunicacion.getJugador().getColeccionMonstruos().get(textField.getText()));
-							EliminarMonstruo eliminar = new EliminarMonstruo();
-							eliminar.setVisible(true);
-							setVisible(false);
-						} catch (MonstruoNoExisteException
-								| NombreInvalidoException e) {
-							JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-						}
-						
-					}
-					
-					setVisible(false);
+					muestraParaEliminar();
 				}
 			});
 		}
+	}
+	
+	/**
+	 * Muestra un monstruo para eliminarlo.
+	 */
+	private void muestraParaEliminar() {
+		if( Comunicacion.getJugador().getColeccionMonstruos().size() == 0)
+			JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección", "ERROR", JOptionPane.ERROR_MESSAGE);
+		else{
+			
+			try {
+				Comunicacion.setMonstruoEncontrado(Comunicacion.getJugador().getColeccionMonstruos().get(textField.getText()));
+				EliminarMonstruo eliminar = new EliminarMonstruo();
+				eliminar.setVisible(true);
+				setVisible(false);
+			} catch (MonstruoNoExisteException
+					| NombreInvalidoException e) {
+				JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+		
+		setVisible(false);
 	}
 
 }

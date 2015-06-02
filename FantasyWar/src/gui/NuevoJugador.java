@@ -20,7 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class NuevoJugador extends JDialog {
-
+	private static final long serialVersionUID = 1950232105556967143L;
+	private static final Component contentPane = null;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
@@ -53,20 +54,8 @@ public class NuevoJugador extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					private Component contentPane;
-
 					public void actionPerformed(ActionEvent e) {
-						try {
-							Comunicacion.setJugador(new Jugador(textField.getText()));
-							Comunicacion.setGuardado(false);
-							Comunicacion.setModificado(false);
-							Comunicacion.setArchivoElegido(null);
-							Component parentComponent = null;
-							JOptionPane.showMessageDialog(parentComponent, "Partida creada con éxito");
-							setVisible(false);
-						} catch (NombreInvalidoException e1) {
-							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-						}
+						nuevoJugador();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -83,6 +72,20 @@ public class NuevoJugador extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+	}
+
+	private void nuevoJugador() {
+		try {
+			Comunicacion.setJugador(new Jugador(textField.getText()));
+			Comunicacion.setGuardado(false);
+			Comunicacion.setModificado(false);
+			Comunicacion.setArchivoElegido(null);
+			Component parentComponent = null;
+			JOptionPane.showMessageDialog(parentComponent, "Partida creada con éxito");
+			setVisible(false);
+		} catch (NombreInvalidoException e1) {
+			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
  * @author Emanuel Galván Fontalba
  */
 public class Jugador extends Leveable implements Serializable{
+	private static final long serialVersionUID = 3816894630401055572L;
 	//datos del jugador
 	/**
 	 * Alias del jugador

@@ -1,10 +1,7 @@
 package gui;
 
-
-import javax.swing.JDialog;
-
-@SuppressWarnings("serial")
 public class MostrarPorNombre extends MostrarMonstruoPadre {
+	private static final long serialVersionUID = 3437220708263435361L;
 
 	/**
 	 * Create the dialog.

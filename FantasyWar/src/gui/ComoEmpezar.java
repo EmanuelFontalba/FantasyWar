@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ComoEmpezar extends JDialog {
-
+	private static final long serialVersionUID = -3886635944009011917L;
 	private final JPanel contentPanel = new JPanel();
 
 

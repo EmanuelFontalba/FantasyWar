@@ -17,7 +17,6 @@ import clasesPrincipales.Guerrero;
 import clasesPrincipales.Mago;
 import clasesPrincipales.MonstruoNoExisteException;
 import clasesPrincipales.NombreInvalidoException;
-import clasesPrincipales.Razas;
 import clasesPrincipales.Sacerdote;
 import comunicacionConGui.Comunicacion;
 
@@ -37,9 +36,10 @@ import javax.swing.ImageIcon;
 
 import java.awt.Color;
 
-@SuppressWarnings("serial")
 public class MostrarMonstruoPadre extends JDialog {
-
+	private static final long serialVersionUID = 5894950866252302225L;
+	private static final Component parentComponent = null;
+	private static final Component contentPane = null;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldNombre;
 	private JTextField textFieldRaza;
@@ -163,34 +163,15 @@ public class MostrarMonstruoPadre extends JDialog {
 				buttonPrevious.setEnabled(false);
 			buttonPrevious.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
-					if(index == 1){
-						buttonPrevious.setEnabled(false); 
-					}else
-						buttonPrevious.setEnabled(true);
-					if(0<=--index){
-						Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(index));
-						buttonNext.setEnabled(true);
-					}
-					actualizar();
+					monstruoAnterior();
 
 				}
 			});
 			
 			btnEliminar = new JButton("Eliminar");
 			btnEliminar.addActionListener(new ActionListener() {
-				private Component contentPane;
-				private Component parentComponent;
-
 				public void actionPerformed(ActionEvent e) {
-					try {
-						Comunicacion.getJugador().getColeccionMonstruos().remove(Comunicacion.getMonstruoEncontrado().getNombre());
-						setVisible(false);
-						JOptionPane.showMessageDialog(parentComponent, "Monstruo eliminado con éxito");
-					} catch (NombreInvalidoException
-							| MonstruoNoExisteException e1) {
-						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-					}
+					eliminarMonstruo();
 				}
 			});
 			buttonPane.add(btnEliminar);
@@ -203,16 +184,7 @@ public class MostrarMonstruoPadre extends JDialog {
 					buttonNext.setEnabled(false);
 			buttonNext.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
-					if(index == Comunicacion.getMonstruosEncontrados().size()-2){
-						buttonNext.setEnabled(false); 
-					}else
-						buttonNext.setEnabled(true);
-					if(Comunicacion.getMonstruosEncontrados().size()>=++index){
-						Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(index));
-						buttonPrevious.setEnabled(true);
-					}
-					actualizar();
+					monstruoSiguiente();
 				}
 			});
 			buttonPane.add(buttonNext);
@@ -272,5 +244,42 @@ public class MostrarMonstruoPadre extends JDialog {
 			textFieldClase.setText(Clase.SACERDOTE.toString());
 		textFieldNivel.setText(""+Comunicacion.getMonstruoEncontrado().getNivel());
 		textFieldExp.setText(""+Comunicacion.getMonstruoEncontrado().getExp());
+	}
+
+	private void eliminarMonstruo() {
+		try {
+			Comunicacion.getJugador().getColeccionMonstruos().remove(Comunicacion.getMonstruoEncontrado().getNombre());
+			setVisible(false);
+			JOptionPane.showMessageDialog(parentComponent, "Monstruo eliminado con éxito");
+		} catch (NombreInvalidoException
+				| MonstruoNoExisteException e1) {
+			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void monstruoAnterior() {
+		int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
+		if(index == 1){
+			buttonPrevious.setEnabled(false); 
+		}else
+			buttonPrevious.setEnabled(true);
+		if(0<=--index){
+			Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(index));
+			buttonNext.setEnabled(true);
+		}
+		actualizar();
+	}
+
+	private void monstruoSiguiente() {
+		int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
+		if(index == Comunicacion.getMonstruosEncontrados().size()-2){
+			buttonNext.setEnabled(false); 
+		}else
+			buttonNext.setEnabled(true);
+		if(Comunicacion.getMonstruosEncontrados().size()>=++index){
+			Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(index));
+			buttonPrevious.setEnabled(true);
+		}
+		actualizar();
 	}
 }

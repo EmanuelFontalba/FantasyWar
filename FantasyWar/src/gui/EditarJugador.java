@@ -23,7 +23,7 @@ import java.awt.event.FocusEvent;
 import java.util.regex.Pattern;
 
 public class EditarJugador extends JDialog {
-
+	private static final long serialVersionUID = 6299905767662244005L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldNombre;
 	private JTextField textFieldNivel;
@@ -34,6 +34,7 @@ public class EditarJugador extends JDialog {
 	 * Patrón para nombres correctos. Deben de empezar por una mayúscula.
 	 */
 	private static final Pattern PATRON_NOMBRE = Pattern.compile("^[A-Z][a-z]*[a-z]$");
+	private static final Component contentPane = null;
 
 	/**
 	 * Create the dialog.
@@ -130,15 +131,8 @@ public class EditarJugador extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					private Component contentPane;
-
 					public void actionPerformed(ActionEvent e) {
-						try {
-							Comunicacion.getJugador().setAlias(textFieldNombre.getText());
-							setVisible(false);
-						} catch (NombreInvalidoException e1) {
-							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-						}					
+						modificaNombre();					
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -156,6 +150,18 @@ public class EditarJugador extends JDialog {
 	 */
 	public static boolean nombreValido(String nombre){
 		return PATRON_NOMBRE.matcher(nombre).matches();
+	}
+	
+	/**
+	 * Modifica el nombre del jugador.
+	 */
+	private void modificaNombre() {
+		try {
+			Comunicacion.getJugador().setAlias(textFieldNombre.getText());
+			setVisible(false);
+		} catch (NombreInvalidoException e1) {
+			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

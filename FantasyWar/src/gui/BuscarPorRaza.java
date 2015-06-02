@@ -21,9 +21,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class BuscarPorRaza extends JDialog {
-
+	private static final long serialVersionUID = -5832505224296810321L;
+	private static final Component contentPane = null;
 	private final JPanel contentPanel = new JPanel();
-	JComboBox comboBox = new JComboBox();
+	JComboBox<Object> comboBox = new JComboBox<Object>();
 
 	/**
 	 * Create the dialog.
@@ -46,7 +47,7 @@ public class BuscarPorRaza extends JDialog {
 		
 		comboBox.setBounds(76, 25, 99, 20);
 		contentPanel.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel(Razas.values()));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(Razas.values()));
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -54,19 +55,9 @@ public class BuscarPorRaza extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					private Component contentPane;
 
 					public void actionPerformed(ActionEvent e) {
-						Comunicacion.setMonstruosEncontrados(new Coleccion());
-						Comunicacion.getMonstruosEncontrados().setColeccion(Comunicacion.getJugador().getColeccionMonstruos().getMostruosRaza(((Razas)comboBox.getSelectedItem())));
-						if(Comunicacion.getMonstruosEncontrados().size() == 0)
-							JOptionPane.showMessageDialog(contentPane, "No tienes monstruos en tu colección.", "ERROR", JOptionPane.ERROR_MESSAGE);
-						else{
-							Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(0));
-							MostrarPorRaza mostrar = new MostrarPorRaza();
-							mostrar.setVisible(true);
-							setVisible(false);
-						}
+						muestraMonstruosPorRaza();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -78,6 +69,19 @@ public class BuscarPorRaza extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+	}
+
+	private void muestraMonstruosPorRaza() {
+		Comunicacion.setMonstruosEncontrados(new Coleccion());
+		Comunicacion.getMonstruosEncontrados().setColeccion(Comunicacion.getJugador().getColeccionMonstruos().getMostruosRaza(((Razas)comboBox.getSelectedItem())));
+		if(Comunicacion.getMonstruosEncontrados().size() == 0)
+			JOptionPane.showMessageDialog(contentPane, "No tienes monstruos en tu colección.", "ERROR", JOptionPane.ERROR_MESSAGE);
+		else{
+			Comunicacion.setMonstruoEncontrado(Comunicacion.getMonstruosEncontrados().get(0));
+			MostrarPorRaza mostrar = new MostrarPorRaza();
+			mostrar.setVisible(true);
+			setVisible(false);
 		}
 	}
 }

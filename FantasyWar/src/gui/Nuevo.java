@@ -13,16 +13,14 @@ import comunicacionConGui.Comunicacion;
 import clasesPrincipales.GestionFicheros;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class Nuevo extends JDialog {
-
+	private static final long serialVersionUID = 8511107895833514297L;
 	private final JPanel contentPanel = new JPanel();
-	private Component parentComponent;
 	private Component contentPane;
 
 	/**
@@ -56,32 +54,8 @@ public class Nuevo extends JDialog {
 			{
 				JButton okButton = new JButton("Guardar");
 				okButton.addActionListener(new ActionListener() {
-					
-
 					public void actionPerformed(ActionEvent e) {
-						if(Comunicacion.isGuardado())
-								try {
-										GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
-										Comunicacion.setModificado(false);
-										NuevoJugador nuevoJugador = new NuevoJugador();
-										nuevoJugador.setVisible(true);
-										Comunicacion.setGuardado(false);
-										Comunicacion.setMonstruoSeleccionado(null);
-								} catch (IOException e1) {
-									JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-								}
-						else
-							try {
-								Principal.guardarComo();
-								GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
-								Comunicacion.setModificado(false);
-								NuevoJugador nuevoJugador = new NuevoJugador();
-								nuevoJugador.setVisible(true);
-								Comunicacion.setMonstruoSeleccionado(null);
-							} catch (IOException e1) {
-								JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-							}
-						setVisible(false);
+						guardar();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -94,11 +68,7 @@ public class Nuevo extends JDialog {
 					
 
 					public void actionPerformed(ActionEvent arg0) {
-						NuevoJugador nuevoJugador = new NuevoJugador();
-						nuevoJugador.setVisible(true);
-						Comunicacion.setGuardado(false);
-						Comunicacion.setModificado(false);
-						setVisible(false);
+						nuevo();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
@@ -114,6 +84,33 @@ public class Nuevo extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+	}
+
+	private void guardar() {
+		if(Comunicacion.isGuardado())
+				try {
+						GestionFicheros.guardar(Comunicacion.getJugador(),Comunicacion.getArchivoElegido());
+						Comunicacion.setModificado(false);
+						nuevo();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+		else {
+			Principal.guardarComo();
+			
+			NuevoJugador nuevoJugador = new NuevoJugador();
+			nuevoJugador.setVisible(true);
+			Comunicacion.setMonstruoSeleccionado(null);
+		}
+		setVisible(false);
+	}
+
+	private void nuevo() {
+		NuevoJugador nuevoJugador = new NuevoJugador();
+		nuevoJugador.setVisible(true);
+		Comunicacion.setGuardado(false);
+		Comunicacion.setModificado(false);
+		setVisible(false);
 	}
 
 }

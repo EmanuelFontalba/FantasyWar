@@ -1,7 +1,6 @@
 package clasesPrincipales;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 /**
@@ -11,6 +10,7 @@ import java.util.regex.Pattern;
  */
 
 public abstract class Monstruo extends Leveable implements Razable, Serializable{
+	private static final long serialVersionUID = -3357067466995885322L;
 	private String nombre;
 	private Date fNacimiento;
 	private Razas raza;

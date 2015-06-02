@@ -6,6 +6,7 @@ package clasesPrincipales;
  *
  */
 public class ErrorEnElTurnoException extends Exception {
+	private static final long serialVersionUID = -224257629985850171L;
 
 	public ErrorEnElTurnoException(String string) {
 		super(string);

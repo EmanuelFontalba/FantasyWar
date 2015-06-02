@@ -6,6 +6,7 @@ package clasesPrincipales;
  *
  */
 public class ManaInsuficienteException extends Exception {
+	private static final long serialVersionUID = 32967072995359954L;
 
 	public ManaInsuficienteException(String string) {
 		super(string);

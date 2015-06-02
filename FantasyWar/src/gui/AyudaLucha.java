@@ -7,14 +7,13 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
 import javax.swing.JEditorPane;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AyudaLucha extends JDialog {
-
+	private static final long serialVersionUID = -8994969396445184105L;
 	private final JPanel contentPanel = new JPanel();
 
 	/**

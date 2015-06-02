@@ -7,14 +7,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JEditorPane;
-import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 
 public class AyudaClasesRazas extends JDialog {
-
+	private static final long serialVersionUID = 8154314104655397693L;
 	private final JPanel contentPanel = new JPanel();
 
 	/**

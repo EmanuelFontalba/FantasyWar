@@ -2,7 +2,7 @@ package clasesPrincipales;
 
 
 public class Sacerdote extends Monstruo implements Saneable {
-	
+	private static final long serialVersionUID = 6783024868276173942L;
 	private int fe;
 	private static final int FE_MAX = 150;
 

@@ -6,6 +6,7 @@ package clasesPrincipales;
  *
  */
 public class MonstruoNoExisteException extends Exception {
+	private static final long serialVersionUID = 3020377109637898352L;
 
 	public MonstruoNoExisteException(String string) {
 		super(string);

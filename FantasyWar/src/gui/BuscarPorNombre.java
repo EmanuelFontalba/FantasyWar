@@ -22,7 +22,8 @@ import clasesPrincipales.NombreInvalidoException;
 import comunicacionConGui.Comunicacion;
 
 public class BuscarPorNombre extends JDialog {
-
+	private static final long serialVersionUID = 516031565592267173L;
+	private static final Component contentPane = null;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
@@ -79,29 +80,34 @@ public class BuscarPorNombre extends JDialog {
 				}
 			});
 			okButton.addActionListener(new ActionListener() {
-				private Component contentPane;
-
 				public void actionPerformed(ActionEvent arg0) {
-					if( Comunicacion.getJugador().getColeccionMonstruos().size() == 0)
-						JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección", "ERROR", JOptionPane.ERROR_MESSAGE);
-					else{
-						
-						try {
-							Comunicacion.setMonstruoEncontrado(Comunicacion.getJugador().getColeccionMonstruos().get(textField.getText()));
-							MostrarPorNombre mostrar = new MostrarPorNombre();
-							if (Comunicacion.getMonstruoEncontrado() == null)
-								System.out.println("El monstruo no esta");
-							mostrar.setVisible(true);
-						} catch (MonstruoNoExisteException
-								| NombreInvalidoException e) {
-							JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-						}
-						
-					}
-					
-					setVisible(false);
+					mostrarMonstruoPorNombre();
 				}
 			});
 		}
+	}
+	
+	/**
+	 * Muestra un monstruo buscado por nombre
+	 */
+	private void mostrarMonstruoPorNombre() {
+		if( Comunicacion.getJugador().getColeccionMonstruos().size() == 0)
+			JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección", "ERROR", JOptionPane.ERROR_MESSAGE);
+		else{
+			
+			try {
+				Comunicacion.setMonstruoEncontrado(Comunicacion.getJugador().getColeccionMonstruos().get(textField.getText()));
+				MostrarPorNombre mostrar = new MostrarPorNombre();
+				if (Comunicacion.getMonstruoEncontrado() == null)
+					System.out.println("El monstruo no esta");
+				mostrar.setVisible(true);
+			} catch (MonstruoNoExisteException
+					| NombreInvalidoException e) {
+				JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+		
+		setVisible(false);
 	}
 }

@@ -6,6 +6,7 @@ package clasesPrincipales;
  *
  */
 public class IraInsuficienteException extends Exception {
+	private static final long serialVersionUID = -7575093473294046767L;
 
 	public IraInsuficienteException(String string) {
 		super(string);

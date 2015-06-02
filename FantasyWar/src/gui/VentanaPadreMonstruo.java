@@ -12,20 +12,19 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.JTextPane;
 
 import clasesPrincipales.Clase;
 import clasesPrincipales.Razas;
 
 public class VentanaPadreMonstruo extends JDialog {
-
+	private static final long serialVersionUID = 712561228293680609L;
 	protected final JPanel contentPanel = new JPanel();
 	protected JTextField textFieldNombre;
 	protected JLabel lblNombre;
 	protected JLabel lblRaza;
-	protected JComboBox comboBoxRaza = new JComboBox();
+	protected JComboBox<Object> comboBoxRaza = new JComboBox<Object>();
 	protected JLabel lblClase = new JLabel("Clase:");
-	protected JComboBox comboBoxClase = new JComboBox();
+	protected JComboBox<Object> comboBoxClase = new JComboBox<Object>();
 	protected JPanel buttonPane;
 	protected JButton buttonPrevious;
 	protected JButton buttonNext;
@@ -65,7 +64,7 @@ public class VentanaPadreMonstruo extends JDialog {
 		
 		comboBoxRaza.setBounds(86, 91, 99, 20);
 		contentPanel.add(comboBoxRaza);
-		comboBoxRaza.setModel(new DefaultComboBoxModel(Razas.values()));
+		comboBoxRaza.setModel(new DefaultComboBoxModel<Object>(Razas.values()));
 		
 		
 		lblClase.setBounds(10, 156, 46, 14);
@@ -74,7 +73,7 @@ public class VentanaPadreMonstruo extends JDialog {
 		
 		comboBoxClase.setBounds(86, 153, 99, 20);
 		contentPanel.add(comboBoxClase);
-		comboBoxClase.setModel(new DefaultComboBoxModel(Clase.values()));
+		comboBoxClase.setModel(new DefaultComboBoxModel<Object>(Clase.values()));
 		{
 			buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

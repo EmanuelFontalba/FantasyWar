@@ -2,6 +2,7 @@ package clasesPrincipales;
 
 
 public class Guerrero extends Monstruo implements Luchable {
+	private static final long serialVersionUID = 4251532845695003870L;
 	private int ira;
 	private static final int IRA_MAX = 100;
 

@@ -32,24 +32,20 @@ import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 
 public class LuchaMazmorra extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5287643969301302396L;
 	private Component contentPane;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldSeparator;
 	private JTextField textFieldSeparator2;
 	private JTextField textFieldEnergia;
-
-
-	private Mago magoCPU;
-	private Guerrero guerreroCPU;
-	private Sacerdote sacerdoteCPU;
-	private Mago magoJugador;
-	private Guerrero guerreroJugador;
-	private Sacerdote sacerdoteJugador;
-
 	private Monstruo monstruoCPU;
 	private JTextField textFieldSalud;
 	private JTextField textFieldSaludCPU;
@@ -59,7 +55,6 @@ public class LuchaMazmorra extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	@SuppressWarnings("unchecked")
 	public LuchaMazmorra() {
 		setResizable(false);
 		setModal(true);
@@ -115,7 +110,7 @@ public class LuchaMazmorra extends JDialog {
 		}
 
 
-		final JComboBox comboBoxHabilidad = new JComboBox();
+		final JComboBox<Object> comboBoxHabilidad = new JComboBox<Object>();
 		comboBoxHabilidad.setBounds(235, 159, 161, 20);
 		contentPanel.add(comboBoxHabilidad);
 
@@ -141,7 +136,7 @@ public class LuchaMazmorra extends JDialog {
 			
 		}
 
-		comboBoxHabilidad.setModel(new DefaultComboBoxModel(Ataques.getArray(Comunicacion.getMonstruoSeleccionado().getClass())));
+		comboBoxHabilidad.setModel(new DefaultComboBoxModel<Object>(Ataques.getArray(Comunicacion.getMonstruoSeleccionado().getClass())));
 		JButton btnNewButton = new JButton("Atacar");
 		btnNewButton.setBounds(235, 244, 161, 66);
 		contentPanel.add(btnNewButton);
@@ -230,11 +225,6 @@ public class LuchaMazmorra extends JDialog {
 			private Component parentComponent;
 
 			public void actionPerformed(ActionEvent e) {
-
-
-			
-					//Selección de el ataque del turno
-					int danno=0;
 					try {
 						Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
 					} catch (Exception e1) {

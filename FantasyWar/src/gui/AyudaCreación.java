@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AyudaCreación extends JDialog {
-
+	private static final long serialVersionUID = -2321473708703526262L;
 	private final JPanel contentPanel = new JPanel();
 
 	/**

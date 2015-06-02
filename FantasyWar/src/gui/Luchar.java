@@ -32,24 +32,17 @@ import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 
 public class Luchar extends JDialog {
-
+	private static final long serialVersionUID = 7047068511824982051L;
+	private static final Component parentComponent = null;
 	private Component contentPane;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldSeparator;
 	private JTextField textFieldSeparator2;
 	private JTextField textFieldEnergia;
-
-
-	private Mago magoCPU;
-	private Guerrero guerreroCPU;
-	private Sacerdote sacerdoteCPU;
-	private Mago magoJugador;
-	private Guerrero guerreroJugador;
-	private Sacerdote sacerdoteJugador;
-
 	private Monstruo monstruoCPU;
 	private JTextField textFieldSalud;
 	private JTextField textFieldSaludCPU;
@@ -59,7 +52,6 @@ public class Luchar extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	@SuppressWarnings("unchecked")
 	public Luchar() {
 		setResizable(false);
 		setModal(true);
@@ -115,7 +107,7 @@ public class Luchar extends JDialog {
 		}
 
 
-		final JComboBox comboBoxHabilidad = new JComboBox();
+		final JComboBox<Object> comboBoxHabilidad = new JComboBox<Object>();
 		comboBoxHabilidad.setBounds(235, 159, 161, 20);
 		contentPanel.add(comboBoxHabilidad);
 
@@ -141,7 +133,7 @@ public class Luchar extends JDialog {
 			
 		}
 
-		comboBoxHabilidad.setModel(new DefaultComboBoxModel(Ataques.getArray(Comunicacion.getMonstruoSeleccionado().getClass())));
+		comboBoxHabilidad.setModel(new DefaultComboBoxModel<Object>(Ataques.getArray(Comunicacion.getMonstruoSeleccionado().getClass())));
 		JButton btnNewButton = new JButton("Atacar");
 		btnNewButton.setBounds(235, 244, 161, 66);
 		contentPanel.add(btnNewButton);
@@ -227,61 +219,10 @@ public class Luchar extends JDialog {
 		
 		
 		btnNewButton.addActionListener(new ActionListener() {
-			private Component parentComponent;
-
 			public void actionPerformed(ActionEvent e) {
-
-
-			
-					//Selección de el ataque del turno
-					int danno=0;
-					try {
-						Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-					}
-					if(monstruoCPU.isMuerto()){
-						setVisible(false);
-						try {
-							Comunicacion.getJugador().getColeccionMonstruos().get(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(2000);
-						} catch (MonstruoNoExisteException
-								| NombreInvalidoException e1) {
-							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-						}
-						Comunicacion.getJugador().aumentarExp(1000);
-						Comunicacion.getMonstruoSeleccionado().reestablecerse();
-						Principal.actualizar();
-						JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
-						return;
-					}
-
-					try {
-						monstruoCPU.luchar(monstruoCPU.ataqueInteligente(Comunicacion.getMonstruoSeleccionado()), Comunicacion.getMonstruoSeleccionado());
-					} catch (Exception e1) {
-						//No se captura
-					}
-					if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
-						setVisible(false);
-						try {
-							Comunicacion.getJugador().getColeccionMonstruos().get
-							(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(100);
-						} catch (MonstruoNoExisteException
-								| NombreInvalidoException e1) {
-							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-						}
-						Comunicacion.getJugador().aumentarExp(50);
-						Comunicacion.getMonstruoSeleccionado().reestablecerse();
-						Principal.actualizar();
-						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Has perdido.");
-						return;
-					}
-				
-				actualizarVista();
+					turno(comboBoxHabilidad);
+					actualizarVista();
 			}
-
-			
-
-
 		});
 
 	}
@@ -356,5 +297,48 @@ public class Luchar extends JDialog {
 		if(Comunicacion.getMonstruoSeleccionado().getClass() == Sacerdote.class)
 			return "Fe";
 		return "¿?";
+	}
+
+	private void turno(final JComboBox<Object> comboBoxHabilidad) {
+		try {
+			Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+		if(monstruoCPU.isMuerto()){
+			setVisible(false);
+			try {
+				Comunicacion.getJugador().getColeccionMonstruos().get(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(2000);
+			} catch (MonstruoNoExisteException
+					| NombreInvalidoException e1) {
+				JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			Comunicacion.getJugador().aumentarExp(1000);
+			Comunicacion.getMonstruoSeleccionado().reestablecerse();
+			Principal.actualizar();
+			JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
+			return;
+		}
+
+		try {
+			monstruoCPU.luchar(monstruoCPU.ataqueInteligente(Comunicacion.getMonstruoSeleccionado()), Comunicacion.getMonstruoSeleccionado());
+		} catch (Exception e1) {
+			//No se captura
+		}
+		if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
+			setVisible(false);
+			try {
+				Comunicacion.getJugador().getColeccionMonstruos().get
+				(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(100);
+			} catch (MonstruoNoExisteException
+					| NombreInvalidoException e1) {
+				JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			Comunicacion.getJugador().aumentarExp(50);
+			Comunicacion.getMonstruoSeleccionado().reestablecerse();
+			Principal.actualizar();
+			JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Has perdido.");
+			return;
+		}
 	}
 }

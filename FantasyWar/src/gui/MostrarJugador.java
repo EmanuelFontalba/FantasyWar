@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MostrarJugador extends JDialog {
-
+	private static final long serialVersionUID = 280513252597329936L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldNombre;
 	private JTextField textFieldNivel;
