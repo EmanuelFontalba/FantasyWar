@@ -34,7 +34,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class Luchar extends JDialog {
+public class LuchaMazmorra extends JDialog {
 
 	private Component contentPane;
 	private final JPanel contentPanel = new JPanel();
@@ -60,7 +60,7 @@ public class Luchar extends JDialog {
 	 * Create the dialog.
 	 */
 	@SuppressWarnings("unchecked")
-	public Luchar() {
+	public LuchaMazmorra() {
 		setResizable(false);
 		setModal(true);
 		setTitle("Lucha");
@@ -249,7 +249,6 @@ public class Luchar extends JDialog {
 							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 						Comunicacion.getJugador().aumentarExp(1000);
-						Comunicacion.getMonstruoSeleccionado().reestablecerse();
 						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
 						return;
@@ -270,7 +269,6 @@ public class Luchar extends JDialog {
 							JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 						Comunicacion.getJugador().aumentarExp(50);
-						Comunicacion.getMonstruoSeleccionado().reestablecerse();
 						Principal.actualizar();
 						JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Has perdido.");
 						return;
@@ -357,4 +355,5 @@ public class Luchar extends JDialog {
 			return "Fe";
 		return "¿?";
 	}
+
 }

@@ -413,10 +413,19 @@ public class Principal {
 		frmPartidaDe.getContentPane().add(btnLuchar);
 		
 		JButton btnMazmorra = new JButton("Mazmorra");
+		btnMazmorra.setForeground(new Color(165, 42, 42));
+		btnMazmorra.setFont(new Font("LilyUPC", Font.PLAIN, 46));
+		btnMazmorra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(Comunicacion.getMonstruoSeleccionado() != null){
+					MazmorrasGUI mazmorras = new MazmorrasGUI();
+					mazmorras.setVisible(true);
+				}else
+					JOptionPane.showMessageDialog(contentPane, "No puedes sin tener un monstruo seleccionado.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+		});
 		btnMazmorra.setBounds(297, 233, 186, 118);
 		frmPartidaDe.getContentPane().add(btnMazmorra);
-		btnMazmorra.setEnabled(false);
-		btnMazmorra.setVisible(false);
 		
 		textFieldNombrePJ = new JTextField();
 		textFieldNombrePJ.setEditable(false);
