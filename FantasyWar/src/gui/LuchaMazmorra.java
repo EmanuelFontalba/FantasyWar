@@ -18,9 +18,7 @@ import clasesPrincipales.Clase;
 import clasesPrincipales.Guerrero;
 import clasesPrincipales.Mago;
 import clasesPrincipales.Monstruo;
-import clasesPrincipales.MonstruoNoExisteException;
 import clasesPrincipales.NombreInvalidoException;
-import clasesPrincipales.Razas;
 import clasesPrincipales.Sacerdote;
 import comunicacionConGui.Comunicacion;
 
@@ -36,10 +34,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 public class LuchaMazmorra extends JDialog {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5287643969301302396L;
 	private Component contentPane;
 	private final JPanel contentPanel = new JPanel();
@@ -71,7 +65,7 @@ public class LuchaMazmorra extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblTu = new JLabel(NavegandoPorMazmorra.getMonstruoSeleccionado().getNombre());
+			JLabel lblTu = new JLabel(Comunicacion.getMonstruoSeleccionado().getNombre());
 			lblTu.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTu.setFont(lblTu.getFont().deriveFont(lblTu.getFont().getStyle() | Font.BOLD));
 			lblTu.setForeground(new Color(255, 255, 255));
@@ -136,7 +130,7 @@ public class LuchaMazmorra extends JDialog {
 			
 		}
 
-		comboBoxHabilidad.setModel(new DefaultComboBoxModel<Object>(Ataques.getArray(NavegandoPorMazmorra.getMonstruoSeleccionado().getClass())));
+		comboBoxHabilidad.setModel(new DefaultComboBoxModel<Object>(Ataques.getArray(Comunicacion.getMonstruoSeleccionado().getClass())));
 		JButton btnNewButton = new JButton("Atacar");
 		btnNewButton.setBounds(235, 244, 161, 66);
 		contentPanel.add(btnNewButton);
@@ -234,16 +228,16 @@ public class LuchaMazmorra extends JDialog {
 	 */
 	private void actualizarVista() {
 		textFieldSaludCPU.setText((new Integer(monstruoCPU.getSaludActual())).toString());
-		textFieldSalud.setText((new Integer(NavegandoPorMazmorra.getMonstruoSeleccionado().getSaludActual())).toString());
-		textFieldEnergia.setText((new Integer(NavegandoPorMazmorra.getMonstruoSeleccionado().getPotenciador())).toString());
-		textPaneEstadisticas.setText("Nivel: "+NavegandoPorMazmorra.getMonstruoSeleccionado().getNivel()+
-				"\rSalud máxima: "+NavegandoPorMazmorra.getMonstruoSeleccionado().getSaludMaxima()+
-				"\rAtaque básico: "+NavegandoPorMazmorra.getMonstruoSeleccionado().getAtaqueBasico()+
-				"\rPoder de habilidad: "+NavegandoPorMazmorra.getMonstruoSeleccionado().getPoderHabilidad()+
-				"\rArmadura: "+(NavegandoPorMazmorra.getMonstruoSeleccionado().getArmadura()+NavegandoPorMazmorra.getMonstruoSeleccionado().getArmaduraProvisional())+
-				"\rResistencia mágica: "+(NavegandoPorMazmorra.getMonstruoSeleccionado().getResistenciaMagica()+NavegandoPorMazmorra.getMonstruoSeleccionado().getResistenciaMagicaProvisional())+
-				"\rProbabilidad de impacto crítico: "+NavegandoPorMazmorra.getMonstruoSeleccionado().getProbabilidadCritico()+
-				"\rProbabilidad de esquivar: "+NavegandoPorMazmorra.getMonstruoSeleccionado().getProbabilidadEsquivar());
+		textFieldSalud.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getSaludActual())).toString());
+		textFieldEnergia.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getPotenciador())).toString());
+		textPaneEstadisticas.setText("Nivel: "+Comunicacion.getMonstruoSeleccionado().getNivel()+
+				"\rSalud máxima: "+Comunicacion.getMonstruoSeleccionado().getSaludMaxima()+
+				"\rAtaque básico: "+Comunicacion.getMonstruoSeleccionado().getAtaqueBasico()+
+				"\rPoder de habilidad: "+Comunicacion.getMonstruoSeleccionado().getPoderHabilidad()+
+				"\rArmadura: "+(Comunicacion.getMonstruoSeleccionado().getArmadura()+Comunicacion.getMonstruoSeleccionado().getArmaduraProvisional())+
+				"\rResistencia mágica: "+(Comunicacion.getMonstruoSeleccionado().getResistenciaMagica()+Comunicacion.getMonstruoSeleccionado().getResistenciaMagicaProvisional())+
+				"\rProbabilidad de impacto crítico: "+Comunicacion.getMonstruoSeleccionado().getProbabilidadCritico()+
+				"\rProbabilidad de esquivar: "+Comunicacion.getMonstruoSeleccionado().getProbabilidadEsquivar());
 	}
 
 
@@ -253,18 +247,18 @@ public class LuchaMazmorra extends JDialog {
 	}	
 	
 	private String nombreEnergia(){
-		if(NavegandoPorMazmorra.getMonstruoSeleccionado().getClass() == Mago.class)
+		if(Comunicacion.getMonstruoSeleccionado().getClass() == Mago.class)
 			return "Mana";
-		if(NavegandoPorMazmorra.getMonstruoSeleccionado().getClass() == Guerrero.class)
+		if(Comunicacion.getMonstruoSeleccionado().getClass() == Guerrero.class)
 			return "Ira";
-		if(NavegandoPorMazmorra.getMonstruoSeleccionado().getClass() == Sacerdote.class)
+		if(Comunicacion.getMonstruoSeleccionado().getClass() == Sacerdote.class)
 			return "Fe";
 		return "¿?";
 	}
 
 	private void turno(final JComboBox<Object> comboBoxHabilidad) {
 		try {
-			NavegandoPorMazmorra.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
+			Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
@@ -275,11 +269,11 @@ public class LuchaMazmorra extends JDialog {
 		}
 
 		try {
-			monstruoCPU.luchar(monstruoCPU.ataqueInteligente(NavegandoPorMazmorra.getMonstruoSeleccionado()), NavegandoPorMazmorra.getMonstruoSeleccionado());
+			monstruoCPU.luchar(monstruoCPU.ataqueInteligente(Comunicacion.getMonstruoSeleccionado()), Comunicacion.getMonstruoSeleccionado());
 		} catch (Exception e1) {
 			//No se captura
 		}
-		if(NavegandoPorMazmorra.getMonstruoSeleccionado().isMuerto()){
+		if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
 			setVisible(false);
 			JOptionPane.showMessageDialog(null, "Tu monstruo ha muerto. Has perdido.");
 			return;

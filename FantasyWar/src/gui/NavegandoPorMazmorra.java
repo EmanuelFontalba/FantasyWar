@@ -10,18 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
-import clasesPrincipales.Monstruo;
 import comunicacionConGui.Comunicacion;
-import mazmorras.Mazmorras;
-
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class NavegandoPorMazmorra extends JDialog {
-
+	private static final long serialVersionUID = -8710040932616080316L;
 	private final JPanel contentPanel = new JPanel();
 	private int index = 0;
 	private JButton siguienteBoton;
@@ -31,7 +27,6 @@ public class NavegandoPorMazmorra extends JDialog {
 	private JLabel esbirro3label;
 	private JLabel esbirro4label;
 	private JLabel bosslabel;
-	private static Monstruo monstruoSeleccionado;
 	
 
 	/**
@@ -114,10 +109,11 @@ public class NavegandoPorMazmorra extends JDialog {
 
 
 	protected void terminarMazmorra() {
-		if(index >= 5){
+		if(index >= 5 && !Comunicacion.getMonstruoSeleccionado().isMuerto()){
 			Comunicacion.getJugador().aumentarExp(2000);
 			Comunicacion.getMonstruoSeleccionado().aumentarExp(4000);
 			JOptionPane.showMessageDialog(null, "Has completado con éxito la mazmorra.");
+			Principal.actualizar();
 		}
 		Comunicacion.getMonstruoSeleccionado().reestablecerse();
 		setVisible(false);
@@ -127,7 +123,7 @@ public class NavegandoPorMazmorra extends JDialog {
 	private void siguienteMonstruo() {
 		if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
 			JOptionPane.showMessageDialog(null, "Tu monstruo a muerto, vuelve a intentarlo en otro momento.");
-			System.exit(0);
+			setVisible(false);
 		}
 		Comunicacion.setMonstruoMazmorra(Comunicacion.getMazmorra().getMazmorra().get(index));
 		LuchaMazmorra lucha = new LuchaMazmorra();
@@ -172,16 +168,5 @@ public class NavegandoPorMazmorra extends JDialog {
 				Comunicacion.getMazmorra().getMazmorra().get(3).getNivel());
 		bosslabel = new JLabel(Comunicacion.getMazmorra().getMazmorra().get(4).getNombre()+"       Nivel: "+
 				Comunicacion.getMazmorra().getMazmorra().get(4).getNivel());
-		setMonstruoSeleccionado(Comunicacion.getMonstruoSeleccionado());
-	}
-
-
-	public static Monstruo getMonstruoSeleccionado() {
-		return monstruoSeleccionado;
-	}
-
-
-	private static void setMonstruoSeleccionado(Monstruo monstruo) {
-		monstruoSeleccionado = monstruo;
 	}
 }
