@@ -13,15 +13,19 @@ import javax.swing.JComboBox;
 
 import mazmorras.Mazmorras;
 import comunicacionConGui.Comunicacion;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MazmorrasGUI extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+	private JComboBox<Object> comboBoxMazmorras;
 
 	/**
 	 * Create the dialog.
 	 */
 	public MazmorrasGUI() {
+		
 		setTitle("Mazmorras disponibles.");
 		setResizable(false);
 		setBounds(100, 100, 298, 192);
@@ -34,7 +38,7 @@ public class MazmorrasGUI extends JDialog {
 		lblMazmorras.setBounds(10, 11, 87, 14);
 		contentPanel.add(lblMazmorras);
 		
-		JComboBox<Object> comboBoxMazmorras = new JComboBox<Object>();
+		comboBoxMazmorras = new JComboBox<Object>();
 		comboBoxMazmorras.setBounds(116, 8, 143, 20);
 		contentPanel.add(comboBoxMazmorras);
 		comboBoxMazmorras.setModel(new DefaultComboBoxModel<Object>(Mazmorras.getArray(Comunicacion.getMonstruoSeleccionado().getNivel())));
@@ -44,15 +48,34 @@ public class MazmorrasGUI extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Comenzar");
+				if(Comunicacion.getMonstruoSeleccionado().getNivel() <10)
+					okButton.setEnabled(false);
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						inicializaMazmorra();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						setVisible(false);
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	protected void inicializaMazmorra() {
+		Comunicacion.setMazmorra((Mazmorras)comboBoxMazmorras.getSelectedItem());
+		NavegandoPorMazmorra mazmorra = new NavegandoPorMazmorra();
+		mazmorra.setVisible(true);
+		setVisible(false);
 	}
 }

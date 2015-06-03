@@ -55,6 +55,7 @@ public class Nuevo extends JDialog {
 				JButton okButton = new JButton("Guardar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
 						guardar();
 					}
 				});
@@ -68,6 +69,7 @@ public class Nuevo extends JDialog {
 					
 
 					public void actionPerformed(ActionEvent arg0) {
+						setVisible(false);
 						nuevo();
 					}
 				});
@@ -96,11 +98,11 @@ public class Nuevo extends JDialog {
 					JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 		else {
-			Principal.guardarComo();
-			
-			NuevoJugador nuevoJugador = new NuevoJugador();
-			nuevoJugador.setVisible(true);
-			Comunicacion.setMonstruoSeleccionado(null);
+			if(Principal.guardarComo()){			
+				NuevoJugador nuevoJugador = new NuevoJugador();
+				nuevoJugador.setVisible(true);
+				Comunicacion.setMonstruoSeleccionado(null);
+			}
 		}
 		setVisible(false);
 	}

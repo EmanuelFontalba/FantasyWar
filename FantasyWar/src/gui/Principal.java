@@ -27,6 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class Principal {
 
@@ -75,6 +76,7 @@ public class Principal {
 	 */
 	private void initialize() {
 		frmPartidaDe = new JFrame();
+		frmPartidaDe.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\imagenes\\icon.png"));
 		frmPartidaDe.setResizable(false);
 		frmPartidaDe.setTitle("Fantasy War. - Sin título");
 		frmPartidaDe.setBounds(100, 100, 515, 425);
@@ -299,7 +301,7 @@ public class Principal {
 		frmPartidaDe.getContentPane().add(lblImagenDelMonstruo);
 
 		JLabel labelFondo = new JLabel("");
-		labelFondo.setIcon(new ImageIcon("src\\imagenes\\fondoPrincipal.jpg"));
+		labelFondo.setIcon(new ImageIcon("src\\imagenes\\fondoPrincipal1.jpg"));
 		labelFondo.setBounds(-28, -37, 784, 406);
 		frmPartidaDe.getContentPane().add(labelFondo);
 	}
@@ -323,7 +325,8 @@ public class Principal {
 			Comunicacion.setModificado(false);
 			Comunicacion.setMonstruoSeleccionado(null);
 				frmPartidaDe.setTitle("Fantasy War. - "
-						+ Comunicacion.getArchivoElegido().getName());				
+						+ Comunicacion.getArchivoElegido().getName());	
+			actualizar();
 		} catch (ClassNotFoundException | IOException e1) {
 			JOptionPane.showMessageDialog(contentPane,
 					"El archivo elegido no corresponde con Fantasy War.",
@@ -364,12 +367,12 @@ public class Principal {
 	/**
 	 * Ventana guardar como.
 	 */
-	static void guardarComo() {
+	static boolean guardarComo() {
 		try {
 			switch(fc.showSaveDialog(parent)){
 			case JFileChooser.CANCEL_OPTION:
 			case JFileChooser.ERROR_OPTION:
-				return;
+				return false;
 			}
 			
 			Comunicacion.setArchivoElegido(fc.getSelectedFile());
@@ -384,6 +387,7 @@ public class Principal {
 					+ Comunicacion.getArchivoElegido().getName());
 		else
 			frmPartidaDe.setTitle("Fantasy War. - Sin título");
+		return true;
 	}
 	
 	/**
@@ -403,6 +407,7 @@ public class Principal {
 			Comunicacion.setMonstruoSeleccionado(null);
 		} else {
 			ventanaNuevo();
+			
 		}
 		
 		if (Comunicacion.getArchivoElegido() != null)
@@ -410,6 +415,8 @@ public class Principal {
 					+ Comunicacion.getArchivoElegido().getName());
 		else
 			frmPartidaDe.setTitle("Fantasy War. - Sin título");
+		
+		actualizar();
 	}
 	
 	/**
@@ -571,27 +578,33 @@ public class Principal {
 	 * Actualiza la ventana.
 	 */
 	public static void actualizar() {
+		if(Comunicacion.getMonstruoSeleccionado() == null){
+			lblImagenDelMonstruo.setIcon(null);
+			textFieldNombrePJ.setText("");
+			txtpnEstadisticas.setText("");
+			return;
+		}
 		lblImagenDelMonstruo.setIcon(new ImageIcon(Comunicacion
-				.getMonstruoEncontrado().getRutaImg()));
+				.getMonstruoSeleccionado().getRutaImg()));
 		lblImagenDelMonstruo.setSize(200, 150);
-		textFieldNombrePJ.setText(Comunicacion.getMonstruoEncontrado()
+		textFieldNombrePJ.setText(Comunicacion.getMonstruoSeleccionado()
 				.getNombre());
 		txtpnEstadisticas.setText("Nivel: "
 				+ Comunicacion.getMonstruoSeleccionado().getNivel()
 				+ "\rSalud máxima: "
-				+ Comunicacion.getMonstruoEncontrado().getSaludMaxima()
+				+ Comunicacion.getMonstruoSeleccionado().getSaludMaxima()
 				+ "\rAtaque básico: "
-				+ Comunicacion.getMonstruoEncontrado().getAtaqueBasico()
+				+ Comunicacion.getMonstruoSeleccionado().getAtaqueBasico()
 				+ "\rPoder de habilidad: "
-				+ Comunicacion.getMonstruoEncontrado().getPoderHabilidad()
+				+ Comunicacion.getMonstruoSeleccionado().getPoderHabilidad()
 				+ "\rArmadura: "
-				+ Comunicacion.getMonstruoEncontrado().getArmadura()
+				+ Comunicacion.getMonstruoSeleccionado().getArmadura()
 				+ "\rResistencia mágica: "
-				+ Comunicacion.getMonstruoEncontrado().getResistenciaMagica()
+				+ Comunicacion.getMonstruoSeleccionado().getResistenciaMagica()
 				+ "\rProbabilidad de impacto crítico: "
-				+ Comunicacion.getMonstruoEncontrado().getProbabilidadCritico()
+				+ Comunicacion.getMonstruoSeleccionado().getProbabilidadCritico()
 				+ "\rProbabilidad de esquivar: "
-				+ Comunicacion.getMonstruoEncontrado()
+				+ Comunicacion.getMonstruoSeleccionado()
 						.getProbabilidadEsquivar());
 
 	}

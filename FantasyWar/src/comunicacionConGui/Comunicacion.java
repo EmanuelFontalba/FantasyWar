@@ -2,6 +2,9 @@ package comunicacionConGui;
 
 import java.io.File;
 
+import mazmorras.GulDan;
+import mazmorras.Mazmorra;
+import mazmorras.Mazmorras;
 import clasesPrincipales.Coleccion;
 import clasesPrincipales.Jugador;
 import clasesPrincipales.Monstruo;
@@ -14,6 +17,8 @@ public class Comunicacion {
 	private static Monstruo monstruoSeleccionado;
 	private static Monstruo monstruoEncontrado;
 	private static Coleccion monstruosEncontrados;
+	private static Mazmorra mazmorra;
+	private static Monstruo monstruoMazmorra;
 	
 	public static Jugador getJugador() {
 		return jugador;
@@ -56,6 +61,30 @@ public class Comunicacion {
 	}
 	public static void setMonstruosEncontrados(Coleccion monstruosEncontrados) {
 		Comunicacion.monstruosEncontrados = monstruosEncontrados;
+	}
+	public static Mazmorra getMazmorra() {
+		return mazmorra;
+	}
+	public static void setMazmorra(Mazmorras mazmorraEn) {
+		switch(mazmorraEn){
+		case GUL_DAN:
+			mazmorra = new GulDan();
+			break;
+		case PRISION_DE_ELWIN:
+			break;
+		case MINAS_DE_KOBOLT:
+			break;
+		case ZUL_FARACK:
+			break;
+		default:
+			break;
+		}
+	}
+	public static Monstruo getMonstruoMazmorra() {
+		return monstruoMazmorra;
+	}
+	public static void setMonstruoMazmorra(Monstruo monstruoMazmorra) {
+		Comunicacion.monstruoMazmorra = monstruoMazmorra;
 	}
 	
 }

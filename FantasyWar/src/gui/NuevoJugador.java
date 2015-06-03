@@ -81,6 +81,7 @@ public class NuevoJugador extends JDialog {
 			Comunicacion.setGuardado(false);
 			Comunicacion.setModificado(false);
 			Comunicacion.setArchivoElegido(null);
+			Comunicacion.setMonstruoSeleccionado(null);
 			Component parentComponent = null;
 			JOptionPane.showMessageDialog(parentComponent, "Partida creada con éxito");
 			setVisible(false);

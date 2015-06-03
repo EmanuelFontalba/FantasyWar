@@ -38,16 +38,18 @@ import javax.swing.SwingConstants;
 public class Luchar extends JDialog {
 	private static final long serialVersionUID = 7047068511824982051L;
 	private static final Component parentComponent = null;
-	private Component contentPane;
+	protected Component contentPane;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldSeparator;
 	private JTextField textFieldSeparator2;
 	private JTextField textFieldEnergia;
-	private Monstruo monstruoCPU;
+	protected static Monstruo monstruoCPU;
 	private JTextField textFieldSalud;
 	private JTextField textFieldSaludCPU;
 	private JTextPane textPaneEstadisticas;
 	private JTextField textFieldNivelCPU;
+	protected JButton btnNewButton;
+	final JComboBox<Object> comboBoxHabilidad = new JComboBox<Object>();
 
 	/**
 	 * Create the dialog.
@@ -107,7 +109,7 @@ public class Luchar extends JDialog {
 		}
 
 
-		final JComboBox<Object> comboBoxHabilidad = new JComboBox<Object>();
+		
 		comboBoxHabilidad.setBounds(235, 159, 161, 20);
 		contentPanel.add(comboBoxHabilidad);
 
@@ -134,7 +136,7 @@ public class Luchar extends JDialog {
 		}
 
 		comboBoxHabilidad.setModel(new DefaultComboBoxModel<Object>(Ataques.getArray(Comunicacion.getMonstruoSeleccionado().getClass())));
-		JButton btnNewButton = new JButton("Atacar");
+		btnNewButton = new JButton("Atacar");
 		btnNewButton.setBounds(235, 244, 161, 66);
 		contentPanel.add(btnNewButton);
 		
@@ -230,7 +232,7 @@ public class Luchar extends JDialog {
 	/**
 	 * Actualiza la vista de la ventana.
 	 */
-	private void actualizarVista() {
+	protected void actualizarVista() {
 		textFieldSaludCPU.setText((new Integer(monstruoCPU.getSaludActual())).toString());
 		textFieldSalud.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getSaludActual())).toString());
 		textFieldEnergia.setText((new Integer(Comunicacion.getMonstruoSeleccionado().getPotenciador())).toString());
