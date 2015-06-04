@@ -287,7 +287,7 @@ public class Luchar extends JDialog {
 			break;
 		}
 		
-		
+		monstruoCPU.reestablecerse();
 
 	}	
 	
