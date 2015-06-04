@@ -1,14 +1,12 @@
 package mazmorras;
 
 import java.util.ArrayList;
-
-import clasesPrincipales.Guerrero;
-import clasesPrincipales.Mago;
 import clasesPrincipales.Monstruo;
-import clasesPrincipales.NombreInvalidoException;
-import clasesPrincipales.Razas;
-import clasesPrincipales.Sacerdote;
-
+/**
+ * Esqueleto de mazmorras.
+ * @author Emanuel Galván Fontalba
+ *
+ */
 public abstract class Mazmorra {
 	private String nombre;
 	private ArrayList<Monstruo> mazmorra;

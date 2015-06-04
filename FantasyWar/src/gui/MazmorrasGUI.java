@@ -71,7 +71,10 @@ public class MazmorrasGUI extends JDialog {
 			}
 		}
 	}
-
+	
+	/**
+	 * Inicializa la mazmorra seleccionada.
+	 */
 	protected void inicializaMazmorra() {
 		Comunicacion.setMazmorra((Mazmorras)comboBoxMazmorras.getSelectedItem());
 		NavegandoPorMazmorra mazmorra = new NavegandoPorMazmorra();

@@ -225,6 +225,9 @@ public class MostrarMonstruoPadre extends JDialog {
 		
 	}
 	
+	/**
+	 * Actualiza la página.
+	 */
 	private void actualizar(){
 		labelImg.setIcon(new ImageIcon(Comunicacion.getMonstruoEncontrado().getRutaImg()));
 		txtEstadisticas.setText("Salud máxima: "+Comunicacion.getMonstruoEncontrado().getSaludMaxima()+
@@ -245,7 +248,10 @@ public class MostrarMonstruoPadre extends JDialog {
 		textFieldNivel.setText(""+Comunicacion.getMonstruoEncontrado().getNivel());
 		textFieldExp.setText(""+Comunicacion.getMonstruoEncontrado().getExp());
 	}
-
+	
+	/**
+	 * Elimina un monstruo de la colección.
+	 */
 	private void eliminarMonstruo() {
 		try {
 			Comunicacion.getJugador().getColeccionMonstruos().remove(Comunicacion.getMonstruoEncontrado().getNombre());
@@ -256,7 +262,10 @@ public class MostrarMonstruoPadre extends JDialog {
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
+	/**
+	 * Muestra el monstruo anterior.
+	 */
 	private void monstruoAnterior() {
 		int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
 		if(index == 1){
@@ -269,7 +278,10 @@ public class MostrarMonstruoPadre extends JDialog {
 		}
 		actualizar();
 	}
-
+	
+	/**
+	 * Muestra el siguiente monstruo.
+	 */
 	private void monstruoSiguiente() {
 		int index = Comunicacion.getMonstruosEncontrados().getColeccion().indexOf(Comunicacion.getMonstruoEncontrado());
 		if(index == Comunicacion.getMonstruosEncontrados().size()-2){

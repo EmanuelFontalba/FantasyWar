@@ -108,7 +108,9 @@ public class NavegandoPorMazmorra extends JDialog {
 		}
 	}
 
-
+	/**
+	 * Acaba la mazmorra.
+	 */
 	protected void terminarMazmorra() {
 		if(index >= 5 && !Comunicacion.getMonstruoSeleccionado().isMuerto()){
 			Comunicacion.getJugador().aumentarExp(2000);
@@ -120,7 +122,9 @@ public class NavegandoPorMazmorra extends JDialog {
 		setVisible(false);
 	}
 
-
+	/**
+	 * Empieza la lucha con el monstruo de la mazmorra que le corresponda.
+	 */
 	private void siguienteMonstruo() {
 		if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
 			JOptionPane.showMessageDialog(null, "Tu monstruo a muerto, vuelve a intentarlo en otro momento.");
@@ -137,6 +141,9 @@ public class NavegandoPorMazmorra extends JDialog {
 		
 	}
 	
+	/**
+	 * Actualiza la página.
+	 */
 	private void actualizar(){
 		switch (index) {
 		case 0:
@@ -159,6 +166,9 @@ public class NavegandoPorMazmorra extends JDialog {
 		}
 	}
 	
+	/**
+	 * Inicializa la ventana.
+	 */
 	private void inicializaVentana(){
 		setTitle(Comunicacion.getMazmorra().getNombre());
 		esbirro1Label = new JLabel(Comunicacion.getMazmorra().getMazmorra().get(0).getNombre()+"       Nivel: "+

@@ -241,11 +241,18 @@ public class LuchaMazmorra extends JDialog {
 	}
 
 
-
+	/**
+	 * Escoge el monstruo corerspondiente de la mazmorra.
+	 * @throws NombreInvalidoException
+	 */
 	private void estableceMonstruo() throws NombreInvalidoException{
 		monstruoCPU = Comunicacion.getMonstruoMazmorra();
 	}	
 	
+	/**
+	 * Depende de la clase, establece el nombre de la energia que usa.
+	 * @return Nombre de la energia.
+	 */
 	private String nombreEnergia(){
 		if(Comunicacion.getMonstruoSeleccionado().getClass() == Mago.class)
 			return "Mana";
@@ -255,7 +262,12 @@ public class LuchaMazmorra extends JDialog {
 			return "Fe";
 		return "¿?";
 	}
-
+	
+	/**
+	 * Realiza un turno del juego.
+	 * @param comboBoxHabilidad
+	 * 				ComboBox de habilidades.
+	 */
 	private void turno(final JComboBox<Object> comboBoxHabilidad) {
 		try {
 			Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);

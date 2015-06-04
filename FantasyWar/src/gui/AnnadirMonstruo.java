@@ -62,27 +62,7 @@ public class AnnadirMonstruo extends VentanaPadreMonstruo {
 	private void annadirMonstruo() {
 		Monstruo monstruo = null;
 		try {
-			if (textFieldNombre.getText() == null)
-				throw new NombreInvalidoException(
-						"Debes introducir el nombre del monstruo");
-			
-//			switch(comboBoxClase.getSelectedItem()){
-//			case Clase.MAGO:
-//				monstruo = new Mago(textFieldNombre.getText(),
-//						(Razas) comboBoxRaza.getSelectedItem());
-//				break;
-//			}
-			
-			if (comboBoxClase.getSelectedItem() == Clase.MAGO)
-				monstruo = new Mago(textFieldNombre.getText(),
-						(Razas) comboBoxRaza.getSelectedItem());
-				
-			if (comboBoxClase.getSelectedItem() == Clase.SACERDOTE)
-				monstruo = new Sacerdote(textFieldNombre.getText(),
-								(Razas) comboBoxRaza.getSelectedItem());
-			if (comboBoxClase.getSelectedItem() == Clase.GUERRERO)
-				monstruo = new Guerrero(textFieldNombre.getText(),
-								(Razas) comboBoxRaza.getSelectedItem());
+			monstruo = crearMonstruo();
 			
 			Comunicacion.getJugador().getColeccionMonstruos().add(monstruo);
 			setVisible(false);
@@ -92,6 +72,32 @@ public class AnnadirMonstruo extends VentanaPadreMonstruo {
 			JOptionPane.showMessageDialog(contentPane, e.getMessage(),
 					"ERROR", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	/**
+	 * Crea un monstruo en función del comboBox.
+	 * @param monstruo
+	 * 			Monstruo a añadir.
+	 * @return Monstruo generado.
+	 * @throws NombreInvalidoException
+	 * 				TextField vacio.
+	 */
+	private Monstruo crearMonstruo() throws NombreInvalidoException {
+		if (textFieldNombre.getText() == null)
+			throw new NombreInvalidoException(
+					"Debes introducir el nombre del monstruo");
+		
+		if (comboBoxClase.getSelectedItem() == Clase.MAGO)
+			return new Mago(textFieldNombre.getText(),
+					(Razas) comboBoxRaza.getSelectedItem());
+			
+		if (comboBoxClase.getSelectedItem() == Clase.SACERDOTE)
+			return new Sacerdote(textFieldNombre.getText(),
+							(Razas) comboBoxRaza.getSelectedItem());
+		if (comboBoxClase.getSelectedItem() == Clase.GUERRERO)
+			return new Guerrero(textFieldNombre.getText(),
+							(Razas) comboBoxRaza.getSelectedItem());
+		return null;
 	}
 
 }

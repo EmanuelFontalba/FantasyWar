@@ -68,6 +68,12 @@ public class Comunicacion {
 	public static Mazmorra getMazmorra() {
 		return mazmorra;
 	}
+	
+	/**
+	 * Establece la mazmorra correspondiente.
+	 * @param mazmorraEn
+	 * 			Enumeracion mazmorra.
+	 */
 	public static void setMazmorra(Mazmorras mazmorraEn) {
 		switch(mazmorraEn){
 		case GUL_DAN:

@@ -58,11 +58,7 @@ public class Luchar extends JDialog {
 		setResizable(false);
 		setModal(true);
 		setTitle("Lucha");
-		try {
-			monstruoAleatorio();
-		} catch (NombreInvalidoException e2) {
-			JOptionPane.showMessageDialog(contentPane, e2.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-		}
+		monstruoAleatorio();
 		setBounds(100, 100, 436, 358);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(143, 188, 143));
@@ -252,23 +248,25 @@ public class Luchar extends JDialog {
 	 * @throws NombreInvalidoException
 	 * 				Si el nombre no empieza por mayuscula
 	 */
-	private void monstruoAleatorio() throws NombreInvalidoException{
+	private void monstruoAleatorio(){
 		Razas razaSeleccionada = Razas.values()[(int) (Math.random()*6)];
 		Clase claseSeleccionada = Clase.values()[(int) (Math.random()*3)];
 		int seleccionNivel = (int) (Math.random()*3);
 		
-		switch(claseSeleccionada){
-		case GUERRERO:
-			monstruoCPU = new Guerrero("Monstruo", razaSeleccionada);
-			break;
-		case MAGO:
-			monstruoCPU = new Mago("Monstruo", razaSeleccionada);
-			break;
-		case SACERDOTE:
-			monstruoCPU = new Sacerdote("Monstruo", razaSeleccionada);
-			break;
-		}
+		creaMonstruoCPU(razaSeleccionada, claseSeleccionada);
 		
+		estableceNivelCPU(seleccionNivel);
+		
+		monstruoCPU.reestablecerse();
+
+	}
+	
+	/**
+	 * Establece el nivel del monstruo CPU.
+	 * @param seleccionNivel
+	 * 				Por debajo (0), por encima(2) o igual(3) al nivel del monstruo del usuario.
+	 */
+	private void estableceNivelCPU(int seleccionNivel) {
 		switch(seleccionNivel){
 		case 0:
 			if(Comunicacion.getMonstruoSeleccionado().getNivel() == 1){
@@ -286,11 +284,38 @@ public class Luchar extends JDialog {
 				monstruoCPU.aumentarNivel();
 			break;
 		}
-		
-		monstruoCPU.reestablecerse();
+	}
 
+	/**
+	 * Crea un monstruo.
+	 * @param razaSeleccionada
+	 * 			Raza aleatoria.
+	 * @param claseSeleccionada
+	 * 			Clase aleatoria.
+	 */
+	private void creaMonstruoCPU(Razas razaSeleccionada, Clase claseSeleccionada) {
+		try {
+			switch(claseSeleccionada){
+			case GUERRERO:
+				monstruoCPU = new Guerrero("Monstruo", razaSeleccionada);
+				break;
+			case MAGO:
+				monstruoCPU = new Mago("Monstruo", razaSeleccionada);
+				break;
+			case SACERDOTE:
+				monstruoCPU = new Sacerdote("Monstruo", razaSeleccionada);
+				break;
+			}
+		} catch (NombreInvalidoException e) {
+			// No llega nunca.
+			e.printStackTrace();
+		}
 	}	
 	
+	/**
+	 * Establece el nombre de la energia dependiendo de la clase.
+	 * @return Nombre de la energia.
+	 */
 	private String nombreEnergia(){
 		if(Comunicacion.getMonstruoSeleccionado().getClass() == Mago.class)
 			return "Mana";
@@ -300,33 +325,27 @@ public class Luchar extends JDialog {
 			return "Fe";
 		return "¿?";
 	}
-
+	
+	/**
+	 * Realiza un turno de la lucha.
+	 * @param comboBoxHabilidad
+	 * 				ComboBox de habilidades.
+	 */
 	private void turno(final JComboBox<Object> comboBoxHabilidad) {
-		try {
-			Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
-		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-		}
-		if(monstruoCPU.isMuerto()){
-			setVisible(false);
-			try {
-				Comunicacion.getJugador().getColeccionMonstruos().get(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(2000);
-			} catch (MonstruoNoExisteException
-					| NombreInvalidoException e1) {
-				JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-			}
-			Comunicacion.getJugador().aumentarExp(1000);
-			Comunicacion.getMonstruoSeleccionado().reestablecerse();
-			Principal.actualizar();
-			JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
+		atacaJugador(comboBoxHabilidad);
+		if(cpuMuerto())
 			return;
-		}
 
-		try {
-			monstruoCPU.luchar(monstruoCPU.ataqueInteligente(Comunicacion.getMonstruoSeleccionado()), Comunicacion.getMonstruoSeleccionado());
-		} catch (Exception e1) {
-			//No se captura
-		}
+		atacaCPU();
+		if(jugadorMuerto())
+			return;
+	}
+	
+	/**
+	 * Combrueba si el monstruo del jugador está muerto.
+	 * @return True si esta muerto, false lo contrario.
+	 */
+	private boolean jugadorMuerto() {
 		if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
 			setVisible(false);
 			try {
@@ -340,7 +359,55 @@ public class Luchar extends JDialog {
 			Comunicacion.getMonstruoSeleccionado().reestablecerse();
 			Principal.actualizar();
 			JOptionPane.showMessageDialog(parentComponent, "Tu monstruo ha muerto. Has perdido.");
-			return;
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Ataca el monstruo de la CPU
+	 */
+	private void atacaCPU() {
+		try {
+			monstruoCPU.luchar(monstruoCPU.ataqueInteligente(Comunicacion.getMonstruoSeleccionado()), Comunicacion.getMonstruoSeleccionado());
+		} catch (Exception e1) {
+			//No se captura
+			e1.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Comprueba si el monstruo de la cpu está muerto.
+	 * @return	True si está muerto, false lo contrario.
+	 */
+	private boolean cpuMuerto() {
+		if(monstruoCPU.isMuerto()){
+			setVisible(false);
+			try {
+				Comunicacion.getJugador().getColeccionMonstruos().get(Comunicacion.getMonstruoSeleccionado().getNombre()).aumentarExp(2000);
+			} catch (MonstruoNoExisteException
+					| NombreInvalidoException e1) {
+				JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			Comunicacion.getJugador().aumentarExp(1000);
+			Comunicacion.getMonstruoSeleccionado().reestablecerse();
+			Principal.actualizar();
+			JOptionPane.showMessageDialog(parentComponent, "EL monstruo enemigo ha muerto. Has ganado.");
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Ataque del monstruo del jugador.
+	 * @param comboBoxHabilidad
+	 * 				ComboBox de habilidades.
+	 */
+	private void atacaJugador(final JComboBox<Object> comboBoxHabilidad) {
+		try {
+			Comunicacion.getMonstruoSeleccionado().luchar((Ataques)comboBoxHabilidad.getSelectedItem(), monstruoCPU);
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(contentPane, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

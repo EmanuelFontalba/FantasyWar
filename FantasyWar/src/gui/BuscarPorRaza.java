@@ -71,7 +71,10 @@ public class BuscarPorRaza extends JDialog {
 			}
 		}
 	}
-
+	
+	/**
+	 * Crea una nueva colección para mostrar los monstruos de una raza específica.
+	 */
 	private void muestraMonstruosPorRaza() {
 		Comunicacion.setMonstruosEncontrados(new Coleccion());
 		Comunicacion.getMonstruosEncontrados().setColeccion(Comunicacion.getJugador().getColeccionMonstruos().getMostruosRaza(((Razas)comboBox.getSelectedItem())));

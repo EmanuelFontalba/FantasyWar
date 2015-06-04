@@ -87,7 +87,10 @@ public class Nuevo extends JDialog {
 			}
 		}
 	}
-
+	
+	/**
+	 * Guarda un jugador.
+	 */
 	private void guardar() {
 		if(Comunicacion.isGuardado())
 				try {
@@ -107,6 +110,9 @@ public class Nuevo extends JDialog {
 		setVisible(false);
 	}
 
+	/**
+	 * Crea un nuevo jugador.
+	 */
 	private void nuevo() {
 		NuevoJugador nuevoJugador = new NuevoJugador();
 		nuevoJugador.setVisible(true);

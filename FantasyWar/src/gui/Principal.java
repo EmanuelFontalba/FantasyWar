@@ -38,8 +38,8 @@ public class Principal {
 	static JLabel lblImagenDelMonstruo;
 	private static Component contentPane;
 	private static Component parent;
-	private static FileNameExtensionFilter filtro = new FileNameExtensionFilter("OBJ",
-			"obj");
+	private static FileNameExtensionFilter filtro = new FileNameExtensionFilter("FantasyWar .fw",
+			"fw");
 	private static JFileChooser fc = new JFileChooser();
 	private static Principal window;
 	
@@ -368,26 +368,36 @@ public class Principal {
 	 * Ventana guardar como.
 	 */
 	static boolean guardarComo() {
+		switch(fc.showSaveDialog(parent)){
+		case JFileChooser.CANCEL_OPTION:
+		case JFileChooser.ERROR_OPTION:
+			return false;
+		}
+		
+		Comunicacion.setArchivoElegido(fc.getSelectedFile());
+		
 		try {
-			switch(fc.showSaveDialog(parent)){
-			case JFileChooser.CANCEL_OPTION:
-			case JFileChooser.ERROR_OPTION:
-				return false;
-			}
-			
-			Comunicacion.setArchivoElegido(fc.getSelectedFile());
 			guardar();
 			Comunicacion.setGuardado(true);
+			actualizarTitulo();
+			return true;
+			
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
 					"ERROR", JOptionPane.ERROR_MESSAGE);
-		}
+			return false;
+		}		
+	}
+	
+	/**
+	 * Actualiza el titulo de la ventana.
+	 */
+	private static void actualizarTitulo() {
 		if (Comunicacion.getArchivoElegido() != null)
 			frmPartidaDe.setTitle("Fantasy War. - "
 					+ Comunicacion.getArchivoElegido().getName());
 		else
 			frmPartidaDe.setTitle("Fantasy War. - Sin título");
-		return true;
 	}
 	
 	/**
@@ -402,19 +412,13 @@ public class Principal {
 		}
 		
 		if (Comunicacion.isModificado()) {
-			ventanaNuevo();
 			Comunicacion.setArchivoElegido(null);
 			Comunicacion.setMonstruoSeleccionado(null);
-		} else {
-			ventanaNuevo();
-			
-		}
+		} 
 		
-		if (Comunicacion.getArchivoElegido() != null)
-			frmPartidaDe.setTitle("Fantasy War. - "
-					+ Comunicacion.getArchivoElegido().getName());
-		else
-			frmPartidaDe.setTitle("Fantasy War. - Sin título");
+		ventanaNuevo();
+		
+		actualizarTitulo();
 		
 		actualizar();
 	}
@@ -433,13 +437,13 @@ public class Principal {
 	private void mostrarTodos() {
 		if (Comunicacion.getJugador() == null) {
 			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
+					"No puedes sin tener jugador. Deberias crear una nueva partida.", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
 			Comunicacion.setMonstruosEncontrados(Comunicacion
 					.getJugador().getColeccionMonstruos());
 			if( Comunicacion.getJugador().getColeccionMonstruos().size() == 0)
-				JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog( contentPane, "Aun no hay ningun monstruo en tu colección. Deberias añadir alguno.", "ERROR", JOptionPane.ERROR_MESSAGE);
 			else {
 				Comunicacion.setMonstruoEncontrado(Comunicacion
 						.getMonstruosEncontrados().get(0));
@@ -454,9 +458,7 @@ public class Principal {
 	 */
 	private void buscarPorRaza() {
 		if (Comunicacion.getJugador() == null) {
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			errorJugadorNoCreado();
 		} else {
 			BuscarPorRaza buscar = new BuscarPorRaza();
 			buscar.setVisible(true);
@@ -468,9 +470,7 @@ public class Principal {
 	 */
 	private void buscarPorNombre() {
 		if (Comunicacion.getJugador() == null) {
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			errorJugadorNoCreado();
 		} else {
 			BuscarPorNombre buscar = new BuscarPorNombre();
 			buscar.setVisible(true);
@@ -482,9 +482,7 @@ public class Principal {
 	 */
 	private void eliminarMonstruo() {
 		if (Comunicacion.getJugador() == null) {
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			errorJugadorNoCreado();
 		} else {
 			BuscarParaEliminar eliminar = new BuscarParaEliminar();
 			eliminar.setVisible(true);
@@ -496,9 +494,7 @@ public class Principal {
 	 */
 	private void annadirMonstruo() {
 		if (Comunicacion.getJugador() == null) {
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			errorJugadorNoCreado();
 		} else {
 			AnnadirMonstruo annadirMonstruo = new AnnadirMonstruo();
 			annadirMonstruo.setVisible(true);
@@ -510,9 +506,7 @@ public class Principal {
 	 */
 	private void editarJugador() {
 		if (Comunicacion.getJugador() == null) {
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			errorJugadorNoCreado();
 		} else {
 			EditarJugador editar = new EditarJugador();
 			editar.setVisible(true);
@@ -524,9 +518,7 @@ public class Principal {
 	 */
 	private void mostrarJugador() {
 		if (Comunicacion.getJugador() == null) {
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			errorJugadorNoCreado();
 		} else {
 			MostrarJugador mostrar = new MostrarJugador();
 			mostrar.setVisible(true);
@@ -538,17 +530,22 @@ public class Principal {
 	 */
 	private void runLuchar() {
 		if (Comunicacion.getJugador() == null)
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener jugador.", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			errorJugadorNoCreado();
 		if (Comunicacion.getMonstruoSeleccionado() == null)
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener un monstruo seleccionado.",
-					"ERROR", JOptionPane.ERROR_MESSAGE);
+			errorNoMonstruoSeleccionado();
 		else {
 			Luchar lucha = new Luchar();
 			lucha.setVisible(true);
 		}
+	}
+	
+	/**
+	 * Muestra JOptionPane estableciendo el error cuando el jugador no está creado.
+	 */
+	private void errorJugadorNoCreado() {
+		JOptionPane.showMessageDialog(contentPane,
+				"No puedes sin tener jugador. Deberias crear una partida.", "ERROR",
+				JOptionPane.ERROR_MESSAGE);
 	}
 	
 	/**
@@ -559,9 +556,16 @@ public class Principal {
 			MazmorrasGUI mazmorras = new MazmorrasGUI();
 			mazmorras.setVisible(true);
 		} else
-			JOptionPane.showMessageDialog(contentPane,
-					"No puedes sin tener un monstruo seleccionado.",
-					"ERROR", JOptionPane.ERROR_MESSAGE);
+			errorNoMonstruoSeleccionado();
+	}
+	
+	/**
+	 * Muestra JOptionPane estableciendo el error cuando el monstruo no está seleccionado.
+	 */
+	private void errorNoMonstruoSeleccionado() {
+		JOptionPane.showMessageDialog(contentPane,
+				"No puedes sin tener un monstruo seleccionado. Deberias seleccionar alguno.",
+				"ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 
 	/**
@@ -582,8 +586,7 @@ public class Principal {
 			lblImagenDelMonstruo.setIcon(null);
 			textFieldNombrePJ.setText("");
 			txtpnEstadisticas.setText("");
-			return;
-		}
+		}else{
 		lblImagenDelMonstruo.setIcon(new ImageIcon(Comunicacion
 				.getMonstruoSeleccionado().getRutaImg()));
 		lblImagenDelMonstruo.setSize(200, 150);
@@ -606,6 +609,7 @@ public class Principal {
 				+ "\rProbabilidad de esquivar: "
 				+ Comunicacion.getMonstruoSeleccionado()
 						.getProbabilidadEsquivar());
+		}
 
 	}
 

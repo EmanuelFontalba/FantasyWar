@@ -74,7 +74,10 @@ public class NuevoJugador extends JDialog {
 			}
 		}
 	}
-
+	
+	/**
+	 * Crea un nuevo jugador.
+	 */
 	private void nuevoJugador() {
 		try {
 			Comunicacion.setJugador(new Jugador(textField.getText()));

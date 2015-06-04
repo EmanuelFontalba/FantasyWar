@@ -20,6 +20,7 @@ public class ComoEmpezar extends JDialog {
 	 * Create the dialog.
 	 */
 	public ComoEmpezar() {
+		setResizable(false);
 		setTitle("Empezando...");
 		setBounds(100, 100, 450, 336);
 		getContentPane().setLayout(new BorderLayout());

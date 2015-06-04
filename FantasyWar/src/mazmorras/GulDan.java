@@ -5,7 +5,11 @@ import clasesPrincipales.Mago;
 import clasesPrincipales.NombreInvalidoException;
 import clasesPrincipales.Razas;
 import clasesPrincipales.Sacerdote;
-
+/**
+ * Mazmorra Gul´Dan.
+ * @author Emanuel Galván Fontalba
+ *
+ */
 public class GulDan extends Mazmorra{	
 	public GulDan(){
 		super();

@@ -6,6 +6,11 @@ import clasesPrincipales.NombreInvalidoException;
 import clasesPrincipales.Razas;
 import clasesPrincipales.Sacerdote;
 
+/**
+ * Mazmorra Prision de Elwin.
+ * @author Emanuel Galván Fontalba
+ *
+ */
 public class PrisionDeElwin extends Mazmorra {
 	public PrisionDeElwin() {
 		super();

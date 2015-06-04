@@ -5,7 +5,11 @@ import clasesPrincipales.Mago;
 import clasesPrincipales.NombreInvalidoException;
 import clasesPrincipales.Razas;
 import clasesPrincipales.Sacerdote;
-
+/**
+ * Mazmorra Zul´Farrack
+ * @author Emanuel Galván Fontalba
+ *
+ */
 public class ZulFarrack extends Mazmorra {
 	public ZulFarrack() {
 		super();

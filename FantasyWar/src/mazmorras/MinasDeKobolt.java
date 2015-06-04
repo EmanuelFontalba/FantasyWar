@@ -6,6 +6,11 @@ import clasesPrincipales.NombreInvalidoException;
 import clasesPrincipales.Razas;
 import clasesPrincipales.Sacerdote;
 
+/**
+ * Mazmorra Minas de Kobolt.
+ * @author Emanuel Galván Fontalba
+ *
+ */
 public class MinasDeKobolt extends Mazmorra {
 	public MinasDeKobolt() {
 		super();

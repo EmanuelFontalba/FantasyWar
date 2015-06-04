@@ -52,9 +52,9 @@ public class GestionFicheros {
 	 * @return Archivo ya comparado y/o modificado.
 	 */
 	private static File extensionValida(File archivo){
-		if(archivo.getPath().endsWith(".obj"))
+		if(archivo.getPath().endsWith(".fw"))
 			return archivo;
 		else
-			return new File(archivo+".obj");
+			return new File(archivo+".fw");
 	}
 }
