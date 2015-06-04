@@ -6,13 +6,13 @@ import clasesPrincipales.NombreInvalidoException;
 import clasesPrincipales.Razas;
 import clasesPrincipales.Sacerdote;
 
-public class GulDan extends Mazmorra{	
-	public GulDan(){
+public class ZulFarrack extends Mazmorra {
+	public ZulFarrack() {
 		super();
 		try {
-			inicializarMazmorra("Gul´Dan",new Guerrero("Esbirro", Razas.DEMONIO),new Guerrero("Mongolin", Razas.DEMONIO),
-					new Mago("Aprendiz", Razas.ORCO),new Sacerdote("Padre", Razas.HUMANO),new Guerrero("Guldan", Razas.ORCO),
-					4,9,14,19,29);
+			inicializarMazmorra("Zul´Farrack", new Mago("Xima", Razas.ORCO),new Guerrero("Cuix", Razas.ORCO),
+					new Mago("Miic", Razas.ORCO),new Sacerdote("Huitlte", Razas.ORCO),new Guerrero("Farrack", Razas.ORCO),
+					20,25,30,35,45);
 		} catch (NombreInvalidoException e) {
 			e.printStackTrace();
 		}

@@ -33,6 +33,7 @@ public class NavegandoPorMazmorra extends JDialog {
 	 * Create the dialog.
 	 */
 	public NavegandoPorMazmorra() {
+		
 		setBounds(100, 100, 317, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,7 +78,7 @@ public class NavegandoPorMazmorra extends JDialog {
 		
 		bosslabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bosslabel.setForeground(Color.GRAY);
-		bosslabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		bosslabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		bosslabel.setBounds(10, 182, 281, 22);
 		contentPanel.add(bosslabel);
 		{
@@ -124,6 +125,7 @@ public class NavegandoPorMazmorra extends JDialog {
 		if(Comunicacion.getMonstruoSeleccionado().isMuerto()){
 			JOptionPane.showMessageDialog(null, "Tu monstruo a muerto, vuelve a intentarlo en otro momento.");
 			setVisible(false);
+			return;
 		}
 		Comunicacion.setMonstruoMazmorra(Comunicacion.getMazmorra().getMazmorra().get(index));
 		LuchaMazmorra lucha = new LuchaMazmorra();
@@ -158,6 +160,7 @@ public class NavegandoPorMazmorra extends JDialog {
 	}
 	
 	private void inicializaVentana(){
+		setTitle(Comunicacion.getMazmorra().getNombre());
 		esbirro1Label = new JLabel(Comunicacion.getMazmorra().getMazmorra().get(0).getNombre()+"       Nivel: "+
 				Comunicacion.getMazmorra().getMazmorra().get(0).getNivel());
 		esbirro2label = new JLabel(Comunicacion.getMazmorra().getMazmorra().get(1).getNombre()+"       Nivel: "+

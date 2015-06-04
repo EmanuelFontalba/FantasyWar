@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public enum Mazmorras {
 	GUL_DAN(10),
-	PRISION_DE_ELWIN(10),
-	MINAS_DE_KOBOLT(11),
-	ZUL_FARACK(15);
+	PRISION_DE_ELWIN(15),
+	MINAS_DE_KOBOLT(20),
+	ZUL_FARACK(25);
 	
 	private int nivel;
 	

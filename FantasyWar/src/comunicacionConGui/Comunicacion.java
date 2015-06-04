@@ -5,6 +5,9 @@ import java.io.File;
 import mazmorras.GulDan;
 import mazmorras.Mazmorra;
 import mazmorras.Mazmorras;
+import mazmorras.MinasDeKobolt;
+import mazmorras.PrisionDeElwin;
+import mazmorras.ZulFarrack;
 import clasesPrincipales.Coleccion;
 import clasesPrincipales.Jugador;
 import clasesPrincipales.Monstruo;
@@ -71,10 +74,13 @@ public class Comunicacion {
 			mazmorra = new GulDan();
 			break;
 		case PRISION_DE_ELWIN:
+			mazmorra = new PrisionDeElwin();
 			break;
 		case MINAS_DE_KOBOLT:
+			mazmorra = new MinasDeKobolt();
 			break;
 		case ZUL_FARACK:
+			mazmorra = new ZulFarrack();
 			break;
 		default:
 			break;
