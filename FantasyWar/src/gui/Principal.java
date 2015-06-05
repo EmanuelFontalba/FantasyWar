@@ -628,7 +628,7 @@ public class Principal {
 	}
 	
 	/**
-	 * Reproduce musica de fondo.
+	 * Reproduce 
 	 */
 	private static void reproduceSonido(){
 		javax.sound.sampled.Clip sonido = null;

@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -10,7 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import comunicacionConGui.Comunicacion;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -27,6 +30,7 @@ public class NavegandoPorMazmorra extends JDialog {
 	private JLabel esbirro3label;
 	private JLabel esbirro4label;
 	private JLabel bosslabel;
+	private JLabel lblNewLabelFondo;
 	
 
 	/**
@@ -42,7 +46,8 @@ public class NavegandoPorMazmorra extends JDialog {
 		contentPanel.setLayout(null);
 		
 		tituloLabel = new JLabel("Monstruos");
-		tituloLabel.setFont(new Font("AR DESTINE", Font.BOLD, 16));
+		tituloLabel.setForeground(new Color(124, 252, 0));
+		tituloLabel.setFont(new Font("Microsoft YaHei", Font.BOLD, 16));
 		tituloLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloLabel.setBounds(10, 11, 281, 28);
 		contentPanel.add(tituloLabel);
@@ -50,38 +55,43 @@ public class NavegandoPorMazmorra extends JDialog {
 		inicializaVentana();
 		
 		esbirro1Label.setHorizontalAlignment(SwingConstants.CENTER);
-		esbirro1Label.setForeground(Color.GRAY);
+		esbirro1Label.setForeground(new Color(230, 230, 250));
 		esbirro1Label.setFont(new Font("Tahoma", Font.BOLD, 11));
 		esbirro1Label.setBounds(10, 50, 281, 22);
 		contentPanel.add(esbirro1Label);
 		
 		
 		esbirro2label.setHorizontalAlignment(SwingConstants.CENTER);
-		esbirro2label.setForeground(Color.GRAY);
+		esbirro2label.setForeground(new Color(230, 230, 250));
 		esbirro2label.setFont(new Font("Tahoma", Font.BOLD, 11));
 		esbirro2label.setBounds(10, 83, 281, 22);
 		contentPanel.add(esbirro2label);
 		
 		
 		esbirro3label.setHorizontalAlignment(SwingConstants.CENTER);
-		esbirro3label.setForeground(Color.GRAY);
+		esbirro3label.setForeground(new Color(230, 230, 250));
 		esbirro3label.setFont(new Font("Tahoma", Font.BOLD, 11));
 		esbirro3label.setBounds(10, 116, 281, 22);
 		contentPanel.add(esbirro3label);
 		
 		
 		esbirro4label.setHorizontalAlignment(SwingConstants.CENTER);
-		esbirro4label.setForeground(Color.GRAY);
+		esbirro4label.setForeground(new Color(230, 230, 250));
 		esbirro4label.setFont(new Font("Tahoma", Font.BOLD, 11));
 		esbirro4label.setBounds(10, 149, 281, 22);
 		contentPanel.add(esbirro4label);
 		
 		
 		bosslabel.setHorizontalAlignment(SwingConstants.CENTER);
-		bosslabel.setForeground(Color.GRAY);
+		bosslabel.setForeground(new Color(230, 230, 250));
 		bosslabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		bosslabel.setBounds(10, 182, 281, 22);
 		contentPanel.add(bosslabel);
+		
+		lblNewLabelFondo = new JLabel("imagendeFondo");
+		lblNewLabelFondo.setBounds(0, 0, 311, 239);
+		contentPanel.add(lblNewLabelFondo);
+		lblNewLabelFondo.setIcon(new ImageIcon("src\\imagenes\\fondoMazmorra.jpg"));
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
