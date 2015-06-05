@@ -3,6 +3,8 @@ package gui;
 import java.awt.Component;
 import java.awt.EventQueue;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import comunicacionConGui.Comunicacion;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JTextField;
@@ -57,11 +60,13 @@ public class Principal {
 				try {
 					setWindow(new Principal());
 					Principal.frmPartidaDe.setVisible(true);
+					reproduceSonido();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -304,6 +309,7 @@ public class Principal {
 		labelFondo.setIcon(new ImageIcon("src\\imagenes\\fondoPrincipal1.jpg"));
 		labelFondo.setBounds(-28, -37, 784, 406);
 		frmPartidaDe.getContentPane().add(labelFondo);
+		
 	}
 	
 	/**
@@ -620,6 +626,20 @@ public class Principal {
 	private static void setWindow(Principal window) {
 		Principal.window = window;
 	}
-
 	
+	/**
+	 * Reproduce musica de fondo.
+	 */
+	private static void reproduceSonido(){
+		javax.sound.sampled.Clip sonido = null;
+		try
+		{
+		  sonido=AudioSystem.getClip();
+		  sonido.open(AudioSystem.getAudioInputStream(new File("src\\imagenes\\Warrior.wav")));
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		Clip fondo = sonido;
+		fondo .loop(Clip.LOOP_CONTINUOUSLY); //Para que se reproduzca indefinidamente
+	}
 }

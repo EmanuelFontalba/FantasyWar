@@ -33,6 +33,7 @@ public class NavegandoPorMazmorra extends JDialog {
 	 * Create the dialog.
 	 */
 	public NavegandoPorMazmorra() {
+		setResizable(false);
 		
 		setBounds(100, 100, 317, 300);
 		getContentPane().setLayout(new BorderLayout());
